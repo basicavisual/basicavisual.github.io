@@ -23,7 +23,7 @@ tagline: Tecnología cívica, política digital, datos abiertos
 logo: assets/images/branding/logo.png
 email: ali@basicavisual.io
 description: >- # this means to ignore newlines until "baseurl:"
-  Una descripción para el blog
+  Tecnología cívica, política digital, datos abiertos
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: basicavisual
