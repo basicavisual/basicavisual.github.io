@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Basicavisual
+title: basicavisual
 tagline: Tecnología cívica, política digital, datos abiertos
 logo: assets/images/branding/logo.png
 email: ali@basicavisual.io
@@ -33,7 +33,7 @@ categories_path: /categories/
 tags_path: /tags/
 
 # Build settings
-theme: jekyll-theme-quartz
+remote_theme: vfvong/jekyll-theme-quartz
 plugins:
   - jekyll-feed
 sass:
