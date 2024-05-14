@@ -31,11 +31,12 @@ github_username:  basicavisual
 cover: /cover.jpg
 categories_path: /categories/
 tags_path: /tags/
-
+google_analytics: G-P1Y13QLVQV
 # Build settings
 remote_theme: vfvong/jekyll-theme-quartz
 plugins:
   - jekyll-feed
+  - jekyll-remote-theme
 sass:
   sass_dir: assets/css
   style: :nested
