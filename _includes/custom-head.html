@@ -6,7 +6,7 @@
 <title>{{ site.title }} {% if page.title %} | {{ page.title }} {% endif %}</title>
 
 <meta name="twitter:title" content="{{ site.title }} {% if page.title %} | {{ page.title }} {% endif %}">
-<meta name="twitter:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ assets/images/tw-card.png }}{% endif %}">
+<meta name="twitter:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ assets/images/tw-card.png | absolute_url }}{% endif %}">
 <meta name="twitter:description" content="{% if post.description %}{{ post.description }}{% elsif post.excerpt %} {{ post.excerpt }} {% elsif page.description %} {{ page.description }} {% endif %}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@basicavisual">
