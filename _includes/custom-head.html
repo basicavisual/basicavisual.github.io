@@ -4,3 +4,10 @@
 <link rel="icon" type="image/x-icon" href="{{ '/favicon.png' | site.baseurl }}">
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 <title>{{ site.title }} {% if page.title %} | {{ page.title }} {% endif %}</title>
+
+<meta name="twitter:title" content="{{ site.title }} {% if page.title %} | {{ page.title }} {% endif %}">
+<meta name="twitter:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ assets/images/tw-card.png }}{% endif %}">
+<meta name="twitter:description" content="{% if post.description %}{{ post.description }}{% elsif post.excerpt %} {{ post.excerpt }} {% elsif page.description %} {{ page.description }} {% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@basicavisual">
+<meta name="twitter:image:alt" content="{% if page.image-alt %} {{}} {% else %} Imagen no disponible {% endif %}">

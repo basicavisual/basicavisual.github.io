@@ -5,7 +5,7 @@ date:   2022-04-24 14:54:12 -0500
 category: web semantica
 image: assets/images/covers/shubham-dhage-gC_aoAjQl2Q-unsplash.jpg
 image-alt: Photo by Shubham Dhage on Unsplash 
-  
+tags: fediverso
 ---
 
 Con las noticias de que twitter.com aceptó ser comprado por [Elon Musk](https://en.wikipedia.org/wiki/Elon_Musk) ha surgido un nuevo interés por las redes sociales descentralizadas. Y no es casualidad. Elon [ha sido criticado](https://en.wikipedia.org/wiki/The_Boring_Company#Criticism) por optar por soluciones privativas a problemas sociales, tal es el caso de su [Boring Company](https://en.wikipedia.org/wiki/The_Boring_Company) que propone la construcción de "túneles para evitar el tráfico" de un sólo carril que sólo pueden ser transitados por vehículos privados eléctricos.
