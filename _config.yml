@@ -34,6 +34,7 @@ tags_path: /tags/
 google_analytics: G-P1Y13QLVQV
 # Build settings
 remote_theme: vfvong/jekyll-theme-quartz
+card-image: assets/images/tw-card.png
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
