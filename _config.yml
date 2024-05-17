@@ -32,6 +32,7 @@ cover: /cover.jpg
 categories_path: /categories/
 tags_path: /tags/
 google_analytics: G-P1Y13QLVQV
+url: https://basicavisual.io
 # Build settings
 remote_theme: vfvong/jekyll-theme-quartz
 card-image: assets/images/tw-card.png
