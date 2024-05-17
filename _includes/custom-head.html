@@ -11,3 +11,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@basicavisual">
 <meta name="twitter:image:alt" content="{% if page.image-alt %} {{}} {% else %} Imagen no disponible {% endif %}">
+
+<meta name="description" property="og:description" content="{% if post.description %}{{ post.description }}{% elsif post.excerpt %} {{ post.excerpt }} {% elsif page.description %} {{ page.description }} {% endif %}">
+
+<meta name="image" property="og:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ site.card-image | absolute_url }}{% endif %}">
