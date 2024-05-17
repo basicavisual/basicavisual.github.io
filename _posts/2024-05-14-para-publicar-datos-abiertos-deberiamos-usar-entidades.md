@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Para publicar datos abiertos, deberíamos usar entidades, no palabras"
-date:   2024-05-14 15:55:00 -0600
+date:   2024-05-17 15:55:00 -0600
 category: Datos Abiertos
 image: assets/images/covers/pietro-jeng-n6B49lTx7NM-unsplash.jpg
 image-alt: Photo by Pietro Jeng on Unsplash
