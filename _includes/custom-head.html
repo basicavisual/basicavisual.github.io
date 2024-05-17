@@ -15,3 +15,7 @@
 <meta name="description" property="og:description" content="{% if post.description %}{{ post.description }}{% elsif post.excerpt %} {{ post.excerpt }} {% elsif page.description %} {{ page.description }} {% endif %}">
 
 <meta name="image" property="og:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ site.card-image | absolute_url }}{% endif %}">
+
+<meta name="author" content="[Author name here]"> 
+
+<meta name="publish_date" property="og:publish_date" content="{% if page.date %}{{page.date}}{% endif %}">
