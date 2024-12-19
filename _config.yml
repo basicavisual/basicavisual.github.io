@@ -43,6 +43,11 @@ plugins:
 sass:
   sass_dir: assets/css
   style: :nested
+  load_paths:
+    - _sass
+    - node_modules
+    
+include: ["node_modules/tailwindcss"]
 
 postcss:
   cache: false
