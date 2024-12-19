@@ -34,14 +34,18 @@ tags_path: /tags/
 google_analytics: G-P1Y13QLVQV
 url: https://basicavisual.io
 # Build settings
-remote_theme: vfvong/jekyll-theme-quartz
+
 card-image: assets/images/tw-card.png
 plugins:
   - jekyll-feed
-  - jekyll-remote-theme
+  - jekyll-postcss
+
 sass:
   sass_dir: assets/css
   style: :nested
+
+postcss:
+  cache: false
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
