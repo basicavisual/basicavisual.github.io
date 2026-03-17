@@ -2,57 +2,14 @@
 layout: default
 ---
 <main>
-
   <article class="post">
-    <div class="post-meta post-meta-top">
-      <div>
-        <time datetime="{{ page.date | date_to_xmlschema }}">
-          {{ page.date | date_to_string }}
-        </time>
-        {%- if page.last_modified_at -%}
-        ~
-        {%- assign mdate = page.last_modified_at | date_to_xmlschema -%}
-        <time datetime="{{ mdate }}" itemprop="dateModified">
-          {{ mdate | date_to_string }}
-        </time>
-        {%- endif -%}
-        
-        {%- if page.author -%}
-        &bull;
-        {% for author in page.author %}
-        <span itemprop="author" itemscope itemtype="http://schema.org/Person">{{ author }}</span>
-        {%- if forloop.last == false %}, {% endif -%}
-        {% endfor %}
-        {%- endif -%}
-        
-        {% if page.categories.size > 0 %}
-        &bull;
-        <span class="post-categories">
-          {% for category in page.categories %}
-          {% if site.categories_path %}
-          <a class="post-category" href="{{ site.categories_path | relative_url }}#{{ category | slugify }}">{{ category }}</a>
-          {% else %}
-          <span>{{ category }}</span>
-          {% endif %}
-          {% unless forloop.index == page.categories.size %}
-          <span> / </span>
-          {% endunless %}
-          {% endfor %}
-        </span>
-      {% endif %}
-    </div>
-  </div>
-
-  <h1 class="post-title">{{ page.title }}</h1>
-  
-  {% if page.image %}
-  <!-- <figure class="post-cover min-h-[500px]" style="background-image: url({{ page.image | relative_url }})" alt="{{page.image-alt}}">
-    </figure> -->
-    {% include components/blog-hero.html image=page.image title=page.title %}
+    {% if page.image %}
+     {% include components/blog-hero.html image=page.image title=page.title %}
     {% endif %}
     
-    <div class="post-content prose max-w-prose mx-auto">
-      {{ content }}
+    <div class="max-w-prose mx-auto">
+      
+      {{ content | markdownify}}
     </div>
     
     {% if page.tags.size > 0 %}
@@ -68,24 +25,40 @@ layout: default
     </nav>
     {% endif %}
   </article>
-  
-  <aside class="pagination post-pagination">
-    {% if page.previous %}
-    <a class="prev post-prev" href="{{ page.previous.url | relative_url }}">
-      <i class="fas fa-chevron-left"></i> <span class="">{{ page.previous.title | markdownify | strip_html }}</span>
-    </a>
-    {% else %}
-    <span class="prev post-prev unable"><i class="fas fa-chevron-left"></i></span>
-    {% endif %}
-    
-    {% if page.next %}
-    <a class="next post-next" href="{{ page.next.url | relative_url }}">
-      <span class="">{{ page.next.title | markdownify | strip_html }}</span> <i class="fas fa-chevron-right"></i> 
-    </a>
-    {% else %}
-    <span class="next post-next unable"><i class="fas fa-chevron-right"></i></span>
-    {% endif %}
-  </aside>
+  <div class="max-w-prose mx-auto mb-14">
+
+    <div class="mt-12 pt-8 border-t border-gray-200 text-sm" aria-label="Navegación entre artículos">
+      <h2 class="mb-6 text-xs font-semibold uppercase tracking-wide text-gray-500 mx-0">Otros artículos</h2>
+      <div class="flex justify-between gap-6 items-start mt-2">
+        {% if page.previous %}
+        <a class="prev post-prev flex flex-1 items-start justify-start text-gray-900 hover:underline" href="{{ page.previous.url | relative_url }}">
+        <div class="flex flex-col">
+          <span class="text-xs uppercase tracking-wide text-gray-500 mb-4">Artículo anterior</span>
+          <span class="text-lg">{{ page.previous.title | markdownify | strip_html }}</span>
+        </div>
+      </a>
+      {% else %}
+      <span class="prev post-prev flex flex-1 items-start justify-start opacity-50 cursor-default pointer-events-none">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Artículo anterior</span>
+      </span>
+      {% endif %}
+      
+      {% if page.next %}
+      <a class="next post-next flex flex-1 items-start justify-end text-gray-900 hover:underline" href="{{ page.next.url | relative_url }}">
+        <div class="flex flex-col text-right">
+          <span class="text-xs uppercase tracking-wide text-gray-500 mb-0.5">Siguiente artículo</span>
+          <span class="text-lg">{{ page.next.title | markdownify | strip_html }}</span>
+        </div>
+        
+      </a>
+      {% else %}
+      <span class="next post-next flex flex-1 items-start justify-end opacity-50 cursor-default pointer-events-none">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Siguiente artículo</span>
+      </span>
+      {% endif %}
+    </div>
+  </div>
+</div>
   
   {% if jekyll.environment == "production" and site.disqus and page.comments != false %}
   <aside class="post-comments">

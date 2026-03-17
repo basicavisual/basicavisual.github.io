@@ -39,6 +39,9 @@ card-image: assets/images/tw-card.png
 plugins:
   - jekyll-feed
   - jekyll-postcss
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-seo-tag
 
 sass:
   sass_dir: assets/css
@@ -48,6 +51,14 @@ sass:
     - node_modules
     
 include: ["node_modules/tailwindcss"]
+
+defaults:
+  - 
+    scope:
+     path: _posts
+    values:
+      layout: post
+
 
 postcss:
   cache: false

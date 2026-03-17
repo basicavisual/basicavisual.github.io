@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Para publicar datos abiertos, deberíamos usar entidades, no palabras"
 date:   2024-05-16 15:55:00 -0600
 category: Datos Abiertos
@@ -9,12 +8,6 @@ tags: wikidata sparql
 description: | 
   Pensando en tener datos abiertos sostenibles, me quedé con el concepto de Entidades. ¿Qué tal que siempre que habláramos de algo importante, lo representáramos no como texto, sino como un objeto con una URL?
 ---
-
-<div class="alert">
-  <p>
-    Este es el primero de varios posts relativos al uso de Wikidata en una estrategia de datos abiertos y de gobernanza de datos.
-  </p>
-</div>
 
 Pensando en tener datos abiertos sostenibles, me quedé con el concepto de **"Entidades"**. ¿Qué tal que siempre que habláramos de algo importante, lo representáramos no como texto, sino como un objeto con una URL? Así para la Ciudad de México no tendríamos una entrada de la base de datos llamada **"Ciudad de México"**, sino una URL que siempre referenciara dicha entidad: [https://www.wikidata.org/wiki/Q1489](https://www.wikidata.org/wiki/Q1489)
 

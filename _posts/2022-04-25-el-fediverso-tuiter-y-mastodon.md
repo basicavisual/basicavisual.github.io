@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "El fediverso y cómo escapar de facebook, tuíter y las redes centralizadas"
 date:   2022-04-24 14:54:12 -0500
 category: web semantica

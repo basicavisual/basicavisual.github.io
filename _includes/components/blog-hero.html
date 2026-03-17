@@ -1,7 +1,11 @@
-<div id="blog-hero" style="background-image: url({{include.image}})" class="site-header large-header container">
+<div id="blog-hero" style="background-image: url({{page.image | relative_url}} )" class="site-header large-header min-h-3000 mb-5">
   <div class="site-header-overlay">
-    <div class="container mx-auto text-center py-10 min-h-10">
-      <h5 class="site-tagline text-5xl">{{include.title}}</h5>
+    <div class="container mx-auto text-center py-10 min-h-80 flex flex-col gap-5 justify-center">
+      <h1 class="site-tagline text-5xl">{{page.title}}</h1>
+
+    
+      {% include components/blog-meta-top.html %}
+  
     </div>
   </div>
-</div>-
+</div>

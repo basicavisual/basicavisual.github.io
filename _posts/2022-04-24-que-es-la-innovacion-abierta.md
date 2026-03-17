@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "¿Qué es innovación abierta?"
 date:   2022-04-24 14:54:12 -0500
 category: Tecnología Cívica

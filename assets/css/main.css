@@ -19,22 +19,48 @@ div .alert {
 }
 .site-header {
   color: white;
-  background: #000000 no-repeat center center;
+  background: no-repeat center center;
   background-size: cover;
-
-}
-
-.site-header-overlay {
-  width: 100%;
-  height: 100%;
+  background-image: url("/cover.jpg");
   background-color: rgba(0, 0, 0, 0.3);
+  background-blend-mode: multiply;
 }
 
-.card {
-  
+
+nav .site-logo {
+  width: 200px;
+}
+
+nav {
+  color: white;
+  padding: 1rem;
+
 }
 
 .card-image {
   background-size: cover;
   background-position: center;
+}
+
+article p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+article div h2 {
+  font-size: 1.7rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  margin: 3rem 0 1.5rem;
+}
+
+article div h3 {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  margin: 3rem 0 1.5rem;
+}
+.max-w-prose {
+  max-width: 75ch;
 }
