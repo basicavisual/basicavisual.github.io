@@ -1,0 +1,27 @@
+{% if page.layout != 'home' %}
+
+<nav class="nav flex flex-col md:flex-row justify-between container m-auto">
+  <div class="logo">
+    {% if site.logo %}
+      <a href="{{ '/' | relative_url }}">
+        <img src="{{ site.logo | relative_url }}" alt="Logo" class="site-logo">
+      </a>
+    {% else %}
+      <h2 class="site-title">
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      </h2>
+      {% endif %}
+  </div>
+  {% if site.data.navigation %}
+  <div>
+    {% for item in site.data.navigation %}
+    <a class="nav-item {% if page.url == item.url %}active{% endif %} font-bold text-black" href="{{ item.url | relative_url }}">
+      {{ item.title }}
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+</nav>
+
+{% endif %}

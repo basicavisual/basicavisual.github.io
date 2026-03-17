@@ -1,0 +1,41 @@
+<div>
+  <div class="text-xl">
+    <time datetime="{{ page.date | date_to_xmlschema }}">
+      {{ page.date | date_to_string }}
+    </time>
+    {%- if page.last_modified_at -%}
+    ~
+    {%- assign mdate = page.last_modified_at | date_to_xmlschema -%}
+    <time datetime="{{ mdate }}" itemprop="dateModified">
+      {{ mdate | date_to_string }}
+    </time>
+    {%- endif -%}
+    
+    {%- if page.author -%}
+    &bull;
+    {% for author in page.author %}
+    <span itemprop="author" itemscope itemtype="http://schema.org/Person">{{ author }}</span>
+    {%- if forloop.last == false %}, {% endif -%}
+    {% endfor %}
+    {%- endif -%}
+    <span class="my-5">
+
+      · {% include reading-time.html %}
+    </span>
+    <!-- {% if page.categories.size > 0 %}
+    &bull;
+      <span class="post-categories">
+        {% for category in page.categories %}
+        {% if site.categories_path %}
+        <a class="post-category" href="{{ site.categories_path | relative_url }}#{{ category | slugify }}">{{ category }}</a>
+        {% else %}
+        <span>{{ category }}</span>
+        {% endif %}
+        {% unless forloop.index == page.categories.size %}
+        <span> / </span>
+        {% endunless %}
+        {% endfor %}
+      </span>
+    {% endif %} -->
+  </div>
+</div>

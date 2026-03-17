@@ -1,8 +1,7 @@
 ---
-layout: post
 title:  "¿Qué es innovación abierta?"
 date:   2022-04-24 14:54:12 -0500
-category: tecnologia civica
+category: Tecnología Cívica
 image: assets/images/covers/ramon-salinero-vEE00Hx5d0Q-unsplash.jpg
 image-alt: Photo by Ramon Salinero on Unsplash 
 ---

@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+{% include home/hero.html %}
+
+{{content}}
+<section id="articles">
+  <div class="container mx-auto p-5">
+    <h2 class="text-2xl bold my-5">Artículos</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10">
+      {% for post in site.posts %}
+      <div class="card rounded-lg bg-slate-100 min-h-[400px]">
+        <a href="{{ post.url }}">
+          <div class="card-image min-h-[150px] rounded-t-lg" style="background-image: url({{post.image}});"></div>
+        </a>
+        <div class="card-body p-5">
+          <p class="capitalize text-slate-700">
+            {% for category in post.categories %}
+            {{category}}
+            {% endfor %}
+          </p>
+          <div class="card-title min-h-[60px] mb-2">
+            <a href="{{ post.url }}">
+              <h3 class="text-xl font-black">{{ post.title }}</h3>
+            </a>
+          </div>
+          <div class="card-text">
+            <a href="{{ post.url }}">
+              <p class="prose">
+                {% if post.description %}
+                  {{ post.description | truncatewords: 35 }}
+                {% else %}
+                  {{ post.excerpt | truncatewords: 35 }}
+                {% endif %}
+              </p>
+            </a>
+          </div>
+          <div class="card-footer my-3">
+            <p class="text-sm text-slate-500">{{post.date | date: "%a, %b %d, %Y"}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

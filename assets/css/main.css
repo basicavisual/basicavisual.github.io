@@ -1,0 +1,66 @@
+---
+---
+
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+figcaption {
+  color: #666666;
+}
+div .alert {
+  margin: 3rem auto;
+  p {
+  font-size: 1.3rem;
+  font-style: italic;
+  }
+}
+.site-header {
+  color: white;
+  background: no-repeat center center;
+  background-size: cover;
+  background-image: url("/cover.jpg");
+  background-color: rgba(0, 0, 0, 0.3);
+  background-blend-mode: multiply;
+}
+
+
+nav .site-logo {
+  width: 200px;
+}
+
+nav {
+  color: white;
+  padding: 1rem;
+
+}
+
+.card-image {
+  background-size: cover;
+  background-position: center;
+}
+
+article p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+article div h2 {
+  font-size: 1.7rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  margin: 3rem 0 1.5rem;
+}
+
+article div h3 {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  margin: 3rem 0 1.5rem;
+}
+.max-w-prose {
+  max-width: 75ch;
+}
