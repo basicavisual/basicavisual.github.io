@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="icon" type="image/x-icon" href="/favicon.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+<title>basicavisual  | Para publicar datos abiertos, deberíamos usar entidades, no palabras </title>
+
+<meta name="twitter:title" content="Para publicar datos abiertos, deberíamos usar entidades, no palabras">
+<meta name="twitter:image" content="https://basicavisual.io/assets/images/covers/pietro-jeng-n6B49lTx7NM-unsplash.jpg">
+<meta name="twitter:description" content=" Pensando en tener datos abiertos sostenibles, me quedé con el concepto de Entidades. ¿Qué tal que siempre que habláramos de algo importante, lo representáramos no como texto, sino como un objeto con una URL?
+ ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@basicavisual">
+<meta name="twitter:image:alt" content="  ">
+
+<meta name="description" property="og:description" content=" Pensando en tener datos abiertos sostenibles, me quedé con el concepto de Entidades. ¿Qué tal que siempre que habláramos de algo importante, lo representáramos no como texto, sino como un objeto con una URL?
+ ">
+
+<meta name="image" property="og:image" content="https://basicavisual.io/assets/images/covers/pietro-jeng-n6B49lTx7NM-unsplash.jpg">
+
+<meta name="author" content="Ali González"> 
+
+<meta name="publish_date" property="og:publish_date" content="2024-05-16T21:55:00+00:00">
+</head>
+<body class="flex flex-col min-h-screen">
+  
+
+<nav class="nav flex flex-col md:flex-row justify-between container m-auto">
+  <div class="logo">
+    
+      <a href="/">
+        <img src="/assets/images/branding/logo.png" alt="Logo" class="site-logo">
+      </a>
+    
+  </div>
+  
+
+</nav>
+
+
+  <!-- 
+
+<header class="site-header large-header" style="background-image: url(/assets/images/covers/pietro-jeng-n6B49lTx7NM-unsplash.jpg)">
+  <div class="site-header-shield">
+    <div class="outer">
+      <div class="inner">
+        <div class="site-header-content">
+          
+            <img src="/assets/images/branding/logo.png" alt="Logo" class="site-logo">
+          
+          
+            <h5 class="site-tagline">Tecnología cívica, política digital, datos abiertos</h5>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</header> -->
+  <main>
+  <article class="post">
+    
+     <div id="blog-hero" style="background-image: url(/assets/images/covers/pietro-jeng-n6B49lTx7NM-unsplash.jpg )" class="site-header large-header min-h-3000 mb-5">
+  <div class="site-header-overlay">
+    <div class="container mx-auto text-center py-10 min-h-80 flex flex-col gap-5 justify-center">
+      <h1 class="site-tagline text-5xl">Para publicar datos abiertos, deberíamos usar entidades, no palabras</h1>
+
+    
+      <div>
+  <div class="text-xl">
+    <time datetime="2024-05-16T21:55:00+00:00">
+      16 May 2024
+    </time><span class="my-5">
+
+      · 
+
+4 minutes to read
+
+    </span>
+    <!-- 
+    &bull;
+      <span class="post-categories">
+        
+        
+        <a class="post-category" href="/categories/#datos-abiertos">Datos Abiertos</a>
+        
+        
+        
+      </span>
+     -->
+  </div>
+</div>
+  
+    </div>
+  </div>
+</div>
+    
+    <div class="post-body-shell max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:flex lg:items-start lg:gap-10">
+      <div class="post-content max-w-prose mx-auto lg:mx-0 lg:flex-1" data-post-content>
+      <p>Pensando en tener datos abiertos sostenibles, me quedé con el concepto de <strong>“Entidades”</strong>. ¿Qué tal que siempre que habláramos de algo importante, lo representáramos no como texto, sino como un objeto con una URL? Así para la Ciudad de México no tendríamos una entrada de la base de datos llamada <strong>“Ciudad de México”</strong>, sino una URL que siempre referenciara dicha entidad: <a href="https://www.wikidata.org/wiki/Q1489">https://www.wikidata.org/wiki/Q1489</a></p>
+
+<p>Para quien sea que haya trabajado con datos sabe que hacer análisis de datos cuando referenciamos las cosas por texto, requiere lidiar con las diferencias en cómo se crea la información. Así para crear un reporte a partir de una base, terminamos tratando de juntar las entradas para <strong>“Ciudad de México”</strong>,  <strong>“CDMX”</strong> o <strong>“Cd. de México”</strong>. Y cuando las cosas cambian de nombre, también tenemos que hacer arqueología de datos para entender que <strong>“Ciudad de México”</strong> también podía aparecer como <strong>“México, D.F.”</strong>, <strong>“México DF”</strong>, <strong>“DF”</strong>, <strong>“Distrito Federal”</strong> y demás.</p>
+
+<figure>
+  <img src="https://basicavisual.io/assets/images/posts/2024/2024-05-17-cdmx.png" alt="imagen que describe que la entidad de Wikidata para Ciudad de México representa sus diferentes nombres" />
+  <figcaption>La entidad de Wikidata para Ciudad de México es la misma aunque tenga diferentes nombres.</figcaption>
+</figure>
+
+<p>Además de poder referenciar mediante un sólo URL diferentes cadenas de texto, wikidata nos da acceso a varios metadatos sobre la Ciudad de México que podemos usar tanto para limpiar como para enriquecer nuestra información. Por ejemplo, la tarjeta inicial de la entidad Ciudad de México contiene una lista de aliases que podemos usar para programáticamente limpiar bases de datos.</p>
+
+<figure>
+  <img src="https://basicavisual.io/assets/images/posts/2024/2024-05-17-aliases.png" alt="imagen que muestra la tarjeta inicial de wikidata para la Ciudad de México" />
+  <figcaption>La tarjeta inicial de wikidata para la Ciudad de México</figcaption>
+</figure>
+
+<p>¿A qué me refiero con programáticamente? pues limpiar una sola ciudad no es muy difícil. Escribo una lista de nombres posibles de la CDMX y los uso en mi script de limpieza para identificar las diferentes formas de escribir Ciudad de México. Pero, si tuviera que hacer esto con los 2446 municipios en México ya no podría hacerlo fácilmente. Así que podría usar la base de conocimiento colectivo que es Wikidata para jalar con un sólo script todos los aliases documentados de los municipios mexicanos. Esto se hace con la siguiente consulta:</p>
+
+<div class="language-sparql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span><span class="w"> </span><span class="nv">?alias</span><span class="w">
+</span><span class="k">WHERE</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nn">wd</span><span class="o">:</span><span class="ss">Q1489</span><span class="w"> </span><span class="nn">skos</span><span class="o">:</span><span class="ss">altLabel</span><span class="w"> </span><span class="nv">?alias</span><span class="p">.</span><span class="w">
+  </span><span class="k">filter</span><span class="p">(</span><span class="nb">lang</span><span class="p">(</span><span class="nv">?alias</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"es"</span><span class="p">).</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<iframe style="width: 100%; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#SELECT%20%3Falias%0AWHERE%20%7B%0A%20%20wd%3AQ1489%20skos%3AaltLabel%20%3Falias.%0A%20%20filter%28lang%28%3Falias%29%20%3D%20%22es%22%29.%0A%7D" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+
+<p>Además de tener acceso a una lista de nombres conocidos para un objeto, Wikidata almacena metadatos y datos vinculados para cada entidad. Por ejemplo, ¿qué tal que quisiera no sólo tener los nombres de todas las entidades de la república, sino también saber quién los gobierna, su foto y a qué partido pertenecen? Se puede hacer con esta consulta:</p>
+
+<div class="language-sparql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span><span class="w"> </span><span class="nv">?state</span><span class="w"> </span><span class="nv">?stateLabel</span><span class="w"> </span><span class="nv">?governor</span><span class="w"> </span><span class="nv">?governorLabel</span><span class="w"> </span><span class="nv">?party</span><span class="w"> </span><span class="nv">?partyLabel</span><span class="w"> </span><span class="nv">?photo</span><span class="w">
+</span><span class="k">WHERE</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nv">?state</span><span class="w"> </span><span class="nn">wdt</span><span class="o">:</span><span class="ss">P31</span><span class="w"> </span><span class="nn">wd</span><span class="o">:</span><span class="ss">Q15149663</span><span class="p">.</span><span class="w">
+  </span><span class="nv">?state</span><span class="w"> </span><span class="nn">wdt</span><span class="o">:</span><span class="ss">P6</span><span class="w"> </span><span class="nv">?governor</span><span class="p">.</span><span class="w">
+  </span><span class="nv">?governor</span><span class="w"> </span><span class="nn">wdt</span><span class="o">:</span><span class="ss">P102</span><span class="w"> </span><span class="nv">?party</span><span class="p">.</span><span class="w">
+  </span><span class="nv">?governor</span><span class="w"> </span><span class="nn">wdt</span><span class="o">:</span><span class="ss">P18</span><span class="w"> </span><span class="nv">?photo</span><span class="p">.</span><span class="w">
+  </span><span class="k">SERVICE</span><span class="w"> </span><span class="nn">wikibase</span><span class="o">:</span><span class="ss">label</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nn">bd</span><span class="o">:</span><span class="ss">serviceParam</span><span class="w"> </span><span class="nn">wikibase</span><span class="o">:</span><span class="ss">language</span><span class="w"> </span><span class="s2">"es"</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Aquí el resultado:</p>
+
+<iframe style="width: 100%; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#SELECT%20%3Fstate%20%3FstateLabel%20%3Fgovernor%20%3FgovernorLabel%20%3Fparty%20%3FpartyLabel%20%3Fphoto%0AWHERE%20%7B%0A%20%20%3Fstate%20wdt%3AP31%20wd%3AQ15149663.%0A%20%20%3Fstate%20wdt%3AP6%20%3Fgovernor.%0A%20%20%3Fgovernor%20wdt%3AP102%20%3Fparty.%0A%20%20%3Fgovernor%20wdt%3AP18%20%3Fphoto.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22es%22.%20%7D%0A%7D" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+
+<h2 id="qué-pasa-si-hay-algún-error-en-los-datos">¿Qué pasa si hay algún error en los datos?</h2>
+
+<p>Wikidata es una base de datos estructurados mantenida colectivamente. Es un <a href="https://digitalpublicgoods.net/">bien público digital</a>. Así como Wikipedia se ha convertido en una fuente fidedigna de información gracias a sus muchos wikieditores, en Wikidata podemos formar una comunidad de Wikidateros que utilicen y actualicen los datos, que a través de utilizarlos para nuestros proyectos, aplicaciones, y demás, podamos custodiar que los datos de valor para la agenda de datos abiertos o para la gobernanza de datos en México, se encuentre limpia y actualizada en un repositorio que es de todos.</p>
+
+      </div>
+      <aside id="post-toc-container" class="post-toc hidden order-first lg:order-none lg:w-72 lg:shrink-0" aria-labelledby="post-toc-title">
+  <details class="post-toc-details" open>
+    <summary id="post-toc-title" class="post-toc-summary">Contenido del artículo</summary>
+    <nav class="post-toc-nav" aria-label="Tabla de contenidos"></nav>
+  </details>
+</aside>
+
+<script>
+  (function () {
+    var tocContainer = document.getElementById("post-toc-container");
+    var articleContent = document.querySelector("[data-post-content]");
+
+    if (!tocContainer || !articleContent) {
+      return;
+    }
+
+    var tocNav = tocContainer.querySelector(".post-toc-nav");
+    if (!tocNav) {
+      return;
+    }
+
+    var headings = Array.prototype.slice.call(
+      articleContent.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    ).filter(function (heading) {
+      if (!heading.textContent || heading.textContent.trim().length === 0) {
+        return false;
+      }
+
+      return !heading.closest("[data-toc-exclude]");
+    });
+
+    if (!headings.length) {
+      return;
+    }
+
+    var usedIds = Object.create(null);
+
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    function ensureUniqueId(baseId) {
+      var seed = baseId || "seccion";
+      var id = seed;
+      var counter = 2;
+
+      while (document.getElementById(id) || usedIds[id]) {
+        id = seed + "-" + counter;
+        counter += 1;
+      }
+
+      usedIds[id] = true;
+      return id;
+    }
+
+    var treeRoot = { level: 0, children: [] };
+    var stack = [treeRoot];
+
+    headings.forEach(function (heading) {
+      var text = heading.textContent.trim();
+      var level = parseInt(heading.tagName.replace("H", ""), 10);
+      var node;
+
+      if (!heading.id) {
+        heading.id = ensureUniqueId(slugify(text));
+      } else {
+        heading.id = ensureUniqueId(heading.id);
+      }
+
+      node = {
+        id: heading.id,
+        text: text,
+        level: isNaN(level) ? 2 : level,
+        children: [],
+      };
+
+      while (stack.length > 1 && node.level <= stack[stack.length - 1].level) {
+        stack.pop();
+      }
+
+      stack[stack.length - 1].children.push(node);
+      stack.push(node);
+    });
+
+    function buildList(nodes) {
+      var list = document.createElement("ol");
+
+      nodes.forEach(function (node) {
+        var item = document.createElement("li");
+        var link = document.createElement("a");
+
+        link.href = "#" + node.id;
+        link.textContent = node.text;
+        link.className = "post-toc-link post-toc-level-" + node.level;
+
+        item.appendChild(link);
+
+        if (node.children.length) {
+          item.appendChild(buildList(node.children));
+        }
+
+        list.appendChild(item);
+      });
+
+      return list;
+    }
+
+    tocNav.appendChild(buildList(treeRoot.children));
+
+    var tocDetails = tocContainer.querySelector(".post-toc-details");
+    if (tocDetails && window.matchMedia("(min-width: 1024px)").matches) {
+      tocDetails.open = true;
+    }
+
+    tocContainer.classList.remove("hidden");
+  })();
+</script>
+
+    </div>
+    
+    <!-- 
+    <nav class="post-meta post-meta-bottom max-w-prose mx-auto">
+      
+      
+      
+      <a class="post-tag" href="/tags/#wikidata">wikidata</a>
+      
+      
+      
+      
+      <a class="post-tag" href="/tags/#sparql">sparql</a>
+      
+      
+    </nav>
+     -->
+  </article>
+  <div class="max-w-prose mx-auto mb-14">
+
+    <div class="mt-12 pt-8 border-t border-gray-200 text-sm" aria-label="Navegación entre artículos">
+      <h2 class="mb-6 text-xs font-semibold uppercase tracking-wide text-gray-500 mx-0">Otros artículos</h2>
+      <div class="flex justify-between gap-6 items-start mt-2">
+        
+        <a class="prev post-prev flex flex-1 items-start justify-start text-gray-900 hover:underline" href="/web%20semantica/2022/04/24/el-fediverso-tuiter-y-mastodon.html">
+        <div class="flex flex-col">
+          <span class="text-xs uppercase tracking-wide text-gray-500 mb-4">Artículo anterior</span>
+          <span class="text-lg">El fediverso y cómo escapar de facebook, tuíter y las redes centralizadas
+</span>
+        </div>
+      </a>
+      
+      
+      
+      <a class="next post-next flex flex-1 items-start justify-end text-gray-900 hover:underline" href="/identidades%20digitales/2026/04/27/how-different-identities-can-coexist.html">
+        <div class="flex flex-col text-right">
+          <span class="text-xs uppercase tracking-wide text-gray-500 mb-0.5">Siguiente artículo</span>
+          <span class="text-lg">Barcelona’s Resident Registry: A Case Where Governmental Procedures Can Be Completed via Multiple Digital Identities
+</span>
+        </div>
+        
+      </a>
+      
+    </div>
+  </div>
+  </div>
+  
+  
+</main>
+  
+
+<footer class="bg-white dark:bg-slate-800
+bg-gray-800 mt-auto">
+  <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">2026 basicavisual.</span>
+  </div>
+</footer>
+
+
+</body>
+</html>

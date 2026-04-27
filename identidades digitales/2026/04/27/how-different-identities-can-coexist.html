@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="icon" type="image/x-icon" href="/favicon.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+<title>basicavisual  | Barcelona's Resident Registry: A Case Where Governmental Procedures Can Be Completed via Multiple Digital Identities </title>
+
+<meta name="twitter:title" content="Barcelona's Resident Registry: A Case Where Governmental Procedures Can Be Completed via Multiple Digital Identities">
+<meta name="twitter:image" content="https://basicavisual.io/assets/images/covers/tom-barrett-hvvRg72aXCw-unsplash.jpg">
+<meta name="twitter:description" content=" This real-life use case documents how different digital identities can co-exist in a government ecosystem and be applied to the same government procedure.
+ ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@basicavisual">
+<meta name="twitter:image:alt" content="  ">
+
+<meta name="description" property="og:description" content=" This real-life use case documents how different digital identities can co-exist in a government ecosystem and be applied to the same government procedure.
+ ">
+
+<meta name="image" property="og:image" content="https://basicavisual.io/assets/images/covers/tom-barrett-hvvRg72aXCw-unsplash.jpg">
+
+<meta name="author" content="Ali González"> 
+
+<meta name="publish_date" property="og:publish_date" content="2026-04-27T06:00:00+00:00">
+</head>
+<body class="flex flex-col min-h-screen">
+  
+
+<nav class="nav flex flex-col md:flex-row justify-between container m-auto">
+  <div class="logo">
+    
+      <a href="/">
+        <img src="/assets/images/branding/logo.png" alt="Logo" class="site-logo">
+      </a>
+    
+  </div>
+  
+
+</nav>
+
+
+  <!-- 
+
+<header class="site-header large-header" style="background-image: url(/assets/images/covers/tom-barrett-hvvRg72aXCw-unsplash.jpg)">
+  <div class="site-header-shield">
+    <div class="outer">
+      <div class="inner">
+        <div class="site-header-content">
+          
+            <img src="/assets/images/branding/logo.png" alt="Logo" class="site-logo">
+          
+          
+            <h5 class="site-tagline">Tecnología cívica, política digital, datos abiertos</h5>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</header> -->
+  <main>
+  <article class="post">
+    
+     <div id="blog-hero" style="background-image: url(/assets/images/covers/tom-barrett-hvvRg72aXCw-unsplash.jpg )" class="site-header large-header min-h-3000 mb-5">
+  <div class="site-header-overlay">
+    <div class="container mx-auto text-center py-10 min-h-80 flex flex-col gap-5 justify-center">
+      <h1 class="site-tagline text-5xl">Barcelona's Resident Registry: A Case Where Governmental Procedures Can Be Completed via Multiple Digital Identities</h1>
+
+    
+      <div>
+  <div class="text-xl">
+    <time datetime="2026-04-27T06:00:00+00:00">
+      27 Apr 2026
+    </time><span class="my-5">
+
+      · 
+
+63 minutes to read
+
+    </span>
+    <!-- 
+    &bull;
+      <span class="post-categories">
+        
+        
+        <a class="post-category" href="/categories/#identidades-digitales">Identidades Digitales</a>
+        
+        
+        
+      </span>
+     -->
+  </div>
+</div>
+  
+    </div>
+  </div>
+</div>
+    
+    <div class="post-body-shell max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:flex lg:items-start lg:gap-10">
+      <div class="post-content max-w-prose mx-auto lg:mx-0 lg:flex-1" data-post-content>
+      
+<div class="my-6 rounded-lg border-l-4 bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 p-4" data-toc-exclude="true">
+  
+    <div class="flex items-center gap-2 mb-2">
+      <span class="text-lg">⚠️</span>
+      <h4 class="font-semibold text-amber-900 dark:text-amber-100">This is a post awaiting validation. I am actively looking for feedback from people that understand about digital signatures or the spanish legal instruments that allow them. If you want to provide feedback, write me at ali @ basicavisual.io</h4>
+    </div>
+  
+  <div class="text-amber-900 dark:text-amber-200 leading-relaxed">
+    
+
+  </div>
+</div>
+
+<h1 id="barcelonas-resident-registry-a-case-where-governmental-procedures-can-be-completed-via-multiple-digital-identities">Barcelona’s Resident Registry: A Case Where Governmental Procedures Can Be Completed via Multiple Digital Identities</h1>
+
+<h2 id="context">Context</h2>
+
+<p>In GovStack we tend to assume the Identity Building Block (ID BB) is implemented only once per country. However, governments may find themselves with more than one digital identity system in operation — sometimes several, at different levels of jurisdiction and with different technical architectures. Rather than prescribing unification as a necessary condition for a healthy digital identity environment, this real-life use case documents how different digital identities can co-exist in a government ecosystem and be applied to the same government procedure.</p>
+
+<p>The case is the <strong>Padró Municipal d’Habitants</strong> (Municipal Register of Residents) in Barcelona, Spain — a procedure administered by the Ajuntament de Barcelona that citizens can complete online using at least four distinct digital identity systems, spanning national and regional (Catalan) levels of government.</p>
+
+<p><strong>Digital identities covered:</strong></p>
+<ul>
+  <li>Cl@ve (National Government, operated by AEAD)</li>
+  <li>DNIe (National Government, issued by Dirección General de la Policía)</li>
+  <li>idCAT Mòbil / idCAT Mòbil+ (Catalan Government, operated by AOC Consorci)</li>
+  <li>Digital Certificate from FNMT-RCM (National Government, issued by the national mint)</li>
+</ul>
+
+<hr />
+
+<h2 id="1-the-padró-municipal-a-local-procedure-with-national-legal-force">1. The Padró Municipal: A Local Procedure with National Legal Force</h2>
+
+<h3 id="what-it-is">What It Is</h3>
+
+<p>The <strong>Padró Municipal d’Habitants</strong> — commonly called the <em>empadronament</em> in Catalan or <em>empadronamiento</em> in Spanish — is the official administrative register of all persons who habitually reside in a given municipality. In Barcelona, it is maintained by the <strong>Ajuntament de Barcelona</strong>. Registration is not optional: every person residing in Spain — whether a Spanish national, EU citizen, or non-EU foreign national, and regardless of immigration status — is legally obligated to register in the padrón of their municipality of habitual residence.</p>
+
+<p>The <strong>certificat d’empadronament</strong> (certificate of registration) is issued by the municipality as proof that a person is registered. It is widely demanded by other administrations and institutions for purposes including: enrolling children in local schools, accessing the public health system (the SISCAT in Catalonia), applying for residence permits or nationality, accessing social services, and numerous other administrative and legal transactions. The document therefore starts at the municipal level but circulates throughout the national administrative system.</p>
+
+<h3 id="how-a-local-procedure-achieves-national-validity">How a Local Procedure Achieves National Validity</h3>
+
+<p>The padrón system achieves its national validity through a combination of legislation and real-time digital coordination between municipalities and the national statistical authority.</p>
+
+<p><strong>Legal framework:</strong></p>
+
+<ul>
+  <li>
+    <p><strong>Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local (LBRL)</strong> establishes the padrón as a mandatory municipal register (Article 15) and defines the data held (Article 16). Crucially, Article 17 gives the <strong>Instituto Nacional de Estadística (INE)</strong> the role of coordinating and unifying all municipal padrones at the national level, resolving duplicities and maintaining an authoritative national record. This single law transforms what would otherwise be a fragmented collection of local registers into a unified national infrastructure.<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+  </li>
+  <li>
+    <p><strong>Ley 4/1996, de 10 de enero</strong>, which modified the LBRL, introduced the modern <em>padrón continuo</em> — a permanently maintained, computer-based register that replaced the previous system of 5-year census renewals. This reform made the padrón a living database rather than a periodic snapshot, and established the current model of automatic coordination with the INE.<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
+  </li>
+  <li>
+    <p><strong>Real Decreto 1690/1986</strong> (modified by <strong>Real Decreto 2612/1996</strong> and most recently by <strong>Real Decreto 141/2024, de 6 de febrero</strong>) provides the implementing regulations. Notably, Real Decreto 141/2024 updated the data transmission schedule to require real-time updates from municipalities to the INE, replacing the previous monthly batch-update model. This ensures the national record is always current.<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup></p>
+  </li>
+  <li>
+    <p><strong>Real Decreto 523/2015</strong> eliminated the requirement to obtain certain certificates in person, opening the door to digital delivery of empadronamiento certificates.</p>
+  </li>
+</ul>
+
+<p><strong>How coordination works in practice:</strong></p>
+
+<p>Every municipal padrón in Spain is digitally connected to the INE’s national database. When an Ajuntament registers or updates a resident, that change is now transmitted in real time to the INE. The INE deduplicates entries (ensuring a person cannot be simultaneously registered in two municipalities), publishes official population statistics, and serves as the authoritative national source. The certificate issued by the Ajuntament de Barcelona carries legal validity throughout Spain and the EU because it reflects data in this nationally coordinated system. The national, regional, and local administrations all accept it on the basis of this shared legal and technical infrastructure.</p>
+
+<p><strong>Online access in Barcelona:</strong></p>
+
+<p>Barcelona’s Seu Electrònica (<a href="https://seuelectronica.ajuntament.barcelona.cat">https://seuelectronica.ajuntament.barcelona.cat</a>) enables residents to complete the full padrón registration online — the <em>Alta al Padró Municipal d’Habitants</em> — as well as obtain digital certificates of existing registration. These certificates are issued with an electronic signature and a <strong>Código Seguro de Verificación (CSV)</strong>, a unique code that allows any third party to verify the document’s authenticity online, making the digital certificate as legally valid as a paper original.<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></p>
+
+<hr />
+
+<h2 id="2-the-four-digital-identities-why-four-and-what-each-covers">2. The Four Digital Identities: Why Four, and What Each Covers</h2>
+
+<h3 id="why-are-there-four">Why Are There Four?</h3>
+
+<p>The coexistence of four distinct digital identity systems is not the result of deliberate planning but of the layered constitutional, jurisdictional, and historical context of Spain:</p>
+
+<ol>
+  <li>
+    <p><strong>Constitutional asymmetry</strong>: Spain is a state of autonomous communities. Catalonia has broad self-governance powers, including in e-government, leading the Generalitat de Catalunya to develop its own identity infrastructure rather than rely solely on the national state. The same pattern exists in other communities (País Vasco, Comunidad Valenciana, etc.).</p>
+  </li>
+  <li>
+    <p><strong>Historical sequencing</strong>: The DNIe predates Cl@ve by nearly a decade. When Cl@ve was created (2014), it was explicitly designed as a <em>broker</em> to wrap and unify existing credentials — including the DNIe — rather than replace them. The FNMT certificate is older still, and was the primary credential for interacting with the national Tax Agency and Social Security long before either Cl@ve or the modern DNIe existed.</p>
+  </li>
+  <li>
+    <p><strong>Functional differentiation</strong>: Each system was designed for a different primary purpose. The DNIe is a physical identity document with embedded cryptographic hardware. The FNMT certificate is a software certificate enabling qualified electronic signatures. Cl@ve is an authentication broker simplifying access for citizens who do not have — or cannot use — hardware credentials. idCAT Mòbil targets mobile-only users within Catalonia.</p>
+  </li>
+  <li>
+    <p><strong>Institutional ownership</strong>: Each system belongs to a different issuing authority with different governance, legal mandates, and user populations.</p>
+  </li>
+</ol>
+
+<h3 id="clve--the-national-identity-broker">Cl@ve — The National Identity Broker</h3>
+
+<p><strong>What it is:</strong> Cl@ve (the name means “key” in Spanish) is Spain’s national unified electronic identification and authentication platform, operated by the <strong>Agencia Estatal de Administración Digital (AEAD)</strong> (formerly the Secretaría General de Administración Digital, restructured by Real Decreto 1118/2024). Its purpose is not to issue new identities but to act as a <strong>federated identity broker</strong>: citizens select their preferred authentication method (PIN, password, certificate, or DNIe), and Cl@ve relays the authenticated identity to any participating public service at any level of government. It also provides <strong>Cl@ve Firma</strong>, a cloud-based qualified electronic signature service that stores personal certificates in a Hardware Security Module (HSM) server, enabling citizens to sign documents without carrying physical hardware.</p>
+
+<p><strong>Scope:</strong> All levels of Spanish public administration — national ministries, regional governments, municipalities — can integrate with Cl@ve. This makes it the widest-scope identity system in the Spanish ecosystem: a Cl@ve credential accepted by the national Tax Agency is in principle the same credential that can log a citizen into Barcelona’s municipal office.</p>
+
+<p><strong>Legal basis:</strong> Founded by <em>Orden PRE/1838/2014, de 8 de octubre</em> (Council of Ministers Agreement of 19 September 2014). It operates under <em>Ley 39/2015, de 1 de octubre</em> (Common Administrative Procedure Act, which mandates digital access to public services), <em>Ley 40/2015</em> (Legal Regime for the Public Sector, requiring interoperability), and <em>Regulation (EU) 910/2014 (eIDAS)</em>.<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup></p>
+
+<p><strong>Authentication tiers within Cl@ve:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Description</th>
+      <th>eIDAS-equivalent level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cl@ve PIN</td>
+      <td>One-time PIN via SMS; for occasional users</td>
+      <td>Low</td>
+    </tr>
+    <tr>
+      <td>Cl@ve Permanente</td>
+      <td>Username + password + SMS OTP</td>
+      <td>Low to Substantial</td>
+    </tr>
+    <tr>
+      <td>Cl@ve (advanced registration)</td>
+      <td>Video ID or in-person registration</td>
+      <td>Substantial</td>
+    </tr>
+    <tr>
+      <td>Cl@ve Firma</td>
+      <td>Cloud qualified certificate; requires <em>nivel alto</em> registration</td>
+      <td>High (qualified)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="dnie--the-electronic-national-identity-card">DNIe — The Electronic National Identity Card</h3>
+
+<p><strong>What it is:</strong> The <strong>Documento Nacional de Identidad electrónico (DNIe)</strong> is the Spanish national identity card, issued since birth (or upon naturalisation) to every Spanish citizen by the <strong>Dirección General de la Policía (Ministry of the Interior)</strong>. Since 2006 (DNIe 1.0), the card has contained a cryptographic chip. The current generation, <strong>DNI 3.0</strong> (issued from approximately 2015), adds a dual-interface chip supporting both ISO/IEC 7816 contact and ISO/IEC 14443 Type A/B NFC contactless interfaces — allowing use with a smart card reader or directly via NFC with a smartphone and the official DNI App.<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote" rel="footnote">6</a></sup></p>
+
+<p>The chip contains the citizen’s personal data, biometric data (photo and fingerprint, encrypted), and two X.509 certificates: an <strong>authentication certificate</strong> (for accessing online services) and a <strong>qualified electronic signature certificate</strong> (for signing documents with full legal force).</p>
+
+<p><strong>Scope:</strong> The DNIe is Spain’s only formally <strong>notified eID scheme</strong> under the eIDAS Regulation, notified to the European Commission on 7 November 2018 (Official Journal reference 2018/C 401/08). Mutual recognition across the EU became mandatory in September 2019. This makes the DNIe the only Spanish digital identity with automatic legal recognition in all EU member states for cross-border transactions.<sup id="fnref:7" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">7</a></sup></p>
+
+<p><strong>Legal basis:</strong> <em>Real Decreto 1553/2005, de 23 de diciembre</em> (establishes the electronic functions of the DNI); <em>Ley Orgánica 4/2015, de 30 de marzo</em> (general DNI governance); <em>Regulation (EU) 910/2014 (eIDAS)</em>.<sup id="fnref:8" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">8</a></sup></p>
+
+<hr />
+
+<h3 id="idcat-mòbil--idcat-mòbil--catalan-mobile-identity">idCAT Mòbil / idCAT Mòbil+ — Catalan Mobile Identity</h3>
+
+<p><strong>What it is:</strong> <strong>idCAT Mòbil</strong> is a mobile-based electronic identification system operated by the <strong>Consorci Administració Oberta de Catalunya (AOC)</strong> — a public consortium co-owned by the Generalitat de Catalunya, the Diputació de Barcelona, and other Catalan local governments. As of 2025 it has over <strong>3 million registered users</strong>.<sup id="fnref:9" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">9</a></sup></p>
+
+<p>The standard <strong>idCAT Mòbil</strong> authenticates via SMS OTP (one-time password sent to the citizen’s registered mobile phone) combined with their identity document number (DNI or NIE). The enhanced <strong>idCAT Mòbil+</strong> adds a second static factor — the expiry date of the identity document — raising the assurance level. Registration can be done online (including via video identification, available since 2020, or via WhatsApp since 2025) or in person at participating Catalan entities.</p>
+
+<p><strong>Scope:</strong> idCAT Mòbil is designed for use with Catalan public administrations — the Generalitat, Catalan municipalities, and public bodies in Catalonia. It is not federated directly with Cl@ve at the national level, and is not accepted by national Spanish ministries. Citizens needing to interact with national Spanish administration must use Cl@ve, DNIe, or an FNMT certificate. However, Barcelona’s municipal services accept both Catalan and national identities, making the Ajuntament a point of intersection between both ecosystems.</p>
+
+<p><strong>Legal basis:</strong> <em>Llei 29/2010, del 3 d’agost, de l’ús dels mitjans electrònics al sector públic de Catalunya</em> (Catalan e-government law); the <em>Protocol d’Identificació i Signatura Electrònica de Catalunya</em> published by the AOC Consortium; <em>Ley 39/2015</em> (applicable across all Spanish administrations); <em>Real Decreto 311/2022</em> (Esquema Nacional de Seguridad, ENS); <em>Regulation (EU) 910/2014 (eIDAS)</em>.<sup id="fnref:10" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup></p>
+
+<hr />
+
+<h3 id="fnmt-rcm-digital-certificate--the-national-qualified-certificate">FNMT-RCM Digital Certificate — The National Qualified Certificate</h3>
+
+<p><strong>What it is:</strong> The <strong>Fábrica Nacional de Moneda y Timbre – Real Casa de la Moneda (FNMT-RCM)</strong> is Spain’s national mint. Through its <strong>CERES</strong> (CERtificación ESpañola) division, it operates as a <strong>Qualified Trust Service Provider (QTSP)</strong> listed on Spain’s Trusted List and the EU Trust Service Status List. FNMT-CERES issues the most widely used digital certificates in Spain — software certificates (delivered as P12/PFX files for installation in browsers and operating systems) used by citizens, companies, and public servants alike.</p>
+
+<p>Unlike the DNIe, the FNMT certificate is purely a software credential — no hardware token is required for the standard personal certificate. The most common type is the <strong>Certificado de Ciudadano</strong> (<em>Certificado de Persona Física</em>), valid 4 years, obtainable online (after an in-person identity verification step at an authorised entity such as a Tax Agency office, Social Security office, or consulate).</p>
+
+<p><strong>Scope:</strong> FNMT certificates are not an eID scheme under eIDAS’s identification pillar; they are <strong>trust services</strong> (the signature pillar). A Qualified Electronic Signature created with an FNMT certificate on a Qualified Signature Creation Device has the same legal effect as a handwritten signature across all EU member states under eIDAS Article 25(2). When used as an authentication credential, an FNMT certificate effectively provides <em>de facto</em> identity verification at the highest level — but this flows from certificate law rather than from eID scheme notification. FNMT certificates are accepted by virtually all Spanish public administration online services.</p>
+
+<p><strong>Legal basis:</strong> <em>Ley 6/2020, de 11 de noviembre, reguladora de determinados aspectos de los servicios electrónicos de confianza</em> (the Spanish implementing law for eIDAS, replacing the former <em>Ley 59/2003 de Firma Electrónica</em>); <em>Regulation (EU) 910/2014 (eIDAS)</em>; ETSI standards EN 319 401, EN 319 411-1/-2, EN 319 421. FNMT is certified at <strong>ENS ALTA</strong> level (Spain’s highest National Security Scheme tier, per Real Decreto 311/2022).<sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup></p>
+
+<hr />
+
+<h2 id="3-identity-assurance-and-institutional-trust">3. Identity Assurance and Institutional Trust</h2>
+
+<h3 id="the-x1254-framework">The X.1254 Framework</h3>
+
+<p>The ITU-T <strong>Recommendation X.1254</strong> (Entity authentication assurance framework) provides the conceptual underpinning for evaluating how strongly any identity system can vouch for a user. It structures identity assurance across four phases, which map directly onto the systems described here:<sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">12</a></sup></p>
+
+<p><strong>1. Enrolment phase</strong> — How is a person registered and their identity verified before they receive a credential?</p>
+
+<p>This is the most critical differentiator between the four systems. The DNIe requires in-person appearance at a police station with physical biometric capture (fingerprint, photo). FNMT certificates require in-person verification at an authorised registration authority. idCAT Mòbil (standard) relies on submitting a document number plus a mobile number — a weaker enrolment; idCAT Mòbil with video identification uses operator-reviewed video identity proofing, raising the assurance. Cl@ve ranges from postal invitation codes (weakest) to in-person enrolment or video identification.</p>
+
+<p><strong>2. Credential management phase</strong> — How are credentials issued, stored, and renewed?</p>
+
+<p>The DNIe stores private keys in a hardware-certified chip (Common Criteria EAL4+, QSCD-certified). FNMT certificates are software files, but the certificate policy and qualified status impose strict issuance and renewal controls. Cl@ve Firma certificates are stored in an HSM server operated by the AEAD. idCAT Mòbil does not issue a stored credential — each authentication generates a fresh OTP, so credential management is limited to the registration binding between a document number and a phone number.</p>
+
+<p><strong>3. Authentication phase</strong> — How does the user prove their identity when accessing a service?</p>
+
+<ul>
+  <li>DNIe: cryptographic challenge-response using the certificate’s private key (stored on the chip). User must provide their PIN to activate the private key.</li>
+  <li>FNMT certificate: TLS client certificate authentication or digital signature, using the software certificate and user password.</li>
+  <li>Cl@ve: varies by method (SMS OTP, username+password+SMS, or certificate).</li>
+  <li>idCAT Mòbil: document number + SMS OTP (one factor of knowledge + one factor of possession). idCAT Mòbil+ adds document expiry date as a second knowledge factor.</li>
+</ul>
+
+<p><strong>4. Management and organisational considerations</strong> — Who operates the system? What governance and audit structures exist?</p>
+
+<p>Each system has a distinct institutional anchor: the Dirección General de la Policía (DNIe), the AEAD (Cl@ve), the FNMT-RCM (certificates), and the AOC Consorci (idCAT Mòbil). Spain’s supervisory body for QTSPs is the <strong>Ministerio para la Transformación Digital</strong>. The ENS (Esquema Nacional de Seguridad) provides a cross-cutting security framework applicable to all Spanish public administration ICT systems.</p>
+
+<h3 id="eidas-assurance-levels">eIDAS Assurance Levels</h3>
+
+<p>The eIDAS framework — specifically <strong>Commission Implementing Regulation (EU) 2015/1502</strong> — defines three assurance levels for electronic identification: Low, Substantial, and High. Each level specifies requirements for identity proofing, credential issuance, and authentication mechanism strength.<sup id="fnref:13" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Identity System</th>
+      <th>eIDAS Assurance Level</th>
+      <th>Basis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DNIe</td>
+      <td><strong>HIGH</strong> (formally notified)</td>
+      <td>In-person biometric enrolment; QSCD-certified hardware chip; notified to EU Commission November 2018</td>
+    </tr>
+    <tr>
+      <td>FNMT-RCM certificate</td>
+      <td><strong>Equivalent to High</strong> (Trust Services pillar, not eID scheme)</td>
+      <td>Qualified certificate issued by QTSP; in-person identity proofing; legally equivalent to handwritten signature (eIDAS Art. 25)</td>
+    </tr>
+    <tr>
+      <td>Cl@ve (advanced registration / nivel alto)</td>
+      <td><strong>High-equivalent</strong></td>
+      <td>In-person or video-verified enrolment; required for Cl@ve Firma qualified certificates</td>
+    </tr>
+    <tr>
+      <td>Cl@ve (basic registration)</td>
+      <td><strong>Substantial</strong> (Cl@ve Permanente) / <strong>Low</strong> (Cl@ve PIN)</td>
+      <td>Postal or basic online enrolment; SMS OTP</td>
+    </tr>
+    <tr>
+      <td>idCAT Mòbil+ (video ID registration)</td>
+      <td><strong>Substantial</strong></td>
+      <td>Video identification meets Substantial identity proofing criteria</td>
+    </tr>
+    <tr>
+      <td>idCAT Mòbil (basic registration)</td>
+      <td><strong>Low</strong></td>
+      <td>SMS OTP with basic online enrolment only</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The DNIe holds the unique distinction of being Spain’s only <strong>formally notified</strong> eID scheme — the mechanism by which Spain’s eID is automatically recognised and accepted in other EU member states. Spain was among the first six EU countries to achieve cross-border recognition (November 2019).<sup id="fnref:14" role="doc-noteref"><a href="#fn:14" class="footnote" rel="footnote">14</a></sup></p>
+
+<h3 id="the-oecd-g7-mapping-exercise">The OECD G7 Mapping Exercise</h3>
+
+<p>The OECD’s <strong>G7 Mapping Exercise of Digital Identity Approaches</strong> (2023) provides a comparative framework for how different nations structure their digital identity ecosystems. It distinguishes between <em>monolithic</em> approaches (a single national eID as the only recognised credential, as in parts of the eIDAS model) and <em>multi-dimensional</em> approaches (layered systems combining different assurance levels and use cases, closer to the NIST SP 800-63 model).<sup id="fnref:15" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">15</a></sup></p>
+
+<p>The Spanish case sits closer to the multi-dimensional end: there is no single mandatory national eID credential for digital services. Citizens can choose among multiple methods with different assurance levels. This reflects both the constitutional structure (autonomous communities having independent e-government systems) and the deliberate design of Cl@ve as a broker that can accept any of the available methods. The OECD framework also emphasises governance, legal certainty, and inclusion as dimensions of digital identity maturity — themes visible in the Spanish approach, where the weakest credential (Cl@ve PIN) was explicitly designed for digital inclusion, allowing citizens without smartphones or hardware tokens to access public services via any mobile phone.</p>
+
+<h3 id="legal-elements-enabling-the-institutional-trust-of-each-system">Legal Elements Enabling the Institutional Trust of Each System</h3>
+
+<p>Each identity system derives its institutional trustworthiness from a specific legal anchor that connects technical operations to enforceable rights and obligations:</p>
+
+<ul>
+  <li>
+    <p><strong>DNIe</strong>: The legal obligation of citizens to hold a DNI (Ley Orgánica 1/1992; Ley Orgánica 4/2015) creates a foundational identity record that the chip merely extends into the digital domain. The State’s certificate policy (Declaración de Prácticas de Certificación, DPC) is the legal document governing how DNIe certificates are issued and trusted.</p>
+  </li>
+  <li>
+    <p><strong>Cl@ve</strong>: The Council of Ministers agreement (<em>Orden PRE/1838/2014</em>) established Cl@ve as a shared platform service — giving it legal status as part of Spain’s administrative infrastructure, obligating other public bodies to accept it.</p>
+  </li>
+  <li>
+    <p><strong>FNMT-RCM</strong>: As a QTSP under eIDAS, FNMT is subject to mandatory audit, supervision, and liability requirements. Its certificates carry the presumption of legal validity under EU and Spanish law. The <em>Ley 6/2020</em> defines the liability regime and supervision framework.</p>
+  </li>
+  <li>
+    <p><strong>idCAT Mòbil</strong>: Its trust derives from the Consorci AOC’s status as a public body jointly owned by Catalan administrations, and from the <em>Protocol d’Identificació i Signatura Electrònica de Catalunya</em>, which defines the conditions under which idCAT Mòbil is accepted within the Catalan public sector.</p>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="4-technical-implementation-how-barcelona-accepted-multiple-identity-systems">4. Technical Implementation: How Barcelona Accepted Multiple Identity Systems</h2>
+
+<p>The fact that the Ajuntament de Barcelona accepts all four identity systems for a single procedure — the Padró Municipal — was not accidental. It required a specific technical integration strategy connecting Barcelona’s digital office to both the national Cl@ve/SARA network and the Catalan AOC federation.</p>
+
+<h3 id="the-two-integration-pathways">The Two Integration Pathways</h3>
+
+<p><strong>Pathway 1 — The AOC VALId service (for Catalan identities and more):</strong></p>
+
+<p>The <strong>Consorci AOC</strong> operates <strong>VALId</strong> (<em>Verificació i Autenticació en Línia d’Identitat</em>), a federated authentication gateway that enables any Catalan public administration to accept multiple identity methods through a single integration. VALId supports idCAT Mòbil, idCAT Mòbil+, idCAT Certificat (AOC’s software certificate), DNIe, Cl@ve, and FNMT certificates.</p>
+
+<p>The Ajuntament de Barcelona integrates with VALId using <strong>OAuth 2.0</strong> / <strong>OpenID Connect</strong>. The municipality registers as a client application with the AOC (obtaining a <code class="language-plaintext highlighter-rouge">client_id</code> and <code class="language-plaintext highlighter-rouge">client_secret</code>) and redirects users to VALId for authentication. VALId handles all the complexity of verifying each credential type and returns a standardised identity assertion to the municipal service.</p>
+
+<p>This means that from Barcelona’s perspective, there is essentially <strong>one integration point</strong> (VALId) that internally routes to all the identity methods. The AOC acts as a federation hub — matching what the GovStack ID BB specification calls the <strong>Upstream Federation</strong> service category: “harmonizing multiple identities across systems.”<sup id="fnref:16" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">16</a></sup></p>
+
+<p>Developer documentation for VALId is publicly available at:</p>
+<ul>
+  <li>VALId 2.0 documentation (GitHub Pages): <a href="https://consorciaoc.github.io/VALId2/">https://consorciaoc.github.io/VALId2/</a></li>
+  <li>VALId original documentation: <a href="https://consorciaoc.github.io/VALId/">https://consorciaoc.github.io/VALId/</a></li>
+  <li>AOC services portal: <a href="https://www.aoc.cat/en/serveis-aoc/valid/">https://www.aoc.cat/en/serveis-aoc/valid/</a><sup id="fnref:17" role="doc-noteref"><a href="#fn:17" class="footnote" rel="footnote">17</a></sup></li>
+</ul>
+
+<p><strong>Pathway 2 — Direct Cl@ve integration (for national identities):</strong></p>
+
+<p>For national-level identities (Cl@ve PIN, Cl@ve Permanente, DNIe via Cl@ve, FNMT certificate), public bodies can also integrate directly with the <strong>Cl@ve gateway</strong> (pasarela) using <strong>SAML 2.0</strong>. The Cl@ve gateway uses the STORK/eIDAS SAML profile. Service providers send <code class="language-plaintext highlighter-rouge">AuthnRequest</code> messages specifying the required quality of authentication level (QAA), and the gateway returns signed <code class="language-plaintext highlighter-rouge">SAMLResponse</code> assertions.</p>
+
+<p>Spain’s <strong>@firma</strong> shared platform validates certificate-based authentication (DNIe and FNMT certificates), handling OCSP and CRL validation so individual services do not need to implement certificate validation themselves.</p>
+
+<p>In practice, for Barcelona’s municipal services, the AOC’s VALId layer abstracts over both Cl@ve and the direct certificate path — so the Ajuntament receives a unified identity token regardless of which underlying system the citizen used.</p>
+
+<p>Developer documentation for Cl@ve integration:</p>
+<ul>
+  <li>Official integration guide (PAe/CTT, Spanish government portal): <a href="https://administracionelectronica.gob.es/ctt/clave/infoadicional">https://administracionelectronica.gob.es/ctt/clave/infoadicional</a><sup id="fnref:18" role="doc-noteref"><a href="#fn:18" class="footnote" rel="footnote">18</a></sup></li>
+  <li>Junta de Andalucía Proxy-Cl@ve integration guide (PDF, practical SAML example): <a href="https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf">https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Guía_Integración_Proxy_Clave.pdf</a><sup id="fnref:19" role="doc-noteref"><a href="#fn:19" class="footnote" rel="footnote">19</a></sup></li>
+</ul>
+
+<p>Developer documentation for DNIe:</p>
+<ul>
+  <li>DNIe downloads portal (drivers, PKCS#11 library, Android NFC source): <a href="https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100">https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100</a><sup id="fnref:20" role="doc-noteref"><a href="#fn:20" class="footnote" rel="footnote">20</a></sup></li>
+  <li>DNIe NFC reference guide (PDF): <a href="https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf">https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf</a><sup id="fnref:21" role="doc-noteref"><a href="#fn:21" class="footnote" rel="footnote">21</a></sup></li>
+</ul>
+
+<p>Developer documentation for FNMT certificates:</p>
+<ul>
+  <li>FNMT CERES portal: <a href="https://www.fnmt.es/en/ceres">https://www.fnmt.es/en/ceres</a></li>
+  <li>FNMT Trust Services Practice Statement (English PDF): <a href="https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf">https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf</a><sup id="fnref:22" role="doc-noteref"><a href="#fn:22" class="footnote" rel="footnote">22</a></sup></li>
+</ul>
+
+<h3 id="the-technical-architecture-in-summary">The Technical Architecture in Summary</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Citizen
+   │
+   ├── Uses idCAT Mòbil / idCAT Mòbil+ / idCAT Certificat
+   │        │
+   │        ▼
+   │   AOC VALId federation gateway (OAuth 2.0 / OIDC)
+   │        │
+   ├── Uses Cl@ve PIN / Cl@ve Permanente
+   │        │
+   │        ▼
+   │   Cl@ve gateway/pasarela (SAML 2.0)
+   │        │
+   ├── Uses DNIe (smart card or NFC)
+   │        │
+   │        ▼
+   │   @firma certificate validation platform
+   │        │
+   └── Uses FNMT certificate (browser/OS installed)
+            │
+            ▼
+       @firma certificate validation platform
+            │
+            ▼
+   Ajuntament de Barcelona Seu Electrònica
+   (integrates with VALId as primary auth gateway,
+    which in turn federates national methods)
+            │
+            ▼
+   Padró Municipal procedure
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="5-how-these-identities-co-exist-a-govstack-building-block-perspective">5. How These Identities Co-exist: A GovStack Building Block Perspective</h2>
+
+<p>The Barcelona case illustrates several patterns that GovStack Building Block specifications describe. The co-existence of four digital identity systems is not simply a technical challenge — it is a governance, design, and architectural choice with implications for trust, inclusion, and interoperability.</p>
+
+<h3 id="identity-building-block-the-federated-architecture-pattern">Identity Building Block: The Federated Architecture Pattern</h3>
+
+<p>The GovStack Identity BB specification identifies three architectural patterns: centralised, federated, and distributed. It notes that “there is no one-fits-all solution and often a combination of those approaches enables most benefits.”<sup id="fnref:23" role="doc-noteref"><a href="#fn:23" class="footnote" rel="footnote">23</a></sup></p>
+
+<p>The Spanish ecosystem is a textbook federated architecture: each identity system (DNIe, FNMT, Cl@ve, idCAT Mòbil) is an independent <strong>Identity Provider (IdP)</strong> with its own enrolment, credential management, and authentication infrastructure. The AOC’s VALId and the Cl@ve gateway function as <strong>federation brokers</strong> — aggregating multiple IdPs behind a unified interface for Service Providers (like Barcelona’s municipal office). This maps directly to the <strong>Upstream Federation</strong> service category in the GovStack ID BB, which provides “harmonizing multiple identities across systems.”</p>
+
+<p>The GovStack ID BB also describes the <strong>Orchestrator</strong> component, which “coordinates the workflow for identity verification, combining multiple services as necessary.” In this case, VALId plays this role: when a citizen initiates a padrón procedure, VALId presents the available identity options, routes to the appropriate IdP, receives the authenticated identity, and delivers a normalised identity assertion to the Ajuntament’s service.</p>
+
+<h3 id="esignature-building-block-clve-firma-and-fnmt-as-digital-signing-enablers">eSignature Building Block: Cl@ve Firma and FNMT as Digital Signing Enablers</h3>
+
+<p>The GovStack eSignature BB describes two deployment models: one-time signatures (where a new key pair is generated in an HSM and a short-lived certificate is created for each signing event) and SCD-based approaches (where a user registers a personal signing device for reuse).<sup id="fnref:24" role="doc-noteref"><a href="#fn:24" class="footnote" rel="footnote">24</a></sup></p>
+
+<p><strong>Cl@ve Firma</strong> corresponds to the GovStack eSignature BB’s one-time HSM model: when a citizen needs to sign a document, Cl@ve Firma generates a signing operation on the citizen’s remote certificate stored on the AEAD’s HSM servers, with PIN confirmation as the user-side step. No persistent device is required.</p>
+
+<p><strong>FNMT and DNIe certificates</strong> correspond to the SCD-based model: the citizen registers a personal device (their computer with the software certificate installed, or the DNIe chip) and can sign documents repeatedly without re-registering. The private key lives on the citizen’s device or card.</p>
+
+<p>Both models are reflected in the procedures available at Barcelona’s electronic office: citizens can sign submissions digitally using either cloud signatures (Cl@ve Firma) or local certificates (FNMT/DNIe), and the Seu Electrònica supports both paths.</p>
+
+<h3 id="consent-building-block-data-sharing-between-levels-of-government">Consent Building Block: Data Sharing Between Levels of Government</h3>
+
+<p>When the Ajuntament de Barcelona shares padrón data with national bodies (for example, updating the INE’s national database), this involves a formal data-sharing relationship governed by both the LBRL framework and the GDPR-implementing <em>Ley Orgánica 3/2018 (LOPDGDD)</em>.</p>
+
+<p>The GovStack Consent BB notes that “GDPR discourages consent in government services where power imbalances exist between citizens and authorities” — and indeed, the padrón does not operate on the basis of citizen consent; registration is a legal obligation. However, the Consent BB framework is relevant to the <em>downstream</em> use of padrón data: when other institutions (banks, utilities, notaries) request proof of residence, the citizen actively presents their certificate, which is an act of selective disclosure. The <strong>CSV (Código Seguro de Verificación)</strong> mechanism embeds this disclosure control — only the specific certificate the citizen chooses to present can be verified, not the broader padrón record.<sup id="fnref:25" role="doc-noteref"><a href="#fn:25" class="footnote" rel="footnote">25</a></sup></p>
+
+<h3 id="wallet-building-block-the-path-toward-a-unified-credential">Wallet Building Block: The Path Toward a Unified Credential</h3>
+
+<p>The GovStack Wallet BB describes a system where “issuers create credentials, holders store them securely, and verifiers authenticate them” — the Issuer-Holder-Verifier model. It emphasises user control over credential presentation and support for multiple credential standards (W3C VCs, SD-JWT, mDL).<sup id="fnref:26" role="doc-noteref"><a href="#fn:26" class="footnote" rel="footnote">26</a></sup></p>
+
+<p>The current Spanish identity ecosystem predates the wallet model. However, Spain is participating in the EU’s EUDI (European Digital Identity) Wallet pilot program under <strong>eIDAS 2.0 (Regulation EU 2024/1183)</strong>. The planned Spanish EUDI Wallet would consolidate many of these credentials — effectively allowing a citizen to carry a digital version of their DNIe, FNMT certificate access, and potentially health and social benefits credentials — in a single, user-controlled wallet app. The four identity systems described in this document represent the <em>current</em> state; the wallet represents the trajectory these systems are following.</p>
+
+<p>The co-existence problem that Barcelona has solved through federation (VALId as a broker) would be solved differently under the wallet model: rather than four separate IdPs with one broker, citizens would hold multiple credentials in one wallet and choose which to present. The trust anchors would remain the same (the State, the FNMT, the AOC) but the user experience and the locus of control would shift toward the citizen.</p>
+
+<h3 id="summary-the-govstack-bb-lens-on-multi-identity-co-existence">Summary: The GovStack BB Lens on Multi-Identity Co-existence</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>GovStack Building Block</th>
+      <th>Role in the Barcelona Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Identity BB</strong> — Federated architecture</td>
+      <td>VALId (AOC) and Cl@ve act as federation brokers, harmonising four IdPs behind a single integration point for the Ajuntament</td>
+    </tr>
+    <tr>
+      <td><strong>Identity BB</strong> — Upstream Federation service</td>
+      <td>VALId normalises identity assertions from Cl@ve, DNIe, FNMT, and idCAT Mòbil into a uniform format for Barcelona’s services</td>
+    </tr>
+    <tr>
+      <td><strong>eSignature BB</strong> — One-time HSM model</td>
+      <td>Cl@ve Firma provides cloud-based qualified signatures for citizens without hardware tokens</td>
+    </tr>
+    <tr>
+      <td><strong>eSignature BB</strong> — SCD-based model</td>
+      <td>DNIe chip and FNMT software certificates provide persistent signing devices for repeated use</td>
+    </tr>
+    <tr>
+      <td><strong>Consent BB</strong> — Selective disclosure</td>
+      <td>The empadronament certificate’s CSV mechanism enables citizens to present only the credential they choose to present; GDPR applies to downstream data sharing</td>
+    </tr>
+    <tr>
+      <td><strong>Wallet BB</strong> — Future trajectory</td>
+      <td>Spain’s EUDI Wallet participation signals convergence of the current multi-system landscape toward a citizen-controlled credential wallet under eIDAS 2.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="6-verifying-electronically-signed-documents-technical-validation-and-jurisdictional-concordance">6. Verifying Electronically Signed Documents: Technical Validation and Jurisdictional Concordance</h2>
+
+<p>Receiving a digitally signed PDF — whether it is a citizen-submitted form, an empadronament certificate issued by the Ajuntament, or a document signed using Cl@ve Firma — requires answering two distinct questions that are often conflated:</p>
+
+<ol>
+  <li><strong>Technical validity</strong>: Was the cryptographic signature correctly produced, and is the certificate still valid at the time of verification?</li>
+  <li><strong>Jurisdictional concordance</strong>: Was the correct type of signature used for this document — in this jurisdiction, for this legal purpose, by the right category of signer?</li>
+</ol>
+
+<p>Neither question answers the other. A technically valid signature may be legally insufficient for a document that required a higher assurance level. A qualified certificate from a recognised QTSP may still be the wrong instrument if used where an organisational eSeal — not a personal signature — was required. Both checks are necessary.</p>
+
+<hr />
+
+<h3 id="61-means-of-verification-by-signature-type">6.1 Means of Verification by Signature Type</h3>
+
+<p>The four identity and signature systems present in the Barcelona case do not all produce the same kind of verifiable artefact. The appropriate verification mechanism differs by system.</p>
+
+<h4 id="fnmt-certificate-signatures-pades">FNMT Certificate Signatures (PAdES)</h4>
+
+<p>Documents signed with an FNMT personal certificate (Certificado de Ciudadano or Certificado en Tarjeta) are embedded as <strong>PAdES (PDF Advanced Electronic Signatures)</strong> — the format defined by ETSI EN 319 142 for PDF-based qualified signatures.<sup id="fnref:27" role="doc-noteref"><a href="#fn:27" class="footnote" rel="footnote">27</a></sup> Verification relies on:</p>
+
+<ul>
+  <li><strong>VALIDe</strong> (primary tool): Spain’s official online signature validation portal, operated by the AEAD at <a href="https://valide.redsara.es/">https://valide.redsara.es/</a>. Upload the PDF; the service verifies the certificate chain, checks revocation via OCSP against FNMT’s infrastructure, and returns a structured validation report indicating signature level (<em>básico, avanzado, cualificado</em>) and policy conformance.<sup id="fnref:28" role="doc-noteref"><a href="#fn:28" class="footnote" rel="footnote">28</a></sup></li>
+  <li><strong>@firma validation API</strong>: For automated backend validation, public administrations call the <code class="language-plaintext highlighter-rouge">VerifySignature</code> operation of the @firma shared platform web service. The platform handles OCSP/CRL checking so that individual systems need not implement revocation checking themselves.<sup id="fnref:29" role="doc-noteref"><a href="#fn:29" class="footnote" rel="footnote">29</a></sup></li>
+  <li><strong>Adobe Acrobat Reader (with EUTL)</strong>: FNMT-RCM appears on the EU Trust Service Status List and is therefore recognised as a trusted root by Acrobat when configured to load European Trusted Lists (detailed in Section 6.3 below).</li>
+  <li><strong>EC Digital Signature Service (DSS)</strong>: The European Commission’s open-source library for signature creation and validation, implementing the ETSI EN 319 102-1 validation algorithm. Usable as a standalone web application or embedded REST API.<sup id="fnref:30" role="doc-noteref"><a href="#fn:30" class="footnote" rel="footnote">30</a></sup></li>
+</ul>
+
+<h4 id="dnie-qualified-signature-certificate-pades-or-cades">DNIe Qualified Signature Certificate (PAdES or CAdES)</h4>
+
+<p>The DNIe chip contains two X.509 certificates: an authentication certificate and a separate <strong>qualified electronic signature certificate</strong>. Only the latter creates signatures with the legal weight of a handwritten signature. Signatures produced using the DNIe signature certificate are verified through the same tools as FNMT signatures. The certificate chain leads to the <strong>Dirección General de la Policía (DGP)</strong> as the issuing CA, which is listed on Spain’s Trusted List as a Qualified Trust Service Provider under the service type “QCert for ESig.”</p>
+
+<p>One important distinction: the DNIe’s authentication certificate (used to log in to online services) should never be confused with the signature certificate. A PDF signed using the authentication certificate is technically a valid advanced electronic signature but is <strong>not</strong> a qualified electronic signature — the QcStatements extension will be absent or will not include <code class="language-plaintext highlighter-rouge">id-etsi-qcs-QcSSCD</code> (OID <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.4</code>), because the authentication private key is not held on a Qualified Signature Creation Device for signature purposes. Verification tools will show this as “Avanzado” rather than “Cualificado.”</p>
+
+<h4 id="clve-firma-pades-remote-qscd">Cl@ve Firma (PAdES, Remote QSCD)</h4>
+
+<p>Cl@ve Firma produces PAdES signatures using certificates stored in the AEAD’s Hardware Security Module infrastructure — a remote QSCD under eIDAS Annex II. The certificate chain leads to a subordinate CA operating under the AEAD’s accreditation as a QTSP. These certificates carry the full set of QcStatements and are verifiable via VALIDe and @firma in the same manner as FNMT and DNIe signatures. The resulting “Nivel de firma: Cualificado” result from VALIDe is legally equivalent to the outcome for hardware-based certificates.</p>
+
+<h4 id="csv-código-seguro-de-verificación--administrative-documents">CSV (Código Seguro de Verificación) — Administrative Documents</h4>
+
+<p>The empadronament certificate and similar documents issued by the Ajuntament de Barcelona carry a <strong>Código Seguro de Verificación (CSV)</strong> — a unique alphanumeric code printed or embedded in the document. This mechanism is defined by <strong>Ley 39/2015, Article 27</strong>, which gives documents accompanied by a verifiable CSV the same legal status as certified paper originals, enabling any receiving authority to verify authenticity without needing software to validate a cryptographic signature.<sup id="fnref:31" role="doc-noteref"><a href="#fn:31" class="footnote" rel="footnote">31</a></sup></p>
+
+<p>Verification procedure:</p>
+<ol>
+  <li>The receiving authority notes the CSV code printed on the document (typically on the footer of each page).</li>
+  <li>They navigate to the issuing body’s electronic office verification portal.</li>
+  <li>They enter the CSV code (and sometimes a document type or date).</li>
+  <li>The portal confirms whether the document is genuine and displays the official electronic copy for comparison.</li>
+</ol>
+
+<p>For Barcelona:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Portal:   [https://seuelectronica.ajuntament.barcelona.cat](https://seuelectronica.ajuntament.barcelona.cat)
+Function: "Verificació de documents" → enter CSV code
+</code></pre></div></div>
+
+<p>The CSV mechanism is deliberately designed for receiving parties — a court, a notary, a foreign consulate, a university — that may have no ability to validate cryptographic signatures but can open a web browser. It shifts the verification burden from the receiving party to the issuing authority’s infrastructure.</p>
+
+<h4 id="note-on-idcat-mòbil">Note on idCAT Mòbil</h4>
+
+<p>idCAT Mòbil is an <strong>authentication</strong> system, not a document signature creation system. It does not produce standalone cryptographic signatures embedded in PDFs. Documents submitted to the Ajuntament via idCAT Mòbil authentication are recorded as authenticated submissions in the <strong>Registre Electrònic</strong>, where the timestamp and identity of the submitter are retained by the system — but the citizen does not apply a personal electronic signature to the document itself. The resulting record is an entry in the administrative register, verifiable as a system act rather than as an individual’s cryptographic signature.</p>
+
+<p>Where a personal electronic signature on the submitted document is required (rather than mere authentication), the procedure requires the citizen to use <strong>idCAT Certificat</strong> (the AOC’s software certificate product), an FNMT certificate, or the DNIe.</p>
+
+<hr />
+
+<h3 id="62-step-by-step-validating-an-embedded-pdf-signature">6.2 Step-by-Step: Validating an Embedded PDF Signature</h3>
+
+<h4 id="method-a--valide-recommended-for-spanish-public-administration">Method A — VALIDe (Recommended for Spanish Public Administration)</h4>
+
+<p>VALIDe is the reference validation tool for any Spanish public administration. Its use is the normative method for verifying whether a received document carries a qualified signature under Spanish and eIDAS law.</p>
+
+<ol>
+  <li>Open a browser and navigate to <a href="https://valide.redsara.es/">https://valide.redsara.es/</a></li>
+  <li>Select <strong>“Validar Firma”</strong> from the main menu.</li>
+  <li>Click <strong>“Seleccionar fichero”</strong> and upload the signed PDF (maximum file size applies; for automated batch validation, use the @firma API).</li>
+  <li>Click <strong>“Validar”</strong>.</li>
+  <li>The validation report returned includes:
+    <ul>
+      <li><strong>Estado de la firma</strong>: <em>Válida / Inválida / Con advertencias</em> — the primary validity result</li>
+      <li><strong>Información del firmante</strong>: The signer’s name and NIF/NIE as encoded in the certificate subject field</li>
+      <li><strong>Información del certificado</strong>: Issuer, serial number, and validity period</li>
+      <li><strong>Nivel de firma</strong>: <em>Básico / Avanzado / Cualificado</em> — whether the certificate is a qualified certificate issued by a recognised QTSP under eIDAS</li>
+      <li><strong>Política de firma</strong>: Whether the signature conforms to a declared signature policy (e.g., the AGE policy OID <code class="language-plaintext highlighter-rouge">2.16.724.1.3.1.1.2.1.9</code>)</li>
+      <li><strong>Estado de revocación</strong>: Whether the certificate was valid and unrevoked at the time of signing (OCSP response or CRL check result)</li>
+      <li><strong>Sello de tiempo</strong>: Whether a trusted timestamp is embedded, and its validity</li>
+    </ul>
+  </li>
+</ol>
+
+<p>The result <strong>“Nivel de firma: Cualificado”</strong> is the definitive machine-readable confirmation that the signature carries qualified electronic signature status under eIDAS, with the legal force of a handwritten signature across all EU member states (eIDAS Article 25(2)).</p>
+
+<h4 id="method-b--adobe-acrobat-reader-with-european-trusted-lists">Method B — Adobe Acrobat Reader (with European Trusted Lists)</h4>
+
+<p>Adobe Acrobat Reader can validate FNMT and DNIe signatures natively, but only if it is configured to load European trusted root certificates. Without this configuration, FNMT and DGP root certificates will not be in Acrobat’s trust store and the signature will appear as unverified even if cryptographically correct.</p>
+
+<p><strong>Enabling European Trusted Lists in Acrobat:</strong></p>
+<ol>
+  <li>Open <strong>Edit</strong> (Windows) or <strong>Acrobat</strong> (Mac) → <strong>Preferences</strong> → <strong>Trust Manager</strong></li>
+  <li>Under <em>Automatic Adobe Approved Trust List (AATL) updates</em>, ensure <strong>“Load trusted root certificates from an Adobe server”</strong> is enabled.</li>
+  <li>Also enable <strong>“Load European Union Trusted Lists (EUTL)”</strong> (Acrobat XI and later support this).</li>
+  <li>Click <strong>“Update Now”</strong> and allow the download to complete.</li>
+</ol>
+
+<p><strong>Validating a signature:</strong></p>
+<ol>
+  <li>Open the signed PDF. A notification bar typically appears: <em>“Signed and all signatures are valid”</em> or <em>“At least one signature has problems.”</em></li>
+  <li>Open the <strong>Signatures panel</strong> (the pen-nib icon in the left sidebar) to see all embedded signatures.</li>
+  <li>Click on a specific signature entry to expand its details.</li>
+  <li>Right-click the visible signature field on the page → <strong>“Validate Signature”</strong> → <strong>“Signature Properties”</strong>.</li>
+  <li>The Signature Properties dialog shows:
+    <ul>
+      <li><strong>Validity Status</strong> with the reason for the determination</li>
+      <li><strong>Signer’s identity</strong> as it appears in the certificate subject</li>
+      <li><strong>Signing Time</strong> — with or without a trusted timestamp; the latter is essential for long-term validity</li>
+    </ul>
+  </li>
+  <li>Click <strong>“Show Certificate”</strong> to inspect the underlying X.509 certificate.</li>
+</ol>
+
+<p><strong>Reading the certificate details:</strong></p>
+
+<p>The Certificate Viewer has three relevant tabs:</p>
+
+<ul>
+  <li><strong>Summary</strong>: Common Name (the signer), Organisation, Issuer chain, Validity dates</li>
+  <li><strong>Details</strong>: All X.509 extensions — this is where to find the legally significant fields</li>
+  <li><strong>Trust</strong>: The full chain from the signing certificate to the root CA, and whether each level is trusted</li>
+</ul>
+
+<p>In the Details tab, the extensions of greatest legal significance are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Extension</th>
+      <th>OID</th>
+      <th>What to look for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Certificate Policies</td>
+      <td><code class="language-plaintext highlighter-rouge">2.5.29.32</code></td>
+      <td>The policy OID identifies the QTSP’s certificate type (e.g., FNMT Ciudadano, DNIe QES)</td>
+    </tr>
+    <tr>
+      <td>QcStatements</td>
+      <td><code class="language-plaintext highlighter-rouge">1.3.6.1.5.5.7.1.3</code></td>
+      <td>The set of qualified-certificate statements under eIDAS (see below)</td>
+    </tr>
+    <tr>
+      <td>Key Usage</td>
+      <td><code class="language-plaintext highlighter-rouge">2.5.29.15</code></td>
+      <td><code class="language-plaintext highlighter-rouge">nonRepudiation</code> bit set → signature certificate; <code class="language-plaintext highlighter-rouge">digitalSignature</code> only → authentication certificate</td>
+    </tr>
+    <tr>
+      <td>Subject</td>
+      <td>n/a</td>
+      <td>Individual name + SERIALNUMBER (NIF) → personal signature; Organisation name + CIF → eSeal</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Decoding QcStatements:</strong> Within the QcStatements extension, look for the following sub-statement OIDs. Their presence or absence determines the legal category of the certificate:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sub-statement OID</th>
+      <th>Name</th>
+      <th>Meaning if present</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0.4.0.1862.1.1</code></td>
+      <td><code class="language-plaintext highlighter-rouge">id-etsi-qcs-QcCompliance</code></td>
+      <td>Certificate is qualified under eIDAS — issued by a supervised QTSP</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0.4.0.1862.1.4</code></td>
+      <td><code class="language-plaintext highlighter-rouge">id-etsi-qcs-QcSSCD</code></td>
+      <td>The private key is held on a Qualified Signature Creation Device (QSCD) — required for full QES status</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0.4.0.1862.1.6.1</code></td>
+      <td><code class="language-plaintext highlighter-rouge">id-etsi-qcs-QcType-eSign</code></td>
+      <td>Certificate type: electronic signature (natural person)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0.4.0.1862.1.6.2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">id-etsi-qcs-QcType-eSeal</code></td>
+      <td>Certificate type: electronic seal (legal person / organisation)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0.4.0.1862.1.6.3</code></td>
+      <td><code class="language-plaintext highlighter-rouge">id-etsi-qcs-QcType-Web</code></td>
+      <td>Certificate type: website authentication — not a signature certificate</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A certificate carrying both <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.1</code> and <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.4</code> and <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.6.1</code> is a Qualified Electronic Signature certificate for a natural person — the maximum assurance level. A certificate with only <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.1</code> but without <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.4</code> is qualified but not QSCD-backed (the private key was software-generated), which corresponds to the FNMT Certificado de Ciudadano (software certificate, no hardware token required).</p>
+
+<h4 id="method-c--ec-digital-signature-service-programmatic-validation">Method C — EC Digital Signature Service (Programmatic Validation)</h4>
+
+<p>The <strong>Digital Signature Service (DSS)</strong> is the European Commission’s open-source reference implementation for creating and validating electronic signatures according to the ETSI EN 319 series.<sup id="fnref:32" role="doc-noteref"><a href="#fn:32" class="footnote" rel="footnote">32</a></sup> It supports CAdES, XAdES, PAdES, and JAdES formats and applies the ETSI EN 319 102-1 validation algorithm — the EU standard for electronic signature validation. It is the validation engine used internally by the EC’s own trust services infrastructure.</p>
+
+<p>For a receiving authority needing to validate documents programmatically (e.g., a document management system checking every incoming signed PDF automatically), DSS can be deployed as a REST/SOAP service:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /services/rest/validation/validateSignature
+Content-Type: application/json
+
+{
+  "signedDocument": {
+    "bytes": "&lt;base64-encoded PDF content&gt;",
+    "name": "document.pdf"
+  },
+  "policy": null,
+  "tokenExtractionStrategy": "EXTRACT_CERTIFICATES_ONLY"
+}
+</code></pre></div></div>
+
+<p>The response contains a <code class="language-plaintext highlighter-rouge">SimpleReport</code> (per-signature indication: TOTAL_PASSED / TOTAL_FAILED / INDETERMINATE) and a <code class="language-plaintext highlighter-rouge">DetailedReport</code> with the complete ETSI EN 319 102-1 sub-step breakdown. The source code, release binaries, and deployment documentation are maintained at the EC’s open-source platform: <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS">https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS</a></p>
+
+<hr />
+
+<h3 id="63-establishing-concordance-between-signature-and-document-jurisdiction">6.3 Establishing Concordance Between Signature and Document Jurisdiction</h3>
+
+<p>Technical validity confirms that the signature is cryptographically sound and the certificate was issued by a recognised authority. Jurisdictional concordance is the further question of whether the right kind of signature was applied to this document — given the document’s legal nature, the required assurance level, and the geographic scope in which it will be used.</p>
+
+<p>Three factors must be checked in combination:</p>
+
+<ol>
+  <li><strong>Signature type</strong>: Personal electronic signature (natural person) vs. organisational eSeal (legal person)</li>
+  <li><strong>Qualification level</strong>: Advanced electronic signature vs. qualified electronic signature (QES)</li>
+  <li><strong>Jurisdictional recognition</strong>: Is the issuing QTSP recognised in the jurisdiction where the document is being used?</li>
+</ol>
+
+<h4 id="factor-1--personal-signature-vs-organisational-eseal">Factor 1 — Personal Signature vs. Organisational eSeal</h4>
+
+<p>In the Barcelona empadronament workflow, two distinct signing acts occur:</p>
+
+<ul>
+  <li><strong>The Ajuntament’s issuance act</strong>: The certificat d’empadronament issued by the Ajuntament de Barcelona is signed by the municipality as a legal person, using an <strong>organisational eSeal</strong> — a qualified certificate in which the Subject field identifies the Ajuntament de Barcelona (an organisation), not an individual. This is a <code class="language-plaintext highlighter-rouge">QcType = eSeal</code> certificate (OID <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.6.2</code>). A receiving authority should see the eSeal, not a personal signature, on this document.</li>
+  <li><strong>A citizen’s submission act</strong>: If a citizen is required to sign (rather than merely authenticate) a form they submit to the Ajuntament, they use their personal qualified certificate (DNIe signature cert, FNMT cert, or Cl@ve Firma). This is a <code class="language-plaintext highlighter-rouge">QcType = eSign</code> certificate (OID <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.6.1</code>).</li>
+</ul>
+
+<p>In Acrobat’s certificate viewer, check the Subject field:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CN=Ajuntament de Barcelona, O=Ajuntament de Barcelona, C=ES
+  → organisational eSeal ✓ — correct for an authority-issued document
+
+CN=Joan Garcia Garcia, SERIALNUMBER=12345678Z, C=ES
+  → personal electronic signature ✓ — correct for a citizen-signed submission
+</code></pre></div></div>
+
+<p>A document that should bear an organisational eSeal but instead carries a personal certificate — for example, a certificate signed by a municipal employee’s personal DNIe rather than the Ajuntament’s institutional certificate — may indicate a procedural gap. The signature may be technically valid but jurisdictionally incorrect: it asserts an individual committed to the document, not the institution.</p>
+
+<h4 id="factor-2--required-qualification-level-under-spanish-law">Factor 2 — Required Qualification Level Under Spanish Law</h4>
+
+<p><strong>Ley 39/2015, Article 10</strong> establishes the hierarchy of acceptable electronic identification and signature forms for Spanish administrative procedures.<sup id="fnref:31:1" role="doc-noteref"><a href="#fn:31" class="footnote" rel="footnote">31</a></sup> The minimum required level increases with the legal weight of the act:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Procedure category</th>
+      <th>Minimum acceptable</th>
+      <th>Which systems qualify</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Accessing administrative services (authentication only)</td>
+      <td>Any recognised eID</td>
+      <td>All four systems (Cl@ve PIN, DNIe, FNMT, idCAT Mòbil)</td>
+    </tr>
+    <tr>
+      <td>Submitting documents and forms electronically</td>
+      <td>Advanced electronic signature</td>
+      <td>DNIe auth cert (advanced), FNMT cert, idCAT Certificat</td>
+    </tr>
+    <tr>
+      <td>Acts with the legal effect of a handwritten signature</td>
+      <td>Qualified electronic signature (QES)</td>
+      <td>DNIe <em>signature</em> cert (QSCD), FNMT qualified cert, Cl@ve Firma</td>
+    </tr>
+    <tr>
+      <td>Documents replacing a notarial act or with equivalent force</td>
+      <td>QES + declared signature policy</td>
+      <td>DNIe or FNMT cert + conformance to AGE policy or sector-specific policy</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To determine whether a received PDF’s signature meets the required level:</p>
+
+<ol>
+  <li>Run validation in VALIDe and read the “Nivel de firma” field: <em>Cualificado</em> confirms QES status.</li>
+  <li>In the certificate, confirm OID <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.1</code> (<code class="language-plaintext highlighter-rouge">id-etsi-qcs-QcCompliance</code>) is present — without it, the certificate is not qualified.</li>
+  <li>For documents requiring QSCD backing, confirm OID <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.4</code> (<code class="language-plaintext highlighter-rouge">id-etsi-qcs-QcSSCD</code>) is also present.</li>
+  <li>For documents requiring conformance to a declared signature policy, check the <code class="language-plaintext highlighter-rouge">SignaturePolicyId</code> field in the signature. For Spanish AGE-compliant signatures, this should reference the published policy OID <code class="language-plaintext highlighter-rouge">2.16.724.1.3.1.1.2.1.9</code> and include a hash of the policy document, allowing the verifier to retrieve and confirm the policy at the published URL.</li>
+</ol>
+
+<h4 id="factor-3--jurisdictional-scope-and-cross-border-recognition">Factor 3 — Jurisdictional Scope and Cross-Border Recognition</h4>
+
+<p>The hardest check to automate is whether the QTSP that issued the signing certificate is recognised <strong>in the jurisdiction where the document will be used</strong>. Automatic cross-border recognition within the EU is governed by eIDAS: a qualified electronic signature based on a certificate from any QTSP on the EU Trust Service Status List (EUTL) has the same legal effect in all EU member states as a handwritten signature (eIDAS Article 25(2)).<sup id="fnref:33" role="doc-noteref"><a href="#fn:33" class="footnote" rel="footnote">33</a></sup> No bilateral agreement is needed within the EU for QES.</p>
+
+<p>For the four identity systems in this document, the cross-border validity picture is as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Identity system</th>
+      <th>Within Spain</th>
+      <th>EU cross-border</th>
+      <th>Outside EU</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>FNMT-RCM certificate (qualified)</strong></td>
+      <td>✓ (QTSP on Spain Trusted List + EUTL)</td>
+      <td>✓ (eIDAS Art. 25 — QES legally equivalent to handwritten signature in all EU MS)</td>
+      <td>Case by case</td>
+    </tr>
+    <tr>
+      <td><strong>DNIe qualified signature certificate</strong></td>
+      <td>✓ (DGP on Spain Trusted List + EUTL)</td>
+      <td>✓ (eIDAS Art. 25 + formally notified eID scheme — strongest cross-border basis)</td>
+      <td>Case by case</td>
+    </tr>
+    <tr>
+      <td><strong>Cl@ve Firma (HSM-based QES)</strong></td>
+      <td>✓ (AEAD-accredited chain on Trusted List)</td>
+      <td>✓ (same QES chain; EUTL-recognised QTSP)</td>
+      <td>Case by case</td>
+    </tr>
+    <tr>
+      <td><strong>idCAT Mòbil (authentication act)</strong></td>
+      <td>✓ within Catalonia and Spain</td>
+      <td>✗ (not a notified eID scheme; no EUTL entry)</td>
+      <td>✗</td>
+    </tr>
+    <tr>
+      <td><strong>Ajuntament de Barcelona eSeal</strong></td>
+      <td>✓ (FNMT or AOC-issued organisational cert)</td>
+      <td>Conditional (FNMT-issued eSeal ✓; AOC-issued seal depends on EUTL status of AOC as QTSP)</td>
+      <td>✗</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>How to verify EUTL status manually:</strong></p>
+
+<ol>
+  <li>Open the signing certificate in Acrobat (Show Certificate → Details) and note the Root CA — the Issuer at the top of the chain (e.g., “AC Componentes Informaticos — FNMT-RCM”).</li>
+  <li>Navigate to the EU Trust Service Status List browser, maintained by the European Commission’s Digital Building Blocks programme: <a href="https://ec.europa.eu/digital-building-blocks/sites/display/ESIGKEYPAGE">https://ec.europa.eu/digital-building-blocks/sites/display/ESIGKEYPAGE</a></li>
+  <li>Search by country (Spain — ES) and QTSP name.</li>
+  <li>Confirm the trust service type listed is <strong>“QCert for ESig”</strong> (for personal signature certificates) or <strong>“QCert for ESeal”</strong> (for organisational seal certificates).</li>
+  <li>Confirm the status is <strong>“granted”</strong> — a status of “withdrawn” means the QTSP is no longer supervised and new certificates from it should not be trusted, though previously issued certificates remain valid for signatures made during the grant period.</li>
+</ol>
+
+<hr />
+
+<h3 id="64-summary-the-concordance-checklist">6.4 Summary: The Concordance Checklist</h3>
+
+<p>For a receiving authority that needs to determine whether a signed PDF was correctly signed for its legal purpose, the following checklist consolidates all three factors:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Check</th>
+      <th>Where to look</th>
+      <th>Tool</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Is the signature cryptographically intact?</strong></td>
+      <td>Signature block in the PDF</td>
+      <td>VALIDe / Acrobat / DSS</td>
+    </tr>
+    <tr>
+      <td><strong>Was the certificate valid at the time of signing?</strong></td>
+      <td>Certificate validity period + OCSP/CRL at time of signing</td>
+      <td>VALIDe (“Estado de revocación”)</td>
+    </tr>
+    <tr>
+      <td><strong>Is this a qualified electronic signature?</strong></td>
+      <td>QcStatements OID <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.1</code> in the certificate</td>
+      <td>VALIDe (“Nivel: Cualificado”) / Acrobat cert viewer</td>
+    </tr>
+    <tr>
+      <td><strong>Was the key on a QSCD?</strong></td>
+      <td>QcStatements OID <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.4</code></td>
+      <td>Acrobat cert viewer → Details tab</td>
+    </tr>
+    <tr>
+      <td><strong>Is this a personal signature or organisational eSeal?</strong></td>
+      <td>QcStatements OID <code class="language-plaintext highlighter-rouge">0.4.0.1862.1.6.X</code> + certificate Subject</td>
+      <td>Acrobat cert viewer — confirms individual vs. institution</td>
+    </tr>
+    <tr>
+      <td><strong>Does the document’s procedure require QES?</strong></td>
+      <td>Ley 39/2015 Art. 10 + the issuing body’s procedural rules</td>
+      <td>Legal framework — not a technical check</td>
+    </tr>
+    <tr>
+      <td><strong>Is the QTSP recognised in the destination jurisdiction?</strong></td>
+      <td>EUTL (EU) or Spain Trusted List (national)</td>
+      <td>EC Trust Service Status List browser</td>
+    </tr>
+    <tr>
+      <td><strong>Does the signature conform to a declared policy?</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">SignaturePolicyId</code> OID and hash in the signature</td>
+      <td>VALIDe (“Política de firma”)</td>
+    </tr>
+    <tr>
+      <td><strong>For authority-issued documents: is the CSV verifiable?</strong></td>
+      <td>CSV code printed on the document</td>
+      <td>Issuing body’s electronic office verification portal</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<hr />
+
+<p><em>Additional sources consulted:</em></p>
+
+<ul>
+  <li>Ajuntament de Barcelona. “Registration at the Municipal Register of Residents.” Barcelona International Welcome. <a href="https://www.barcelona.cat/internationalwelcome/en/registration-municipal-register-residents-city-barcelona">https://www.barcelona.cat/internationalwelcome/en/registration-municipal-register-residents-city-barcelona</a>.</li>
+  <li>Generalitat de Catalunya. “idCAT Mòbil — Com donar-te d’alta.” <a href="https://web.gencat.cat/en/atenem/suport-tramitacio/durant-la-tramitacio/signar-i-identificar-digitalment/idcat-mobil">https://web.gencat.cat/en/atenem/suport-tramitacio/durant-la-tramitacio/signar-i-identificar-digitalment/idcat-mobil</a>.</li>
+  <li>European Parliament and of the Council. <em>Regulation (EU) 910/2014 on Electronic Identification and Trust Services for Electronic Transactions in the Internal Market (eIDAS).</em> Official Journal of the European Union L 257, 28 August 2014. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910">https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910</a>.</li>
+  <li>European Parliament and of the Council. <em>Regulation (EU) 2024/1183 amending Regulation (EU) No 910/2014 as regards establishing the European Digital Identity Framework (eIDAS 2.0).</em> Official Journal of the European Union L 1183, 30 April 2024. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202401183">https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202401183</a>.</li>
+  <li>FNMT-RCM. “CERES — Certificación Española.” <a href="https://www.fnmt.es/en/ceres">https://www.fnmt.es/en/ceres</a>.</li>
+  <li>Spain. <em>Real Decreto 311/2022, de 3 de mayo, por el que se regula el Esquema Nacional de Seguridad.</em> Boletín Oficial del Estado, núm. 106, 4 de mayo de 2022. <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2022-7191">https://www.boe.es/buscar/doc.php?id=BOE-A-2022-7191</a>.</li>
+  <li>Interoperable Europe Portal. “Cl@ve — Unifying and Simplifying Identification for Spanish Online Public Services.” <a href="https://interoperable-europe.ec.europa.eu/collection/egovernment/document/clve-unifying-and-simplifying-identification-spanish-online-public-services-clve">https://interoperable-europe.ec.europa.eu/collection/egovernment/document/clve-unifying-and-simplifying-identification-spanish-online-public-services-clve</a>.</li>
+  <li>AOC Consorci. “idCAT Mòbil — Video Identification.” AOC Blog, 2022. <a href="https://www.aoc.cat/en/blog/2022/idcatmobil-videoidentificacio/">https://www.aoc.cat/en/blog/2022/idcatmobil-videoidentificacio/</a>.</li>
+  <li>Instituto Nacional de Estadística. “Padrón Municipal — Legislación.” <a href="https://idapadron.ine.es/repositorio/legislacion/a2301alt.htm">https://idapadron.ine.es/repositorio/legislacion/a2301alt.htm</a>.</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Spain. <em>Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local.</em> Boletín Oficial del Estado, núm. 80, 3 de abril de 1985. Articles 15–17. <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-1985-5392">https://www.boe.es/buscar/doc.php?id=BOE-A-1985-5392</a>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Spain. <em>Ley 4/1996, de 10 de enero, por la que se modifica la Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local, en relación con el Padrón Municipal.</em> Boletín Oficial del Estado, núm. 11, 12 de enero de 1996. <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-1996-753">https://www.boe.es/buscar/doc.php?id=BOE-A-1996-753</a>. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Spain. <em>Real Decreto 141/2024, de 6 de febrero, por el que se modifica el Real Decreto 1690/1986, de 11 de julio.</em> Boletín Oficial del Estado, núm. 33, 7 de febrero de 2024. <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2024-2248">https://www.boe.es/buscar/doc.php?id=BOE-A-2024-2248</a>. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>Ajuntament de Barcelona. “Alta al Padró Municipal d’Habitants — Seu Electrònica.” Accessed April 2026. <a href="https://seuelectronica.ajuntament.barcelona.cat/oficinavirtual/es/tramit/20200001402/">https://seuelectronica.ajuntament.barcelona.cat/oficinavirtual/es/tramit/20200001402/</a>. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>Spain. <em>Orden PRE/1838/2014, de 8 de octubre, por la que se publica el Acuerdo del Consejo de Ministros, de 19 de septiembre de 2014, por el que se aprueba Cl@ve.</em> Boletín Oficial del Estado, núm. 246, 10 de octubre de 2014. <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2014-10295">https://www.boe.es/buscar/doc.php?id=BOE-A-2014-10295</a>. See also: Agencia Estatal de Administración Digital. “Cl@ve: Plataforma de Identificación y Autenticación.” <a href="https://clave.gob.es">https://clave.gob.es</a>. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:6" role="doc-endnote">
+      <p>Dirección General de la Policía. “DNI Electrónico — Portal Oficial.” <a href="https://www.dnielectronico.es">https://www.dnielectronico.es</a>. See also: Policía Nacional. <em>Guía de Referencia DNIe con NFC.</em> PDF. <a href="https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf">https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf</a>. <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:7" role="doc-endnote">
+      <p>European Commission. “Overview of Pre-Notified and Notified eID Schemes Under eIDAS.” Digital Building Blocks, European Commission. Accessed April 2026. <a href="https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY/Overview+of+pre-notified+and+notified+eID+schemes+under+eIDAS">https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY/Overview+of+pre-notified+and+notified+eID+schemes+under+eIDAS</a>. Reference: Official Journal of the EU 2018/C 401/08. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:8" role="doc-endnote">
+      <p>Spain. <em>Real Decreto 1553/2005, de 23 de diciembre, por el que se regula la expedición del documento nacional de identidad y sus certificados de firma electrónica.</em> Boletín Oficial del Estado, núm. 307, 24 de diciembre de 2005. <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2005-21163">https://www.boe.es/buscar/doc.php?id=BOE-A-2005-21163</a>. <a href="#fnref:8" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:9" role="doc-endnote">
+      <p>AOC Consorci. “3 Milions de Persones amb idCAT Mòbil.” AOC Blog, 2025. <a href="https://www.aoc.cat/en/blog/2025/3milions-persones-idcatmobil/">https://www.aoc.cat/en/blog/2025/3milions-persones-idcatmobil/</a>. See also: Consorci AOC. “idCAT Mòbil.” <a href="https://idcat.aoc.cat/en/idcat-mobile/">https://idcat.aoc.cat/en/idcat-mobile/</a>. <a href="#fnref:9" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:10" role="doc-endnote">
+      <p>Catalonia. <em>Llei 29/2010, del 3 d’agost, de l’ús dels mitjans electrònics al sector públic de Catalunya.</em> Diari Oficial de la Generalitat de Catalunya, núm. 5686, 5 d’agost de 2010. <a href="https://dogc.gencat.cat/ca/pdogc_canals_interns/pdogc_resultats_fitxa/?action=fitxa&amp;documentId=555557">https://dogc.gencat.cat/ca/pdogc_canals_interns/pdogc_resultats_fitxa/?action=fitxa&amp;documentId=555557</a>. See also: Consorci AOC. <em>Protocol d’Identificació i Signatura Electrònica de Catalunya.</em> <a href="https://www.aoc.cat/en/serveis-aoc/valid/">https://www.aoc.cat/en/serveis-aoc/valid/</a>. <a href="#fnref:10" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:11" role="doc-endnote">
+      <p>Spain. <em>Ley 6/2020, de 11 de noviembre, reguladora de determinados aspectos de los servicios electrónicos de confianza.</em> Boletín Oficial del Estado, núm. 298, 12 de noviembre de 2020. <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2020-13069">https://www.boe.es/buscar/doc.php?id=BOE-A-2020-13069</a>. See also: FNMT-RCM CERES. “Certification Practice Statement.” PDF. <a href="https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf">https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf</a>. <a href="#fnref:11" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:12" role="doc-endnote">
+      <p>International Telecommunication Union. <em>ITU-T Recommendation X.1254: Entity Authentication Assurance Framework.</em> Geneva: ITU, 2012. <a href="https://www.itu.int/rec/T-REC-X.1254/en">https://www.itu.int/rec/T-REC-X.1254/en</a>. <a href="#fnref:12" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:13" role="doc-endnote">
+      <p>European Commission. <em>Commission Implementing Regulation (EU) 2015/1502 of 8 September 2015 on setting out minimum technical specifications and procedures for assurance levels for electronic identification means pursuant to Article 8(3) of Regulation (EU) No 910/2014 of the European Parliament and of the Council on electronic identification and trust services for electronic transactions in the internal market.</em> Official Journal of the European Union L 235/7, 9 September 2015. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015R1502">https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015R1502</a>. <a href="#fnref:13" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:14" role="doc-endnote">
+      <p>European Commission. “eIDAS eID Mutual Recognition Goes Live.” Press release, September 2019. <a href="https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY">https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY</a>. See also: Secretaría General de Administración Digital. “España despliega la primera versión de su nodo eIDAS.” December 2016. <a href="https://administracionelectronica.gob.es/pae_Home/pae_Actualidad/pae_Noticias/Anio2016/Diciembre/Noticia-2016-12-21.html">https://administracionelectronica.gob.es/pae_Home/pae_Actualidad/pae_Noticias/Anio2016/Diciembre/Noticia-2016-12-21.html</a>. <a href="#fnref:14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:15" role="doc-endnote">
+      <p>Organisation for Economic Co-operation and Development. <em>G7 Mapping Exercise of Digital Identity Approaches.</em> Paris: OECD Publishing, 2023. <a href="https://www.oecd.org/en/publications/g7-mapping-exercise-of-digital-identity-approaches_56fd4e94-en.html">https://www.oecd.org/en/publications/g7-mapping-exercise-of-digital-identity-approaches_56fd4e94-en.html</a>. See also: National Institute of Standards and Technology. <em>NIST Special Publication 800-63-3: Digital Identity Guidelines.</em> Gaithersburg, MD: NIST, 2017. <a href="https://pages.nist.gov/800-63-3/">https://pages.nist.gov/800-63-3/</a>. <a href="#fnref:15" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:16" role="doc-endnote">
+      <p>GovStack Initiative. <em>Identity Building Block Specification, Section 2: Description.</em> GovStack, 2024. <a href="https://specs.govstack.global/identity/2-description">https://specs.govstack.global/identity/2-description</a>. <a href="#fnref:16" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:17" role="doc-endnote">
+      <p>Consorci AOC. “VALId 2.0 — Developer Documentation.” GitHub Pages, 2024. <a href="https://consorciaoc.github.io/VALId2/">https://consorciaoc.github.io/VALId2/</a>. See also: Consorci AOC. “VALId Service.” <a href="https://www.aoc.cat/en/serveis-aoc/valid/">https://www.aoc.cat/en/serveis-aoc/valid/</a>. <a href="#fnref:17" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:18" role="doc-endnote">
+      <p>Agencia Estatal de Administración Digital. “Cl@ve — Additional Information for Integration (CTT).” Portal de Administración Electrónica, 2024. <a href="https://administracionelectronica.gob.es/ctt/clave/infoadicional">https://administracionelectronica.gob.es/ctt/clave/infoadicional</a>. <a href="#fnref:18" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:19" role="doc-endnote">
+      <p>Junta de Andalucía. <em>Guía de Integración de Aplicaciones en Proxy-Clave, v0.1.00.</em> Sevilla: Consejería de la Presidencia, 2023. PDF. <a href="https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf">https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf</a>. <a href="#fnref:19" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:20" role="doc-endnote">
+      <p>Dirección General de la Policía. “DNIe — Descargas y Documentación.” <a href="https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100">https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100</a>. <a href="#fnref:20" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:21" role="doc-endnote">
+      <p>Dirección General de la Policía. <em>Guía de Referencia del DNIe con NFC.</em> Madrid: Ministerio del Interior, 2019. PDF. <a href="https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf">https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf</a>. <a href="#fnref:21" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:22" role="doc-endnote">
+      <p>FNMT-RCM CERES. <em>Declaración de Prácticas de Certificación / Certification Practice Statement.</em> Madrid: FNMT-RCM, 2023. English PDF. <a href="https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf">https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf</a>. <a href="#fnref:22" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:23" role="doc-endnote">
+      <p>GovStack Initiative. <em>Identity Building Block Specification, Section 2: Description.</em> GovStack, 2024. <a href="https://specs.govstack.global/identity/2-description">https://specs.govstack.global/identity/2-description</a>. <a href="#fnref:23" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:24" role="doc-endnote">
+      <p>GovStack Initiative. <em>eSignature Building Block Specification, Section 2: Description.</em> GovStack, 2024. <a href="https://specs.govstack.global/esignature/2-description">https://specs.govstack.global/esignature/2-description</a>. <a href="#fnref:24" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:25" role="doc-endnote">
+      <p>GovStack Initiative. <em>Consent Building Block Specification, Section 2: Description.</em> GovStack, 2024. <a href="https://specs.govstack.global/consent/2-description">https://specs.govstack.global/consent/2-description</a>. <a href="#fnref:25" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:26" role="doc-endnote">
+      <p>GovStack Initiative. <em>Wallet Building Block Specification, Section 2: Description.</em> GovStack, 2024. <a href="https://specs.govstack.global/wallet/2-description">https://specs.govstack.global/wallet/2-description</a>. <a href="#fnref:26" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:27" role="doc-endnote">
+      <p>ETSI. <em>EN 319 142-1: Electronic Signatures and Infrastructures (ESI) — PAdES Digital Signatures — Part 1: Building blocks and PAdES baseline signatures.</em> Sophia Antipolis: ETSI, 2016. <a href="https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf">https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf</a>. See also ETSI EN 319 122 (CAdES) and EN 319 132 (XAdES) for non-PDF signature formats. <a href="#fnref:27" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:28" role="doc-endnote">
+      <p>Agencia Estatal de Administración Digital. “VALIDe — Plataforma de Validación de Firmas Electrónicas.” Portal de Administración Electrónica. <a href="https://valide.redsara.es/">https://valide.redsara.es/</a>. See also: AEAD. “VALIDe — Guía de Uso.” <a href="https://administracionelectronica.gob.es/ctt/valide">https://administracionelectronica.gob.es/ctt/valide</a>. <a href="#fnref:28" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:29" role="doc-endnote">
+      <p>Agencia Estatal de Administración Digital. “@firma — Plataforma de Validación y Firma Electrónica.” Portal de Administración Electrónica. <a href="https://administracionelectronica.gob.es/ctt/afirma">https://administracionelectronica.gob.es/ctt/afirma</a>. See also: Ministerio para la Transformación Digital y de la Función Pública. <em>Manual de Integración de @firma.</em> Madrid: MTTD, 2023. <a href="https://administracionelectronica.gob.es/ctt/afirma/infoadicional">https://administracionelectronica.gob.es/ctt/afirma/infoadicional</a>. <a href="#fnref:29" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:30" role="doc-endnote">
+      <p>European Commission. “Digital Signature Service (DSS) — Open Source Library.” Digital Building Blocks, European Commission. <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS">https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS</a>. The DSS implements the ETSI EN 319 102-1 validation algorithm: ETSI. <em>EN 319 102-1: Electronic Signatures and Infrastructures (ESI) — Procedures for Creation and Validation of AdES Digital Signatures — Part 1: Creation and Validation.</em> Sophia Antipolis: ETSI, 2019. <a href="https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf">https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf</a>. <a href="#fnref:30" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:31" role="doc-endnote">
+      <p>Spain. <em>Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas.</em> Boletín Oficial del Estado, núm. 236, 2 de octubre de 2015. Articles 10 (electronic signature requirements by procedure type) and 27 (legal equivalence of digital documents with verifiable CSV). <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565">https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565</a>. <a href="#fnref:31" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:31:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:32" role="doc-endnote">
+      <p>ETSI. <em>EN 319 102-1: Electronic Signatures and Infrastructures (ESI) — Procedures for Creation and Validation of AdES Digital Signatures.</em> Sophia Antipolis: ETSI, 2019. <a href="https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf">https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf</a>. <a href="#fnref:32" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:33" role="doc-endnote">
+      <p>European Parliament and of the Council. <em>Regulation (EU) 910/2014 (eIDAS), Article 25(2): A qualified electronic signature shall have the equivalent legal effect of a handwritten signature.</em> Official Journal of the European Union L 257, 28 August 2014. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910">https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910</a>. The EU Trust Service Status List (EUTL), listing all supervised QTSPs by member state, is maintained at: European Commission. “EU Trust Services Dashboard.” <a href="https://eidas.ec.europa.eu/efts/">https://eidas.ec.europa.eu/efts/</a>. <a href="#fnref:33" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+      </div>
+      <aside id="post-toc-container" class="post-toc hidden order-first lg:order-none lg:w-72 lg:shrink-0" aria-labelledby="post-toc-title">
+  <details class="post-toc-details" open>
+    <summary id="post-toc-title" class="post-toc-summary">Contenido del artículo</summary>
+    <nav class="post-toc-nav" aria-label="Tabla de contenidos"></nav>
+  </details>
+</aside>
+
+<script>
+  (function () {
+    var tocContainer = document.getElementById("post-toc-container");
+    var articleContent = document.querySelector("[data-post-content]");
+
+    if (!tocContainer || !articleContent) {
+      return;
+    }
+
+    var tocNav = tocContainer.querySelector(".post-toc-nav");
+    if (!tocNav) {
+      return;
+    }
+
+    var headings = Array.prototype.slice.call(
+      articleContent.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    ).filter(function (heading) {
+      if (!heading.textContent || heading.textContent.trim().length === 0) {
+        return false;
+      }
+
+      return !heading.closest("[data-toc-exclude]");
+    });
+
+    if (!headings.length) {
+      return;
+    }
+
+    var usedIds = Object.create(null);
+
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    function ensureUniqueId(baseId) {
+      var seed = baseId || "seccion";
+      var id = seed;
+      var counter = 2;
+
+      while (document.getElementById(id) || usedIds[id]) {
+        id = seed + "-" + counter;
+        counter += 1;
+      }
+
+      usedIds[id] = true;
+      return id;
+    }
+
+    var treeRoot = { level: 0, children: [] };
+    var stack = [treeRoot];
+
+    headings.forEach(function (heading) {
+      var text = heading.textContent.trim();
+      var level = parseInt(heading.tagName.replace("H", ""), 10);
+      var node;
+
+      if (!heading.id) {
+        heading.id = ensureUniqueId(slugify(text));
+      } else {
+        heading.id = ensureUniqueId(heading.id);
+      }
+
+      node = {
+        id: heading.id,
+        text: text,
+        level: isNaN(level) ? 2 : level,
+        children: [],
+      };
+
+      while (stack.length > 1 && node.level <= stack[stack.length - 1].level) {
+        stack.pop();
+      }
+
+      stack[stack.length - 1].children.push(node);
+      stack.push(node);
+    });
+
+    function buildList(nodes) {
+      var list = document.createElement("ol");
+
+      nodes.forEach(function (node) {
+        var item = document.createElement("li");
+        var link = document.createElement("a");
+
+        link.href = "#" + node.id;
+        link.textContent = node.text;
+        link.className = "post-toc-link post-toc-level-" + node.level;
+
+        item.appendChild(link);
+
+        if (node.children.length) {
+          item.appendChild(buildList(node.children));
+        }
+
+        list.appendChild(item);
+      });
+
+      return list;
+    }
+
+    tocNav.appendChild(buildList(treeRoot.children));
+
+    var tocDetails = tocContainer.querySelector(".post-toc-details");
+    if (tocDetails && window.matchMedia("(min-width: 1024px)").matches) {
+      tocDetails.open = true;
+    }
+
+    tocContainer.classList.remove("hidden");
+  })();
+</script>
+
+    </div>
+    
+    <!-- 
+    <nav class="post-meta post-meta-bottom max-w-prose mx-auto">
+      
+      
+      
+      <a class="post-tag" href="/tags/#digitalid">digitalid</a>
+      
+      
+      
+      
+      <a class="post-tag" href="/tags/#esignature">esignature</a>
+      
+      
+    </nav>
+     -->
+  </article>
+  <div class="max-w-prose mx-auto mb-14">
+
+    <div class="mt-12 pt-8 border-t border-gray-200 text-sm" aria-label="Navegación entre artículos">
+      <h2 class="mb-6 text-xs font-semibold uppercase tracking-wide text-gray-500 mx-0">Otros artículos</h2>
+      <div class="flex justify-between gap-6 items-start mt-2">
+        
+        <a class="prev post-prev flex flex-1 items-start justify-start text-gray-900 hover:underline" href="/datos%20abiertos/2024/05/16/para-publicar-datos-abiertos-deberiamos-usar-entidades.html">
+        <div class="flex flex-col">
+          <span class="text-xs uppercase tracking-wide text-gray-500 mb-4">Artículo anterior</span>
+          <span class="text-lg">Para publicar datos abiertos, deberíamos usar entidades, no palabras
+</span>
+        </div>
+      </a>
+      
+      
+      
+      <span class="next post-next flex flex-1 items-start justify-end opacity-50 cursor-default pointer-events-none">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Siguiente artículo</span>
+      </span>
+      
+    </div>
+  </div>
+  </div>
+  
+  
+</main>
+  
+
+<footer class="bg-white dark:bg-slate-800
+bg-gray-800 mt-auto">
+  <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">2026 basicavisual.</span>
+  </div>
+</footer>
+
+
+</body>
+</html>
