@@ -11,6 +11,8 @@ description: |
 
 {% include components/panel.html type="warning" title="This is a post awaiting validation. I am actively looking for feedback from people that understand about digital signatures or the spanish legal instruments that allow them. If you want to provide feedback, write me at ali @ basicavisual.io" %}
 
+# Barcelona's Resident Registry: A Case Where Governmental Procedures Can Be Completed via Multiple Digital Identities
+
 ## Context
 
 In GovStack we tend to assume the Identity Building Block (ID BB) is implemented only once per country. However, governments may find themselves with more than one digital identity system in operation — sometimes several, at different levels of jurisdiction and with different technical architectures. Rather than prescribing unification as a necessary condition for a healthy digital identity environment, this real-life use case documents how different digital identities can co-exist in a government ecosystem and be applied to the same government procedure.
@@ -310,6 +312,249 @@ The co-existence problem that Barcelona has solved through federation (VALId as 
 
 ---
 
+## 6. Verifying Electronically Signed Documents: Technical Validation and Jurisdictional Concordance
+
+Receiving a digitally signed PDF — whether it is a citizen-submitted form, an empadronament certificate issued by the Ajuntament, or a document signed using Cl@ve Firma — requires answering two distinct questions that are often conflated:
+
+1. **Technical validity**: Was the cryptographic signature correctly produced, and is the certificate still valid at the time of verification?
+2. **Jurisdictional concordance**: Was the correct type of signature used for this document — in this jurisdiction, for this legal purpose, by the right category of signer?
+
+Neither question answers the other. A technically valid signature may be legally insufficient for a document that required a higher assurance level. A qualified certificate from a recognised QTSP may still be the wrong instrument if used where an organisational eSeal — not a personal signature — was required. Both checks are necessary.
+
+---
+
+### 6.1 Means of Verification by Signature Type
+
+The four identity and signature systems present in the Barcelona case do not all produce the same kind of verifiable artefact. The appropriate verification mechanism differs by system.
+
+#### FNMT Certificate Signatures (PAdES)
+
+Documents signed with an FNMT personal certificate (Certificado de Ciudadano or Certificado en Tarjeta) are embedded as **PAdES (PDF Advanced Electronic Signatures)** — the format defined by ETSI EN 319 142 for PDF-based qualified signatures.[^27] Verification relies on:
+
+- **VALIDe** (primary tool): Spain's official online signature validation portal, operated by the AEAD at [https://valide.redsara.es/](https://valide.redsara.es/). Upload the PDF; the service verifies the certificate chain, checks revocation via OCSP against FNMT's infrastructure, and returns a structured validation report indicating signature level (*básico, avanzado, cualificado*) and policy conformance.[^28]
+- **@firma validation API**: For automated backend validation, public administrations call the `VerifySignature` operation of the @firma shared platform web service. The platform handles OCSP/CRL checking so that individual systems need not implement revocation checking themselves.[^29]
+- **Adobe Acrobat Reader (with EUTL)**: FNMT-RCM appears on the EU Trust Service Status List and is therefore recognised as a trusted root by Acrobat when configured to load European Trusted Lists (detailed in Section 6.3 below).
+- **EC Digital Signature Service (DSS)**: The European Commission's open-source library for signature creation and validation, implementing the ETSI EN 319 102-1 validation algorithm. Usable as a standalone web application or embedded REST API.[^30]
+
+#### DNIe Qualified Signature Certificate (PAdES or CAdES)
+
+The DNIe chip contains two X.509 certificates: an authentication certificate and a separate **qualified electronic signature certificate**. Only the latter creates signatures with the legal weight of a handwritten signature. Signatures produced using the DNIe signature certificate are verified through the same tools as FNMT signatures. The certificate chain leads to the **Dirección General de la Policía (DGP)** as the issuing CA, which is listed on Spain's Trusted List as a Qualified Trust Service Provider under the service type "QCert for ESig."
+
+One important distinction: the DNIe's authentication certificate (used to log in to online services) should never be confused with the signature certificate. A PDF signed using the authentication certificate is technically a valid advanced electronic signature but is **not** a qualified electronic signature — the QcStatements extension will be absent or will not include `id-etsi-qcs-QcSSCD` (OID `0.4.0.1862.1.4`), because the authentication private key is not held on a Qualified Signature Creation Device for signature purposes. Verification tools will show this as "Avanzado" rather than "Cualificado."
+
+#### Cl@ve Firma (PAdES, Remote QSCD)
+
+Cl@ve Firma produces PAdES signatures using certificates stored in the AEAD's Hardware Security Module infrastructure — a remote QSCD under eIDAS Annex II. The certificate chain leads to a subordinate CA operating under the AEAD's accreditation as a QTSP. These certificates carry the full set of QcStatements and are verifiable via VALIDe and @firma in the same manner as FNMT and DNIe signatures. The resulting "Nivel de firma: Cualificado" result from VALIDe is legally equivalent to the outcome for hardware-based certificates.
+
+#### CSV (Código Seguro de Verificación) — Administrative Documents
+
+The empadronament certificate and similar documents issued by the Ajuntament de Barcelona carry a **Código Seguro de Verificación (CSV)** — a unique alphanumeric code printed or embedded in the document. This mechanism is defined by **Ley 39/2015, Article 27**, which gives documents accompanied by a verifiable CSV the same legal status as certified paper originals, enabling any receiving authority to verify authenticity without needing software to validate a cryptographic signature.[^31]
+
+Verification procedure:
+1. The receiving authority notes the CSV code printed on the document (typically on the footer of each page).
+2. They navigate to the issuing body's electronic office verification portal.
+3. They enter the CSV code (and sometimes a document type or date).
+4. The portal confirms whether the document is genuine and displays the official electronic copy for comparison.
+
+For Barcelona:
+```
+Portal:   [https://seuelectronica.ajuntament.barcelona.cat](https://seuelectronica.ajuntament.barcelona.cat)
+Function: "Verificació de documents" → enter CSV code
+```
+
+The CSV mechanism is deliberately designed for receiving parties — a court, a notary, a foreign consulate, a university — that may have no ability to validate cryptographic signatures but can open a web browser. It shifts the verification burden from the receiving party to the issuing authority's infrastructure.
+
+#### Note on idCAT Mòbil
+
+idCAT Mòbil is an **authentication** system, not a document signature creation system. It does not produce standalone cryptographic signatures embedded in PDFs. Documents submitted to the Ajuntament via idCAT Mòbil authentication are recorded as authenticated submissions in the **Registre Electrònic**, where the timestamp and identity of the submitter are retained by the system — but the citizen does not apply a personal electronic signature to the document itself. The resulting record is an entry in the administrative register, verifiable as a system act rather than as an individual's cryptographic signature.
+
+Where a personal electronic signature on the submitted document is required (rather than mere authentication), the procedure requires the citizen to use **idCAT Certificat** (the AOC's software certificate product), an FNMT certificate, or the DNIe.
+
+---
+
+### 6.2 Step-by-Step: Validating an Embedded PDF Signature
+
+#### Method A — VALIDe (Recommended for Spanish Public Administration)
+
+VALIDe is the reference validation tool for any Spanish public administration. Its use is the normative method for verifying whether a received document carries a qualified signature under Spanish and eIDAS law.
+
+1. Open a browser and navigate to [https://valide.redsara.es/](https://valide.redsara.es/)
+2. Select **"Validar Firma"** from the main menu.
+3. Click **"Seleccionar fichero"** and upload the signed PDF (maximum file size applies; for automated batch validation, use the @firma API).
+4. Click **"Validar"**.
+5. The validation report returned includes:
+   - **Estado de la firma**: *Válida / Inválida / Con advertencias* — the primary validity result
+   - **Información del firmante**: The signer's name and NIF/NIE as encoded in the certificate subject field
+   - **Información del certificado**: Issuer, serial number, and validity period
+   - **Nivel de firma**: *Básico / Avanzado / Cualificado* — whether the certificate is a qualified certificate issued by a recognised QTSP under eIDAS
+   - **Política de firma**: Whether the signature conforms to a declared signature policy (e.g., the AGE policy OID `2.16.724.1.3.1.1.2.1.9`)
+   - **Estado de revocación**: Whether the certificate was valid and unrevoked at the time of signing (OCSP response or CRL check result)
+   - **Sello de tiempo**: Whether a trusted timestamp is embedded, and its validity
+
+The result **"Nivel de firma: Cualificado"** is the definitive machine-readable confirmation that the signature carries qualified electronic signature status under eIDAS, with the legal force of a handwritten signature across all EU member states (eIDAS Article 25(2)).
+
+#### Method B — Adobe Acrobat Reader (with European Trusted Lists)
+
+Adobe Acrobat Reader can validate FNMT and DNIe signatures natively, but only if it is configured to load European trusted root certificates. Without this configuration, FNMT and DGP root certificates will not be in Acrobat's trust store and the signature will appear as unverified even if cryptographically correct.
+
+**Enabling European Trusted Lists in Acrobat:**
+1. Open **Edit** (Windows) or **Acrobat** (Mac) → **Preferences** → **Trust Manager**
+2. Under *Automatic Adobe Approved Trust List (AATL) updates*, ensure **"Load trusted root certificates from an Adobe server"** is enabled.
+3. Also enable **"Load European Union Trusted Lists (EUTL)"** (Acrobat XI and later support this).
+4. Click **"Update Now"** and allow the download to complete.
+
+**Validating a signature:**
+1. Open the signed PDF. A notification bar typically appears: *"Signed and all signatures are valid"* or *"At least one signature has problems."*
+2. Open the **Signatures panel** (the pen-nib icon in the left sidebar) to see all embedded signatures.
+3. Click on a specific signature entry to expand its details.
+4. Right-click the visible signature field on the page → **"Validate Signature"** → **"Signature Properties"**.
+5. The Signature Properties dialog shows:
+   - **Validity Status** with the reason for the determination
+   - **Signer's identity** as it appears in the certificate subject
+   - **Signing Time** — with or without a trusted timestamp; the latter is essential for long-term validity
+6. Click **"Show Certificate"** to inspect the underlying X.509 certificate.
+
+**Reading the certificate details:**
+
+The Certificate Viewer has three relevant tabs:
+
+- **Summary**: Common Name (the signer), Organisation, Issuer chain, Validity dates
+- **Details**: All X.509 extensions — this is where to find the legally significant fields
+- **Trust**: The full chain from the signing certificate to the root CA, and whether each level is trusted
+
+In the Details tab, the extensions of greatest legal significance are:
+
+| Extension | OID | What to look for |
+|---|---|---|
+| Certificate Policies | `2.5.29.32` | The policy OID identifies the QTSP's certificate type (e.g., FNMT Ciudadano, DNIe QES) |
+| QcStatements | `1.3.6.1.5.5.7.1.3` | The set of qualified-certificate statements under eIDAS (see below) |
+| Key Usage | `2.5.29.15` | `nonRepudiation` bit set → signature certificate; `digitalSignature` only → authentication certificate |
+| Subject | n/a | Individual name + SERIALNUMBER (NIF) → personal signature; Organisation name + CIF → eSeal |
+
+**Decoding QcStatements:** Within the QcStatements extension, look for the following sub-statement OIDs. Their presence or absence determines the legal category of the certificate:
+
+| Sub-statement OID | Name | Meaning if present |
+|---|---|---|
+| `0.4.0.1862.1.1` | `id-etsi-qcs-QcCompliance` | Certificate is qualified under eIDAS — issued by a supervised QTSP |
+| `0.4.0.1862.1.4` | `id-etsi-qcs-QcSSCD` | The private key is held on a Qualified Signature Creation Device (QSCD) — required for full QES status |
+| `0.4.0.1862.1.6.1` | `id-etsi-qcs-QcType-eSign` | Certificate type: electronic signature (natural person) |
+| `0.4.0.1862.1.6.2` | `id-etsi-qcs-QcType-eSeal` | Certificate type: electronic seal (legal person / organisation) |
+| `0.4.0.1862.1.6.3` | `id-etsi-qcs-QcType-Web` | Certificate type: website authentication — not a signature certificate |
+
+A certificate carrying both `0.4.0.1862.1.1` and `0.4.0.1862.1.4` and `0.4.0.1862.1.6.1` is a Qualified Electronic Signature certificate for a natural person — the maximum assurance level. A certificate with only `0.4.0.1862.1.1` but without `0.4.0.1862.1.4` is qualified but not QSCD-backed (the private key was software-generated), which corresponds to the FNMT Certificado de Ciudadano (software certificate, no hardware token required).
+
+#### Method C — EC Digital Signature Service (Programmatic Validation)
+
+The **Digital Signature Service (DSS)** is the European Commission's open-source reference implementation for creating and validating electronic signatures according to the ETSI EN 319 series.[^32] It supports CAdES, XAdES, PAdES, and JAdES formats and applies the ETSI EN 319 102-1 validation algorithm — the EU standard for electronic signature validation. It is the validation engine used internally by the EC's own trust services infrastructure.
+
+For a receiving authority needing to validate documents programmatically (e.g., a document management system checking every incoming signed PDF automatically), DSS can be deployed as a REST/SOAP service:
+
+```
+POST /services/rest/validation/validateSignature
+Content-Type: application/json
+
+{
+  "signedDocument": {
+    "bytes": "<base64-encoded PDF content>",
+    "name": "document.pdf"
+  },
+  "policy": null,
+  "tokenExtractionStrategy": "EXTRACT_CERTIFICATES_ONLY"
+}
+```
+
+The response contains a `SimpleReport` (per-signature indication: TOTAL_PASSED / TOTAL_FAILED / INDETERMINATE) and a `DetailedReport` with the complete ETSI EN 319 102-1 sub-step breakdown. The source code, release binaries, and deployment documentation are maintained at the EC's open-source platform: [https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS)
+
+---
+
+### 6.3 Establishing Concordance Between Signature and Document Jurisdiction
+
+Technical validity confirms that the signature is cryptographically sound and the certificate was issued by a recognised authority. Jurisdictional concordance is the further question of whether the right kind of signature was applied to this document — given the document's legal nature, the required assurance level, and the geographic scope in which it will be used.
+
+Three factors must be checked in combination:
+
+1. **Signature type**: Personal electronic signature (natural person) vs. organisational eSeal (legal person)
+2. **Qualification level**: Advanced electronic signature vs. qualified electronic signature (QES)
+3. **Jurisdictional recognition**: Is the issuing QTSP recognised in the jurisdiction where the document is being used?
+
+#### Factor 1 — Personal Signature vs. Organisational eSeal
+
+In the Barcelona empadronament workflow, two distinct signing acts occur:
+
+- **The Ajuntament's issuance act**: The certificat d'empadronament issued by the Ajuntament de Barcelona is signed by the municipality as a legal person, using an **organisational eSeal** — a qualified certificate in which the Subject field identifies the Ajuntament de Barcelona (an organisation), not an individual. This is a `QcType = eSeal` certificate (OID `0.4.0.1862.1.6.2`). A receiving authority should see the eSeal, not a personal signature, on this document.
+- **A citizen's submission act**: If a citizen is required to sign (rather than merely authenticate) a form they submit to the Ajuntament, they use their personal qualified certificate (DNIe signature cert, FNMT cert, or Cl@ve Firma). This is a `QcType = eSign` certificate (OID `0.4.0.1862.1.6.1`).
+
+In Acrobat's certificate viewer, check the Subject field:
+```
+CN=Ajuntament de Barcelona, O=Ajuntament de Barcelona, C=ES
+  → organisational eSeal ✓ — correct for an authority-issued document
+
+CN=Joan Garcia Garcia, SERIALNUMBER=12345678Z, C=ES
+  → personal electronic signature ✓ — correct for a citizen-signed submission
+```
+
+A document that should bear an organisational eSeal but instead carries a personal certificate — for example, a certificate signed by a municipal employee's personal DNIe rather than the Ajuntament's institutional certificate — may indicate a procedural gap. The signature may be technically valid but jurisdictionally incorrect: it asserts an individual committed to the document, not the institution.
+
+#### Factor 2 — Required Qualification Level Under Spanish Law
+
+**Ley 39/2015, Article 10** establishes the hierarchy of acceptable electronic identification and signature forms for Spanish administrative procedures.[^31] The minimum required level increases with the legal weight of the act:
+
+| Procedure category | Minimum acceptable | Which systems qualify |
+|---|---|---|
+| Accessing administrative services (authentication only) | Any recognised eID | All four systems (Cl@ve PIN, DNIe, FNMT, idCAT Mòbil) |
+| Submitting documents and forms electronically | Advanced electronic signature | DNIe auth cert (advanced), FNMT cert, idCAT Certificat |
+| Acts with the legal effect of a handwritten signature | Qualified electronic signature (QES) | DNIe *signature* cert (QSCD), FNMT qualified cert, Cl@ve Firma |
+| Documents replacing a notarial act or with equivalent force | QES + declared signature policy | DNIe or FNMT cert + conformance to AGE policy or sector-specific policy |
+
+To determine whether a received PDF's signature meets the required level:
+
+1. Run validation in VALIDe and read the "Nivel de firma" field: *Cualificado* confirms QES status.
+2. In the certificate, confirm OID `0.4.0.1862.1.1` (`id-etsi-qcs-QcCompliance`) is present — without it, the certificate is not qualified.
+3. For documents requiring QSCD backing, confirm OID `0.4.0.1862.1.4` (`id-etsi-qcs-QcSSCD`) is also present.
+4. For documents requiring conformance to a declared signature policy, check the `SignaturePolicyId` field in the signature. For Spanish AGE-compliant signatures, this should reference the published policy OID `2.16.724.1.3.1.1.2.1.9` and include a hash of the policy document, allowing the verifier to retrieve and confirm the policy at the published URL.
+
+#### Factor 3 — Jurisdictional Scope and Cross-Border Recognition
+
+The hardest check to automate is whether the QTSP that issued the signing certificate is recognised **in the jurisdiction where the document will be used**. Automatic cross-border recognition within the EU is governed by eIDAS: a qualified electronic signature based on a certificate from any QTSP on the EU Trust Service Status List (EUTL) has the same legal effect in all EU member states as a handwritten signature (eIDAS Article 25(2)).[^33] No bilateral agreement is needed within the EU for QES.
+
+For the four identity systems in this document, the cross-border validity picture is as follows:
+
+| Identity system | Within Spain | EU cross-border | Outside EU |
+|---|---|---|---|
+| **FNMT-RCM certificate (qualified)** | ✓ (QTSP on Spain Trusted List + EUTL) | ✓ (eIDAS Art. 25 — QES legally equivalent to handwritten signature in all EU MS) | Case by case |
+| **DNIe qualified signature certificate** | ✓ (DGP on Spain Trusted List + EUTL) | ✓ (eIDAS Art. 25 + formally notified eID scheme — strongest cross-border basis) | Case by case |
+| **Cl@ve Firma (HSM-based QES)** | ✓ (AEAD-accredited chain on Trusted List) | ✓ (same QES chain; EUTL-recognised QTSP) | Case by case |
+| **idCAT Mòbil (authentication act)** | ✓ within Catalonia and Spain | ✗ (not a notified eID scheme; no EUTL entry) | ✗ |
+| **Ajuntament de Barcelona eSeal** | ✓ (FNMT or AOC-issued organisational cert) | Conditional (FNMT-issued eSeal ✓; AOC-issued seal depends on EUTL status of AOC as QTSP) | ✗ |
+
+**How to verify EUTL status manually:**
+
+1. Open the signing certificate in Acrobat (Show Certificate → Details) and note the Root CA — the Issuer at the top of the chain (e.g., "AC Componentes Informaticos — FNMT-RCM").
+2. Navigate to the EU Trust Service Status List browser, maintained by the European Commission's Digital Building Blocks programme: [https://ec.europa.eu/digital-building-blocks/sites/display/ESIGKEYPAGE](https://ec.europa.eu/digital-building-blocks/sites/display/ESIGKEYPAGE)
+3. Search by country (Spain — ES) and QTSP name.
+4. Confirm the trust service type listed is **"QCert for ESig"** (for personal signature certificates) or **"QCert for ESeal"** (for organisational seal certificates).
+5. Confirm the status is **"granted"** — a status of "withdrawn" means the QTSP is no longer supervised and new certificates from it should not be trusted, though previously issued certificates remain valid for signatures made during the grant period.
+
+---
+
+### 6.4 Summary: The Concordance Checklist
+
+For a receiving authority that needs to determine whether a signed PDF was correctly signed for its legal purpose, the following checklist consolidates all three factors:
+
+| Check | Where to look | Tool |
+|---|---|---|
+| **Is the signature cryptographically intact?** | Signature block in the PDF | VALIDe / Acrobat / DSS |
+| **Was the certificate valid at the time of signing?** | Certificate validity period + OCSP/CRL at time of signing | VALIDe ("Estado de revocación") |
+| **Is this a qualified electronic signature?** | QcStatements OID `0.4.0.1862.1.1` in the certificate | VALIDe ("Nivel: Cualificado") / Acrobat cert viewer |
+| **Was the key on a QSCD?** | QcStatements OID `0.4.0.1862.1.4` | Acrobat cert viewer → Details tab |
+| **Is this a personal signature or organisational eSeal?** | QcStatements OID `0.4.0.1862.1.6.X` + certificate Subject | Acrobat cert viewer — confirms individual vs. institution |
+| **Does the document's procedure require QES?** | Ley 39/2015 Art. 10 + the issuing body's procedural rules | Legal framework — not a technical check |
+| **Is the QTSP recognised in the destination jurisdiction?** | EUTL (EU) or Spain Trusted List (national) | EC Trust Service Status List browser |
+| **Does the signature conform to a declared policy?** | `SignaturePolicyId` OID and hash in the signature | VALIDe ("Política de firma") |
+| **For authority-issued documents: is the CSV verifiable?** | CSV code printed on the document | Issuing body's electronic office verification portal |
+
+---
+
 ## References
 
 [^1]: Spain. *Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local.* Boletín Oficial del Estado, núm. 80, 3 de abril de 1985. Articles 15–17. [https://www.boe.es/buscar/doc.php?id=BOE-A-1985-5392](https://www.boe.es/buscar/doc.php?id=BOE-A-1985-5392).
@@ -363,6 +608,20 @@ The co-existence problem that Barcelona has solved through federation (VALId as 
 [^25]: GovStack Initiative. *Consent Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/consent/2-description](https://specs.govstack.global/consent/2-description).
 
 [^26]: GovStack Initiative. *Wallet Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/wallet/2-description](https://specs.govstack.global/wallet/2-description).
+
+[^27]: ETSI. *EN 319 142-1: Electronic Signatures and Infrastructures (ESI) — PAdES Digital Signatures — Part 1: Building blocks and PAdES baseline signatures.* Sophia Antipolis: ETSI, 2016. [https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf). See also ETSI EN 319 122 (CAdES) and EN 319 132 (XAdES) for non-PDF signature formats.
+
+[^28]: Agencia Estatal de Administración Digital. "VALIDe — Plataforma de Validación de Firmas Electrónicas." Portal de Administración Electrónica. [https://valide.redsara.es/](https://valide.redsara.es/). See also: AEAD. "VALIDe — Guía de Uso." [https://administracionelectronica.gob.es/ctt/valide](https://administracionelectronica.gob.es/ctt/valide).
+
+[^29]: Agencia Estatal de Administración Digital. "@firma — Plataforma de Validación y Firma Electrónica." Portal de Administración Electrónica. [https://administracionelectronica.gob.es/ctt/afirma](https://administracionelectronica.gob.es/ctt/afirma). See also: Ministerio para la Transformación Digital y de la Función Pública. *Manual de Integración de @firma.* Madrid: MTTD, 2023. [https://administracionelectronica.gob.es/ctt/afirma/infoadicional](https://administracionelectronica.gob.es/ctt/afirma/infoadicional).
+
+[^30]: European Commission. "Digital Signature Service (DSS) — Open Source Library." Digital Building Blocks, European Commission. [https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS). The DSS implements the ETSI EN 319 102-1 validation algorithm: ETSI. *EN 319 102-1: Electronic Signatures and Infrastructures (ESI) — Procedures for Creation and Validation of AdES Digital Signatures — Part 1: Creation and Validation.* Sophia Antipolis: ETSI, 2019. [https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf).
+
+[^31]: Spain. *Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas.* Boletín Oficial del Estado, núm. 236, 2 de octubre de 2015. Articles 10 (electronic signature requirements by procedure type) and 27 (legal equivalence of digital documents with verifiable CSV). [https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565).
+
+[^32]: ETSI. *EN 319 102-1: Electronic Signatures and Infrastructures (ESI) — Procedures for Creation and Validation of AdES Digital Signatures.* Sophia Antipolis: ETSI, 2019. [https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf).
+
+[^33]: European Parliament and of the Council. *Regulation (EU) 910/2014 (eIDAS), Article 25(2): A qualified electronic signature shall have the equivalent legal effect of a handwritten signature.* Official Journal of the European Union L 257, 28 August 2014. [https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910). The EU Trust Service Status List (EUTL), listing all supervised QTSPs by member state, is maintained at: European Commission. "EU Trust Services Dashboard." [https://eidas.ec.europa.eu/efts/](https://eidas.ec.europa.eu/efts/).
 
 ---
 
