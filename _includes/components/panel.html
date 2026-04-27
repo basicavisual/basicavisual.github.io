@@ -55,7 +55,7 @@ Available types: info, warning, note, success, error, tip
     {% assign icon = 'ℹ️' %}
 {% endcase %}
 
-<div class="my-6 rounded-lg border-l-4 {{ bg_color }} {{ border_color }} p-4">
+<div class="my-6 rounded-lg border-l-4 {{ bg_color }} {{ border_color }} p-4" data-toc-exclude="true">
   {% if title %}
     <div class="flex items-center gap-2 mb-2">
       <span class="text-lg">{{ icon }}</span>

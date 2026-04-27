@@ -1,0 +1,125 @@
+<aside id="post-toc-container" class="post-toc hidden order-first lg:order-none lg:w-72 lg:shrink-0" aria-labelledby="post-toc-title">
+  <details class="post-toc-details" open>
+    <summary id="post-toc-title" class="post-toc-summary">Contenido del artículo</summary>
+    <nav class="post-toc-nav" aria-label="Tabla de contenidos"></nav>
+  </details>
+</aside>
+
+<script>
+  (function () {
+    var tocContainer = document.getElementById("post-toc-container");
+    var articleContent = document.querySelector("[data-post-content]");
+
+    if (!tocContainer || !articleContent) {
+      return;
+    }
+
+    var tocNav = tocContainer.querySelector(".post-toc-nav");
+    if (!tocNav) {
+      return;
+    }
+
+    var headings = Array.prototype.slice.call(
+      articleContent.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    ).filter(function (heading) {
+      if (!heading.textContent || heading.textContent.trim().length === 0) {
+        return false;
+      }
+
+      return !heading.closest("[data-toc-exclude]");
+    });
+
+    if (!headings.length) {
+      return;
+    }
+
+    var usedIds = Object.create(null);
+
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    function ensureUniqueId(baseId) {
+      var seed = baseId || "seccion";
+      var id = seed;
+      var counter = 2;
+
+      while (document.getElementById(id) || usedIds[id]) {
+        id = seed + "-" + counter;
+        counter += 1;
+      }
+
+      usedIds[id] = true;
+      return id;
+    }
+
+    var treeRoot = { level: 0, children: [] };
+    var stack = [treeRoot];
+
+    headings.forEach(function (heading) {
+      var text = heading.textContent.trim();
+      var level = parseInt(heading.tagName.replace("H", ""), 10);
+      var node;
+
+      if (!heading.id) {
+        heading.id = ensureUniqueId(slugify(text));
+      } else {
+        heading.id = ensureUniqueId(heading.id);
+      }
+
+      node = {
+        id: heading.id,
+        text: text,
+        level: isNaN(level) ? 2 : level,
+        children: [],
+      };
+
+      while (stack.length > 1 && node.level <= stack[stack.length - 1].level) {
+        stack.pop();
+      }
+
+      stack[stack.length - 1].children.push(node);
+      stack.push(node);
+    });
+
+    function buildList(nodes) {
+      var list = document.createElement("ol");
+
+      nodes.forEach(function (node) {
+        var item = document.createElement("li");
+        var link = document.createElement("a");
+
+        link.href = "#" + node.id;
+        link.textContent = node.text;
+        link.className = "post-toc-link post-toc-level-" + node.level;
+
+        item.appendChild(link);
+
+        if (node.children.length) {
+          item.appendChild(buildList(node.children));
+        }
+
+        list.appendChild(item);
+      });
+
+      return list;
+    }
+
+    tocNav.appendChild(buildList(treeRoot.children));
+
+    var tocDetails = tocContainer.querySelector(".post-toc-details");
+    if (tocDetails && window.matchMedia("(min-width: 1024px)").matches) {
+      tocDetails.open = true;
+    }
+
+    tocContainer.classList.remove("hidden");
+  })();
+</script>
