@@ -67,3 +67,56 @@ layout: default
   </aside>
   {% endif %}
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var tooltip = document.createElement('div');
+  tooltip.className = 'fn-tooltip';
+  tooltip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tooltip);
+
+  var hideTimer;
+
+  function showTooltip(link) {
+    var targetId = link.getAttribute('href').slice(1);
+    var footnoteEl = document.getElementById(targetId);
+    if (!footnoteEl) return;
+
+    var clone = footnoteEl.cloneNode(true);
+    var backLink = clone.querySelector('.reversefootnote');
+    if (backLink) backLink.remove();
+
+    tooltip.innerHTML = clone.innerHTML;
+    tooltip.style.display = 'block';
+    tooltip.style.visibility = 'hidden';
+
+    var rect = link.getBoundingClientRect();
+    var ttWidth = tooltip.offsetWidth;
+    var ttHeight = tooltip.offsetHeight;
+
+    var left = rect.left + rect.width / 2 - ttWidth / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - ttWidth - 8));
+
+    var top = rect.top - ttHeight - 8;
+    if (rect.top < ttHeight + 16) {
+      top = rect.bottom + 8;
+    }
+
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+    tooltip.style.visibility = 'visible';
+  }
+
+  document.querySelectorAll('a.footnote').forEach(function (link) {
+    link.addEventListener('mouseenter', function () {
+      clearTimeout(hideTimer);
+      showTooltip(link);
+    });
+    link.addEventListener('mouseleave', function () {
+      hideTimer = setTimeout(function () { tooltip.style.display = 'none'; }, 200);
+    });
+  });
+
+  tooltip.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
+  tooltip.addEventListener('mouseleave', function () { tooltip.style.display = 'none'; });
+});
+</script>
