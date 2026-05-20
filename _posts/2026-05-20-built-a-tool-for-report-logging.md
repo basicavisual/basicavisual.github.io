@@ -77,9 +77,6 @@ Project for this session: GovStack
 
 This was inspired by the `git add --patch` implementation. The three keys, plus the usage of enter key for quick access to the default, makes the logging fast enough that reviewing a full day takes under a minute. 
 
-Because I am using `fastrep`, I am also free to use that independently to log events that are not related to the calendar.
-
-Using `fastrep` as a backend even leaves open the possibility to extend the same pattern to log entries from other tools, for example, email, git, or task management software.
 
 ### At the end of the month, you export
 
@@ -100,10 +97,10 @@ The export goes to stdout by default, so it already is a good candidate to conti
 
 ## So what comes next?
 
-I tried. The friction is in the context switch: you finish a meeting, you open the tracker, you stare at a blank description field. Calendar-first logging inverts this — the context is already there, you just confirm or edit it.
+So what I liked about building reports is that it is extensible into an ecosystem. 
 
-`reports` does not try to be smart about this. It does not auto-log anything. Every entry is a deliberate keypress. The goal is just to make that keypress cost as little as possible.
+Because I am using `fastrep`, I am also free to use that independently to log events that are not related to the calendar.Even having designed reports in a way that it just talks to the `fastrep` API, leaves open the possibility to extend the same pattern to log entries from other tools, for example, email, git, or task management software. And having the output logged to STDOUT by default also makes it invokeable and chainable to other tooling I might develop.
 
----
+I don't have big pretensions for publicising this tool, I built it for myself. But it was a nice lesson in building modular, and making tedious tasks fun to do.
 
-The source is on my [Codeberg](https://codeberg.org/basicavisual/reports).
+The license is MIT, so anyone is free to copy. The source is on my [Codeberg](https://codeberg.org/basicavisual/reports).
