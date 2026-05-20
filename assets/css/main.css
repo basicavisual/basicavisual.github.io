@@ -43,8 +43,8 @@ div .alert {
   color: white;
   background: no-repeat center center;
   background-size: cover;
-  background-image: url("/cover.jpg");
-  background-color: rgba(0, 0, 0, 0.3);
+  background-image: url("/cover3.png");
+  background-color: rgba(0, 0, 0, 0.03);
   background-blend-mode: multiply;
 }
 
