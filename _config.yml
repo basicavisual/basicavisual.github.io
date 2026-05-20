@@ -33,6 +33,8 @@ categories_path: /categories/
 tags_path: /tags/
 google_analytics: G-P1Y13QLVQV
 url: https://basicavisual.io
+permalink: /:slug
+
 # Build settings
 
 card-image: assets/images/tw-card.png
