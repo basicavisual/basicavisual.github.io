@@ -1,19 +1,19 @@
 ---
-title:  "I built a CLI tool to transform calendar items into monthly reports"
+title:  "New CLI tool to transform calendar items into monthly reports"
 date:   2026-05-19 00:00:00 -0600
 category: cli
 image: assets/images/covers/pacman.gif
 image-alt: Photo by <a href="https://unsplash.com/@wistomsin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Zen Creator</a> on <a href="https://gifdb.com/gif/pacman-game-left-and-right-i9zhl3ky1ftgwj6s.html">GifDB</a>
 tags: tools
 description: | 
-  A cli tool that grabs calendar entries for extensible reporting. 
+  I slept at 5:30 AM to build a cli tool that turns calendar entries for extensible reporting. 
 ---
+
+I slept at 5:30 AM to build a cli tool that turns calendar entries for extensible reporting. Was it necessary to build it at night? no. Was it fun to build? it was. Am I having my work day as if nothing happened? you bet.
 
 I am not great at context-switching, and hence time logging and tracking is the bane of my existance. Over the years I've tried my fair share of time-tracking tools, the best of them being [Clockify](https://clockify.me/), but my hyperfocus or normal distractions normally result in 10+hours old time-tracking entries. I am, however, good at maintaining my calendar true to my day, so what if I just had a tool for turning calendar entries into reports? but in a way that I could still add entries unrelated to the calendar? And because lately I don't want to open yet another app, what if I built it directly into the command line and make it fun and quick?
 
-And so, I built [reports](https://codeberg.org/basicavisual/reports), a python cli tool that lets me grab my google calendar events from any given date or date-range, and turn them into entries. 
-
-Here's a little explainer on what it does.
+And so, I built [reports](https://codeberg.org/basicavisual/reports), a python cli tool that lets me grab my google calendar events from any given date or date-range, and turn them into entries. I also managed to write this blog post instead of going to sleep, as if it wasn't enough. So please come with me for a little explainer on what it does.
 
 ---
 
