@@ -11,13 +11,14 @@ description: |
 
 {% include components/panel.html type="warning" title="This is a post awaiting validation. I am actively looking for feedback from people that understand about digital signatures or the spanish legal instruments that allow them. If you want to provide feedback, write me at ali @ basicavisual.io" %}
 
-# Barcelona's Resident Registry: A Case Where Governmental Procedures Can Be Completed via Multiple Digital Identities
 
 ## Context
 
-In GovStack we tend to assume the Identity Building Block (ID BB) is implemented only once per country. However, governments may find themselves with more than one digital identity system in operation — sometimes several, at different levels of jurisdiction and with different technical architectures. Rather than prescribing unification as a necessary condition for a healthy digital identity environment, this real-life use case documents how different digital identities can co-exist in a government ecosystem and be applied to the same government procedure.
+In [GovStack](https://govstack.global/) we tend to assume the [Identity Building Block](https://specs.govstack.global/) (ID BB) is implemented only once per country. However, governments may find themselves with more than one digital identity system in operation — sometimes several, at different levels of jurisdiction and with different technical architectures. Rather than prescribing unification as a necessary condition for a healthy digital identity environment, this real-life use case documents how different digital identities can co-exist in a government ecosystem and be applied to the same government procedure.
 
-The case is the **Padró Municipal d'Habitants** (Municipal Register of Residents) in Barcelona, Spain — a procedure administered by the Ajuntament de Barcelona that citizens can complete online using at least four distinct digital identity systems, spanning national and regional (Catalan) levels of government.
+This use case documents the **Padró Municipal d'Habitants** (Municipal Register of Residents) in Barcelona, Spain[^ajuntament-padro]. This is a registry maintained by the Ajuntament de Barcelona, compulsory for everyone living in the city, and that enables access to certain rights such as **public healthcare** or **basic schooling** for children. For people with European Citizenship, it enables the right to vote in local elections for citizens of the countries with which Spain has sign a reciprocity agreement. This procedure while local, is supported by national legislation and has equivalent registries on other municipalities; however, since Barcelona's procedures are highly digitized, residents can submit their paperwork online, crediting their identity using at least four distinct digital identity systems, spanning national and regional (Catalan) levels of government. 
+
+This use case will examine how the different identities can co-exist both technically and legally on the same citizen portal to submit this procedure while maintaining Identity Assurance under Spain's institutional Trust Framework. We will then use the GovStack Building Blocks for Identity and eSignature as a basis to understand this implementation.
 
 **Digital identities covered:**
 - Cl@ve (National Government, operated by AEAD)
@@ -41,11 +42,11 @@ The padrón system achieves its national validity through a combination of legis
 
 **Legal framework:**
 
-- **Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local (LBRL)** establishes the padrón as a mandatory municipal register (Article 15) and defines the data held (Article 16). Crucially, Article 17 gives the **Instituto Nacional de Estadística (INE)** the role of coordinating and unifying all municipal padrones at the national level, resolving duplicities and maintaining an authoritative national record. This single law transforms what would otherwise be a fragmented collection of local registers into a unified national infrastructure.[^1]
+- **Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local (LBRL)** establishes the padrón as a mandatory municipal register (Article 15) and defines the data held (Article 16). Crucially, Article 17 gives the **Instituto Nacional de Estadística (INE)** the role of coordinating and unifying all municipal padrones at the national level, resolving duplicities and maintaining an authoritative national record. This single law transforms what would otherwise be a fragmented collection of local registers into a unified national infrastructure.[^ley-lbrl]
 
-- **Ley 4/1996, de 10 de enero**, which modified the LBRL, introduced the modern *padrón continuo* — a permanently maintained, computer-based register that replaced the previous system of 5-year census renewals. This reform made the padrón a living database rather than a periodic snapshot, and established the current model of automatic coordination with the INE.[^2]
+- **Ley 4/1996, de 10 de enero**, which modified the LBRL, introduced the modern *padrón continuo* — a permanently maintained, computer-based register that replaced the previous system of 5-year census renewals. This reform made the padrón a living database rather than a periodic snapshot, and established the current model of automatic coordination with the INE.[^ley-padron-1996]
 
-- **Real Decreto 1690/1986** (modified by **Real Decreto 2612/1996** and most recently by **Real Decreto 141/2024, de 6 de febrero**) provides the implementing regulations. Notably, Real Decreto 141/2024 updated the data transmission schedule to require real-time updates from municipalities to the INE, replacing the previous monthly batch-update model. This ensures the national record is always current.[^3]
+- **Real Decreto 1690/1986** (modified by **Real Decreto 2612/1996** and most recently by **Real Decreto 141/2024, de 6 de febrero**) provides the implementing regulations. Notably, Real Decreto 141/2024 updated the data transmission schedule to require real-time updates from municipalities to the INE, replacing the previous monthly batch-update model. This ensures the national record is always current.[^rd-padron-2024]
 
 - **Real Decreto 523/2015** eliminated the requirement to obtain certain certificates in person, opening the door to digital delivery of empadronamiento certificates.
 
@@ -55,7 +56,7 @@ Every municipal padrón in Spain is digitally connected to the INE's national da
 
 **Online access in Barcelona:**
 
-Barcelona's Seu Electrònica ([https://seuelectronica.ajuntament.barcelona.cat](https://seuelectronica.ajuntament.barcelona.cat)) enables residents to complete the full padrón registration online — the *Alta al Padró Municipal d'Habitants* — as well as obtain digital certificates of existing registration. These certificates are issued with an electronic signature and a **Código Seguro de Verificación (CSV)**, a unique code that allows any third party to verify the document's authenticity online, making the digital certificate as legally valid as a paper original.[^4]
+Barcelona's Seu Electrònica ([https://seuelectronica.ajuntament.barcelona.cat](https://seuelectronica.ajuntament.barcelona.cat)) enables residents to complete the full padrón registration online — the *Alta al Padró Municipal d'Habitants* — as well as obtain digital certificates of existing registration. These certificates are issued with an electronic signature and a **Código Seguro de Verificación (CSV)**, a unique code that allows any third party to verify the document's authenticity online, making the digital certificate as legally valid as a paper original.[^ajuntament-seu]
 
 ---
 
@@ -79,7 +80,7 @@ The coexistence of four distinct digital identity systems is not the result of d
 
 **Scope:** All levels of Spanish public administration — national ministries, regional governments, municipalities — can integrate with Cl@ve. This makes it the widest-scope identity system in the Spanish ecosystem: a Cl@ve credential accepted by the national Tax Agency is in principle the same credential that can log a citizen into Barcelona's municipal office.
 
-**Legal basis:** Founded by *Orden PRE/1838/2014, de 8 de octubre* (Council of Ministers Agreement of 19 September 2014). It operates under *Ley 39/2015, de 1 de octubre* (Common Administrative Procedure Act, which mandates digital access to public services), *Ley 40/2015* (Legal Regime for the Public Sector, requiring interoperability), and *Regulation (EU) 910/2014 (eIDAS)*.[^5]
+**Legal basis:** Founded by *Orden PRE/1838/2014, de 8 de octubre* (Council of Ministers Agreement of 19 September 2014). It operates under *Ley 39/2015, de 1 de octubre* (Common Administrative Procedure Act, which mandates digital access to public services), *Ley 40/2015* (Legal Regime for the Public Sector, requiring interoperability), and *Regulation (EU) 910/2014 (eIDAS)*.[^clave-legal]
 
 **Authentication tiers within Cl@ve:**
 
@@ -94,25 +95,25 @@ The coexistence of four distinct digital identity systems is not the result of d
 
 ### DNIe — The Electronic National Identity Card
 
-**What it is:** The **Documento Nacional de Identidad electrónico (DNIe)** is the Spanish national identity card, issued since birth (or upon naturalisation) to every Spanish citizen by the **Dirección General de la Policía (Ministry of the Interior)**. Since 2006 (DNIe 1.0), the card has contained a cryptographic chip. The current generation, **DNI 3.0** (issued from approximately 2015), adds a dual-interface chip supporting both ISO/IEC 7816 contact and ISO/IEC 14443 Type A/B NFC contactless interfaces — allowing use with a smart card reader or directly via NFC with a smartphone and the official DNI App.[^6]
+**What it is:** The **Documento Nacional de Identidad electrónico (DNIe)** is the Spanish national identity card, issued since birth (or upon naturalisation) to every Spanish citizen by the **Dirección General de la Policía (Ministry of the Interior)**. Since 2006 (DNIe 1.0), the card has contained a cryptographic chip. The current generation, **DNI 3.0** (issued from approximately 2015), adds a dual-interface chip supporting both ISO/IEC 7816 contact and ISO/IEC 14443 Type A/B NFC contactless interfaces — allowing use with a smart card reader or directly via NFC with a smartphone and the official DNI App.[^dnie-portal]
 
 The chip contains the citizen's personal data, biometric data (photo and fingerprint, encrypted), and two X.509 certificates: an **authentication certificate** (for accessing online services) and a **qualified electronic signature certificate** (for signing documents with full legal force).
 
-**Scope:** The DNIe is Spain's only formally **notified eID scheme** under the eIDAS Regulation, notified to the European Commission on 7 November 2018 (Official Journal reference 2018/C 401/08). Mutual recognition across the EU became mandatory in September 2019. This makes the DNIe the only Spanish digital identity with automatic legal recognition in all EU member states for cross-border transactions.[^7]
+**Scope:** The DNIe is Spain's only formally **notified eID scheme** under the eIDAS Regulation, notified to the European Commission on 7 November 2018 (Official Journal reference 2018/C 401/08). Mutual recognition across the EU became mandatory in September 2019. This makes the DNIe the only Spanish digital identity with automatic legal recognition in all EU member states for cross-border transactions.[^eidas-notified]
 
-**Legal basis:** *Real Decreto 1553/2005, de 23 de diciembre* (establishes the electronic functions of the DNI); *Ley Orgánica 4/2015, de 30 de marzo* (general DNI governance); *Regulation (EU) 910/2014 (eIDAS)*.[^8]
+**Legal basis:** *Real Decreto 1553/2005, de 23 de diciembre* (establishes the electronic functions of the DNI); *Ley Orgánica 4/2015, de 30 de marzo* (general DNI governance); *Regulation (EU) 910/2014 (eIDAS)*.[^rd-dnie-2005]
 
 ---
 
 ### idCAT Mòbil / idCAT Mòbil+ — Catalan Mobile Identity
 
-**What it is:** **idCAT Mòbil** is a mobile-based electronic identification system operated by the **Consorci Administració Oberta de Catalunya (AOC)** — a public consortium co-owned by the Generalitat de Catalunya, the Diputació de Barcelona, and other Catalan local governments. As of 2025 it has over **3 million registered users**.[^9]
+**What it is:** **idCAT Mòbil** is a mobile-based electronic identification system operated by the **Consorci Administració Oberta de Catalunya (AOC)** — a public consortium co-owned by the Generalitat de Catalunya, the Diputació de Barcelona, and other Catalan local governments. As of 2025 it has over **3 million registered users**.[^idcat-3m-users]
 
 The standard **idCAT Mòbil** authenticates via SMS OTP (one-time password sent to the citizen's registered mobile phone) combined with their identity document number (DNI or NIE). The enhanced **idCAT Mòbil+** adds a second static factor — the expiry date of the identity document — raising the assurance level. Registration can be done online (including via video identification, available since 2020, or via WhatsApp since 2025) or in person at participating Catalan entities.
 
 **Scope:** idCAT Mòbil is designed for use with Catalan public administrations — the Generalitat, Catalan municipalities, and public bodies in Catalonia. It is not federated directly with Cl@ve at the national level, and is not accepted by national Spanish ministries. Citizens needing to interact with national Spanish administration must use Cl@ve, DNIe, or an FNMT certificate. However, Barcelona's municipal services accept both Catalan and national identities, making the Ajuntament a point of intersection between both ecosystems.
 
-**Legal basis:** *Llei 29/2010, del 3 d'agost, de l'ús dels mitjans electrònics al sector públic de Catalunya* (Catalan e-government law); the *Protocol d'Identificació i Signatura Electrònica de Catalunya* published by the AOC Consortium; *Ley 39/2015* (applicable across all Spanish administrations); *Real Decreto 311/2022* (Esquema Nacional de Seguridad, ENS); *Regulation (EU) 910/2014 (eIDAS)*.[^10]
+**Legal basis:** *Llei 29/2010, del 3 d'agost, de l'ús dels mitjans electrònics al sector públic de Catalunya* (Catalan e-government law); the *Protocol d'Identificació i Signatura Electrònica de Catalunya* published by the AOC Consortium; *Ley 39/2015* (applicable across all Spanish administrations); *Real Decreto 311/2022* (Esquema Nacional de Seguridad, ENS); *Regulation (EU) 910/2014 (eIDAS)*.[^llei-29-2010]
 
 ---
 
@@ -124,7 +125,7 @@ Unlike the DNIe, the FNMT certificate is purely a software credential — no har
 
 **Scope:** FNMT certificates are not an eID scheme under eIDAS's identification pillar; they are **trust services** (the signature pillar). A Qualified Electronic Signature created with an FNMT certificate on a Qualified Signature Creation Device has the same legal effect as a handwritten signature across all EU member states under eIDAS Article 25(2). When used as an authentication credential, an FNMT certificate effectively provides *de facto* identity verification at the highest level — but this flows from certificate law rather than from eID scheme notification. FNMT certificates are accepted by virtually all Spanish public administration online services.
 
-**Legal basis:** *Ley 6/2020, de 11 de noviembre, reguladora de determinados aspectos de los servicios electrónicos de confianza* (the Spanish implementing law for eIDAS, replacing the former *Ley 59/2003 de Firma Electrónica*); *Regulation (EU) 910/2014 (eIDAS)*; ETSI standards EN 319 401, EN 319 411-1/-2, EN 319 421. FNMT is certified at **ENS ALTA** level (Spain's highest National Security Scheme tier, per Real Decreto 311/2022).[^11]
+**Legal basis:** *Ley 6/2020, de 11 de noviembre, reguladora de determinados aspectos de los servicios electrónicos de confianza* (the Spanish implementing law for eIDAS, replacing the former *Ley 59/2003 de Firma Electrónica*); *Regulation (EU) 910/2014 (eIDAS)*; ETSI standards EN 319 401, EN 319 411-1/-2, EN 319 421. FNMT is certified at **ENS ALTA** level (Spain's highest National Security Scheme tier, per Real Decreto 311/2022).[^ley-confianza-2020]
 
 ---
 
@@ -132,7 +133,7 @@ Unlike the DNIe, the FNMT certificate is purely a software credential — no har
 
 ### The X.1254 Framework
 
-The ITU-T **Recommendation X.1254** (Entity authentication assurance framework) provides the conceptual underpinning for evaluating how strongly any identity system can vouch for a user. It structures identity assurance across four phases, which map directly onto the systems described here:[^12]
+The ITU-T **Recommendation X.1254** (Entity authentication assurance framework) provides the conceptual underpinning for evaluating how strongly any identity system can vouch for a user. It structures identity assurance across four phases, which map directly onto the systems described here:[^itu-x1254]
 
 **1. Enrolment phase** — How is a person registered and their identity verified before they receive a credential?
 
@@ -155,7 +156,7 @@ Each system has a distinct institutional anchor: the Dirección General de la Po
 
 ### eIDAS Assurance Levels
 
-The eIDAS framework — specifically **Commission Implementing Regulation (EU) 2015/1502** — defines three assurance levels for electronic identification: Low, Substantial, and High. Each level specifies requirements for identity proofing, credential issuance, and authentication mechanism strength.[^13]
+The eIDAS framework — specifically **Commission Implementing Regulation (EU) 2015/1502** — defines three assurance levels for electronic identification: Low, Substantial, and High. Each level specifies requirements for identity proofing, credential issuance, and authentication mechanism strength.[^eidas-reg-2015-1502]
 
 | Identity System | eIDAS Assurance Level | Basis |
 |---|---|---|
@@ -166,11 +167,11 @@ The eIDAS framework — specifically **Commission Implementing Regulation (EU) 2
 | idCAT Mòbil+ (video ID registration) | **Substantial** | Video identification meets Substantial identity proofing criteria |
 | idCAT Mòbil (basic registration) | **Low** | SMS OTP with basic online enrolment only |
 
-The DNIe holds the unique distinction of being Spain's only **formally notified** eID scheme — the mechanism by which Spain's eID is automatically recognised and accepted in other EU member states. Spain was among the first six EU countries to achieve cross-border recognition (November 2019).[^14]
+The DNIe holds the unique distinction of being Spain's only **formally notified** eID scheme — the mechanism by which Spain's eID is automatically recognised and accepted in other EU member states. Spain was among the first six EU countries to achieve cross-border recognition (November 2019).[^eidas-crossborder]
 
 ### The OECD G7 Mapping Exercise
 
-The OECD's **G7 Mapping Exercise of Digital Identity Approaches** (2023) provides a comparative framework for how different nations structure their digital identity ecosystems. It distinguishes between *monolithic* approaches (a single national eID as the only recognised credential, as in parts of the eIDAS model) and *multi-dimensional* approaches (layered systems combining different assurance levels and use cases, closer to the NIST SP 800-63 model).[^15]
+The OECD's **G7 Mapping Exercise of Digital Identity Approaches** (2023) provides a comparative framework for how different nations structure their digital identity ecosystems. It distinguishes between *monolithic* approaches (a single national eID as the only recognised credential, as in parts of the eIDAS model) and *multi-dimensional* approaches (layered systems combining different assurance levels and use cases, closer to the NIST SP 800-63 model).[^oecd-g7-mapping]
 
 The Spanish case sits closer to the multi-dimensional end: there is no single mandatory national eID credential for digital services. Citizens can choose among multiple methods with different assurance levels. This reflects both the constitutional structure (autonomous communities having independent e-government systems) and the deliberate design of Cl@ve as a broker that can accept any of the available methods. The OECD framework also emphasises governance, legal certainty, and inclusion as dimensions of digital identity maturity — themes visible in the Spanish approach, where the weakest credential (Cl@ve PIN) was explicitly designed for digital inclusion, allowing citizens without smartphones or hardware tokens to access public services via any mobile phone.
 
@@ -200,12 +201,12 @@ The **Consorci AOC** operates **VALId** (*Verificació i Autenticació en Línia
 
 The Ajuntament de Barcelona integrates with VALId using **OAuth 2.0** / **OpenID Connect**. The municipality registers as a client application with the AOC (obtaining a `client_id` and `client_secret`) and redirects users to VALId for authentication. VALId handles all the complexity of verifying each credential type and returns a standardised identity assertion to the municipal service.
 
-This means that from Barcelona's perspective, there is essentially **one integration point** (VALId) that internally routes to all the identity methods. The AOC acts as a federation hub — matching what the GovStack ID BB specification calls the **Upstream Federation** service category: "harmonizing multiple identities across systems."[^16]
+This means that from Barcelona's perspective, there is essentially **one integration point** (VALId) that internally routes to all the identity methods. The AOC acts as a federation hub — matching what the GovStack ID BB specification calls the **Upstream Federation** service category: "harmonizing multiple identities across systems."[^govstack-id-upstream]
 
 Developer documentation for VALId is publicly available at:
 - VALId 2.0 documentation (GitHub Pages): [https://consorciaoc.github.io/VALId2/](https://consorciaoc.github.io/VALId2/)
 - VALId original documentation: [https://consorciaoc.github.io/VALId/](https://consorciaoc.github.io/VALId/)
-- AOC services portal: [https://www.aoc.cat/en/serveis-aoc/valid/](https://www.aoc.cat/en/serveis-aoc/valid/)[^17]
+- AOC services portal: [https://www.aoc.cat/en/serveis-aoc/valid/](https://www.aoc.cat/en/serveis-aoc/valid/)[^valid-docs]
 
 **Pathway 2 — Direct Cl@ve integration (for national identities):**
 
@@ -216,16 +217,16 @@ Spain's **@firma** shared platform validates certificate-based authentication (D
 In practice, for Barcelona's municipal services, the AOC's VALId layer abstracts over both Cl@ve and the direct certificate path — so the Ajuntament receives a unified identity token regardless of which underlying system the citizen used.
 
 Developer documentation for Cl@ve integration:
-- Official integration guide (PAe/CTT, Spanish government portal): [https://administracionelectronica.gob.es/ctt/clave/infoadicional](https://administracionelectronica.gob.es/ctt/clave/infoadicional)[^18]
-- Junta de Andalucía Proxy-Cl@ve integration guide (PDF, practical SAML example): [https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Guía_Integración_Proxy_Clave.pdf](https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf)[^19]
+- Official integration guide (PAe/CTT, Spanish government portal): [https://administracionelectronica.gob.es/ctt/clave/infoadicional](https://administracionelectronica.gob.es/ctt/clave/infoadicional)[^clave-integration]
+- Junta de Andalucía Proxy-Cl@ve integration guide (PDF, practical SAML example): [https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Guía_Integración_Proxy_Clave.pdf](https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf)[^andalucia-proxy-clave]
 
 Developer documentation for DNIe:
-- DNIe downloads portal (drivers, PKCS#11 library, Android NFC source): [https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100](https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100)[^20]
-- DNIe NFC reference guide (PDF): [https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf](https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf)[^21]
+- DNIe downloads portal (drivers, PKCS#11 library, Android NFC source): [https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100](https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100)[^dnie-downloads]
+- DNIe NFC reference guide (PDF): [https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf](https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf)[^dnie-nfc-guide]
 
 Developer documentation for FNMT certificates:
 - FNMT CERES portal: [https://www.fnmt.es/en/ceres](https://www.fnmt.es/en/ceres)
-- FNMT Trust Services Practice Statement (English PDF): [https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf](https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf)[^22]
+- FNMT Trust Services Practice Statement (English PDF): [https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf](https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf)[^fnmt-cps]
 
 ### The Technical Architecture in Summary
 
@@ -269,7 +270,7 @@ The Barcelona case illustrates several patterns that GovStack Building Block spe
 
 ### Identity Building Block: The Federated Architecture Pattern
 
-The GovStack Identity BB specification identifies three architectural patterns: centralised, federated, and distributed. It notes that "there is no one-fits-all solution and often a combination of those approaches enables most benefits."[^23]
+The GovStack Identity BB specification identifies three architectural patterns: centralised, federated, and distributed. It notes that "there is no one-fits-all solution and often a combination of those approaches enables most benefits."[^govstack-id-federated]
 
 The Spanish ecosystem is a textbook federated architecture: each identity system (DNIe, FNMT, Cl@ve, idCAT Mòbil) is an independent **Identity Provider (IdP)** with its own enrolment, credential management, and authentication infrastructure. The AOC's VALId and the Cl@ve gateway function as **federation brokers** — aggregating multiple IdPs behind a unified interface for Service Providers (like Barcelona's municipal office). This maps directly to the **Upstream Federation** service category in the GovStack ID BB, which provides "harmonizing multiple identities across systems."
 
@@ -277,7 +278,7 @@ The GovStack ID BB also describes the **Orchestrator** component, which "coordin
 
 ### eSignature Building Block: Cl@ve Firma and FNMT as Digital Signing Enablers
 
-The GovStack eSignature BB describes two deployment models: one-time signatures (where a new key pair is generated in an HSM and a short-lived certificate is created for each signing event) and SCD-based approaches (where a user registers a personal signing device for reuse).[^24]
+The GovStack eSignature BB describes two deployment models: one-time signatures (where a new key pair is generated in an HSM and a short-lived certificate is created for each signing event) and SCD-based approaches (where a user registers a personal signing device for reuse).[^govstack-esig-bb]
 
 **Cl@ve Firma** corresponds to the GovStack eSignature BB's one-time HSM model: when a citizen needs to sign a document, Cl@ve Firma generates a signing operation on the citizen's remote certificate stored on the AEAD's HSM servers, with PIN confirmation as the user-side step. No persistent device is required.
 
@@ -289,11 +290,11 @@ Both models are reflected in the procedures available at Barcelona's electronic 
 
 When the Ajuntament de Barcelona shares padrón data with national bodies (for example, updating the INE's national database), this involves a formal data-sharing relationship governed by both the LBRL framework and the GDPR-implementing *Ley Orgánica 3/2018 (LOPDGDD)*.
 
-The GovStack Consent BB notes that "GDPR discourages consent in government services where power imbalances exist between citizens and authorities" — and indeed, the padrón does not operate on the basis of citizen consent; registration is a legal obligation. However, the Consent BB framework is relevant to the *downstream* use of padrón data: when other institutions (banks, utilities, notaries) request proof of residence, the citizen actively presents their certificate, which is an act of selective disclosure. The **CSV (Código Seguro de Verificación)** mechanism embeds this disclosure control — only the specific certificate the citizen chooses to present can be verified, not the broader padrón record.[^25]
+The GovStack Consent BB notes that "GDPR discourages consent in government services where power imbalances exist between citizens and authorities" — and indeed, the padrón does not operate on the basis of citizen consent; registration is a legal obligation. However, the Consent BB framework is relevant to the *downstream* use of padrón data: when other institutions (banks, utilities, notaries) request proof of residence, the citizen actively presents their certificate, which is an act of selective disclosure. The **CSV (Código Seguro de Verificación)** mechanism embeds this disclosure control — only the specific certificate the citizen chooses to present can be verified, not the broader padrón record.[^govstack-consent-bb]
 
 ### Wallet Building Block: The Path Toward a Unified Credential
 
-The GovStack Wallet BB describes a system where "issuers create credentials, holders store them securely, and verifiers authenticate them" — the Issuer-Holder-Verifier model. It emphasises user control over credential presentation and support for multiple credential standards (W3C VCs, SD-JWT, mDL).[^26]
+The GovStack Wallet BB describes a system where "issuers create credentials, holders store them securely, and verifiers authenticate them" — the Issuer-Holder-Verifier model. It emphasises user control over credential presentation and support for multiple credential standards (W3C VCs, SD-JWT, mDL).[^govstack-wallet-bb]
 
 The current Spanish identity ecosystem predates the wallet model. However, Spain is participating in the EU's EUDI (European Digital Identity) Wallet pilot program under **eIDAS 2.0 (Regulation EU 2024/1183)**. The planned Spanish EUDI Wallet would consolidate many of these credentials — effectively allowing a citizen to carry a digital version of their DNIe, FNMT certificate access, and potentially health and social benefits credentials — in a single, user-controlled wallet app. The four identity systems described in this document represent the *current* state; the wallet represents the trajectory these systems are following.
 
@@ -329,12 +330,12 @@ The four identity and signature systems present in the Barcelona case do not all
 
 #### FNMT Certificate Signatures (PAdES)
 
-Documents signed with an FNMT personal certificate (Certificado de Ciudadano or Certificado en Tarjeta) are embedded as **PAdES (PDF Advanced Electronic Signatures)** — the format defined by ETSI EN 319 142 for PDF-based qualified signatures.[^27] Verification relies on:
+Documents signed with an FNMT personal certificate (Certificado de Ciudadano or Certificado en Tarjeta) are embedded as **PAdES (PDF Advanced Electronic Signatures)** — the format defined by ETSI EN 319 142 for PDF-based qualified signatures.[^etsi-pades] Verification relies on:
 
-- **VALIDe** (primary tool): Spain's official online signature validation portal, operated by the AEAD at [https://valide.redsara.es/](https://valide.redsara.es/). Upload the PDF; the service verifies the certificate chain, checks revocation via OCSP against FNMT's infrastructure, and returns a structured validation report indicating signature level (*básico, avanzado, cualificado*) and policy conformance.[^28]
-- **@firma validation API**: For automated backend validation, public administrations call the `VerifySignature` operation of the @firma shared platform web service. The platform handles OCSP/CRL checking so that individual systems need not implement revocation checking themselves.[^29]
+- **VALIDe** (primary tool): Spain's official online signature validation portal, operated by the AEAD at [https://valide.redsara.es/](https://valide.redsara.es/). Upload the PDF; the service verifies the certificate chain, checks revocation via OCSP against FNMT's infrastructure, and returns a structured validation report indicating signature level (*básico, avanzado, cualificado*) and policy conformance.[^valide-portal]
+- **@firma validation API**: For automated backend validation, public administrations call the `VerifySignature` operation of the @firma shared platform web service. The platform handles OCSP/CRL checking so that individual systems need not implement revocation checking themselves.[^afirma-platform]
 - **Adobe Acrobat Reader (with EUTL)**: FNMT-RCM appears on the EU Trust Service Status List and is therefore recognised as a trusted root by Acrobat when configured to load European Trusted Lists (detailed in Section 6.3 below).
-- **EC Digital Signature Service (DSS)**: The European Commission's open-source library for signature creation and validation, implementing the ETSI EN 319 102-1 validation algorithm. Usable as a standalone web application or embedded REST API.[^30]
+- **EC Digital Signature Service (DSS)**: The European Commission's open-source library for signature creation and validation, implementing the ETSI EN 319 102-1 validation algorithm. Usable as a standalone web application or embedded REST API.[^ec-dss]
 
 #### DNIe Qualified Signature Certificate (PAdES or CAdES)
 
@@ -348,7 +349,7 @@ Cl@ve Firma produces PAdES signatures using certificates stored in the AEAD's Ha
 
 #### CSV (Código Seguro de Verificación) — Administrative Documents
 
-The empadronament certificate and similar documents issued by the Ajuntament de Barcelona carry a **Código Seguro de Verificación (CSV)** — a unique alphanumeric code printed or embedded in the document. This mechanism is defined by **Ley 39/2015, Article 27**, which gives documents accompanied by a verifiable CSV the same legal status as certified paper originals, enabling any receiving authority to verify authenticity without needing software to validate a cryptographic signature.[^31]
+The empadronament certificate and similar documents issued by the Ajuntament de Barcelona carry a **Código Seguro de Verificación (CSV)** — a unique alphanumeric code printed or embedded in the document. This mechanism is defined by **Ley 39/2015, Article 27**, which gives documents accompanied by a verifiable CSV the same legal status as certified paper originals, enabling any receiving authority to verify authenticity without needing software to validate a cryptographic signature.[^ley-39-2015]
 
 Verification procedure:
 1. The receiving authority notes the CSV code printed on the document (typically on the footer of each page).
@@ -445,7 +446,7 @@ A certificate carrying both `0.4.0.1862.1.1` and `0.4.0.1862.1.4` and `0.4.0.186
 
 #### Method C — EC Digital Signature Service (Programmatic Validation)
 
-The **Digital Signature Service (DSS)** is the European Commission's open-source reference implementation for creating and validating electronic signatures according to the ETSI EN 319 series.[^32] It supports CAdES, XAdES, PAdES, and JAdES formats and applies the ETSI EN 319 102-1 validation algorithm — the EU standard for electronic signature validation. It is the validation engine used internally by the EC's own trust services infrastructure.
+The **Digital Signature Service (DSS)** is the European Commission's open-source reference implementation for creating and validating electronic signatures according to the ETSI EN 319 series.[^etsi-en319102] It supports CAdES, XAdES, PAdES, and JAdES formats and applies the ETSI EN 319 102-1 validation algorithm — the EU standard for electronic signature validation. It is the validation engine used internally by the EC's own trust services infrastructure.
 
 For a receiving authority needing to validate documents programmatically (e.g., a document management system checking every incoming signed PDF automatically), DSS can be deployed as a REST/SOAP service:
 
@@ -497,7 +498,7 @@ A document that should bear an organisational eSeal but instead carries a person
 
 #### Factor 2 — Required Qualification Level Under Spanish Law
 
-**Ley 39/2015, Article 10** establishes the hierarchy of acceptable electronic identification and signature forms for Spanish administrative procedures.[^31] The minimum required level increases with the legal weight of the act:
+**Ley 39/2015, Article 10** establishes the hierarchy of acceptable electronic identification and signature forms for Spanish administrative procedures.[^ley-39-2015] The minimum required level increases with the legal weight of the act:
 
 | Procedure category | Minimum acceptable | Which systems qualify |
 |---|---|---|
@@ -515,7 +516,7 @@ To determine whether a received PDF's signature meets the required level:
 
 #### Factor 3 — Jurisdictional Scope and Cross-Border Recognition
 
-The hardest check to automate is whether the QTSP that issued the signing certificate is recognised **in the jurisdiction where the document will be used**. Automatic cross-border recognition within the EU is governed by eIDAS: a qualified electronic signature based on a certificate from any QTSP on the EU Trust Service Status List (EUTL) has the same legal effect in all EU member states as a handwritten signature (eIDAS Article 25(2)).[^33] No bilateral agreement is needed within the EU for QES.
+The hardest check to automate is whether the QTSP that issued the signing certificate is recognised **in the jurisdiction where the document will be used**. Automatic cross-border recognition within the EU is governed by eIDAS: a qualified electronic signature based on a certificate from any QTSP on the EU Trust Service Status List (EUTL) has the same legal effect in all EU member states as a handwritten signature (eIDAS Article 25(2)).[^eidas-art25] No bilateral agreement is needed within the EU for QES.
 
 For the four identity systems in this document, the cross-border validity picture is as follows:
 
@@ -553,81 +554,10 @@ For a receiving authority that needs to determine whether a signed PDF was corre
 | **Does the signature conform to a declared policy?** | `SignaturePolicyId` OID and hash in the signature | VALIDe ("Política de firma") |
 | **For authority-issued documents: is the CSV verifiable?** | CSV code printed on the document | Issuing body's electronic office verification portal |
 
----
 
-## References
 
-[^1]: Spain. *Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local.* Boletín Oficial del Estado, núm. 80, 3 de abril de 1985. Articles 15–17. [https://www.boe.es/buscar/doc.php?id=BOE-A-1985-5392](https://www.boe.es/buscar/doc.php?id=BOE-A-1985-5392).
+## Sources consulted
 
-[^2]: Spain. *Ley 4/1996, de 10 de enero, por la que se modifica la Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local, en relación con el Padrón Municipal.* Boletín Oficial del Estado, núm. 11, 12 de enero de 1996. [https://www.boe.es/buscar/doc.php?id=BOE-A-1996-753](https://www.boe.es/buscar/doc.php?id=BOE-A-1996-753).
-
-[^3]: Spain. *Real Decreto 141/2024, de 6 de febrero, por el que se modifica el Real Decreto 1690/1986, de 11 de julio.* Boletín Oficial del Estado, núm. 33, 7 de febrero de 2024. [https://www.boe.es/buscar/doc.php?id=BOE-A-2024-2248](https://www.boe.es/buscar/doc.php?id=BOE-A-2024-2248).
-
-[^4]: Ajuntament de Barcelona. "Alta al Padró Municipal d'Habitants — Seu Electrònica." Accessed April 2026. [https://seuelectronica.ajuntament.barcelona.cat/oficinavirtual/es/tramit/20200001402/](https://seuelectronica.ajuntament.barcelona.cat/oficinavirtual/es/tramit/20200001402/).
-
-[^5]: Spain. *Orden PRE/1838/2014, de 8 de octubre, por la que se publica el Acuerdo del Consejo de Ministros, de 19 de septiembre de 2014, por el que se aprueba Cl@ve.* Boletín Oficial del Estado, núm. 246, 10 de octubre de 2014. [https://www.boe.es/buscar/doc.php?id=BOE-A-2014-10295](https://www.boe.es/buscar/doc.php?id=BOE-A-2014-10295). See also: Agencia Estatal de Administración Digital. "Cl@ve: Plataforma de Identificación y Autenticación." [https://clave.gob.es](https://clave.gob.es).
-
-[^6]: Dirección General de la Policía. "DNI Electrónico — Portal Oficial." [https://www.dnielectronico.es](https://www.dnielectronico.es). See also: Policía Nacional. *Guía de Referencia DNIe con NFC.* PDF. [https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf](https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf).
-
-[^7]: European Commission. "Overview of Pre-Notified and Notified eID Schemes Under eIDAS." Digital Building Blocks, European Commission. Accessed April 2026. [https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY/Overview+of+pre-notified+and+notified+eID+schemes+under+eIDAS](https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY/Overview+of+pre-notified+and+notified+eID+schemes+under+eIDAS). Reference: Official Journal of the EU 2018/C 401/08.
-
-[^8]: Spain. *Real Decreto 1553/2005, de 23 de diciembre, por el que se regula la expedición del documento nacional de identidad y sus certificados de firma electrónica.* Boletín Oficial del Estado, núm. 307, 24 de diciembre de 2005. [https://www.boe.es/buscar/doc.php?id=BOE-A-2005-21163](https://www.boe.es/buscar/doc.php?id=BOE-A-2005-21163).
-
-[^9]: AOC Consorci. "3 Milions de Persones amb idCAT Mòbil." AOC Blog, 2025. [https://www.aoc.cat/en/blog/2025/3milions-persones-idcatmobil/](https://www.aoc.cat/en/blog/2025/3milions-persones-idcatmobil/). See also: Consorci AOC. "idCAT Mòbil." [https://idcat.aoc.cat/en/idcat-mobile/](https://idcat.aoc.cat/en/idcat-mobile/).
-
-[^10]: Catalonia. *Llei 29/2010, del 3 d'agost, de l'ús dels mitjans electrònics al sector públic de Catalunya.* Diari Oficial de la Generalitat de Catalunya, núm. 5686, 5 d'agost de 2010. [https://dogc.gencat.cat/ca/pdogc_canals_interns/pdogc_resultats_fitxa/?action=fitxa&documentId=555557](https://dogc.gencat.cat/ca/pdogc_canals_interns/pdogc_resultats_fitxa/?action=fitxa&documentId=555557). See also: Consorci AOC. *Protocol d'Identificació i Signatura Electrònica de Catalunya.* [https://www.aoc.cat/en/serveis-aoc/valid/](https://www.aoc.cat/en/serveis-aoc/valid/).
-
-[^11]: Spain. *Ley 6/2020, de 11 de noviembre, reguladora de determinados aspectos de los servicios electrónicos de confianza.* Boletín Oficial del Estado, núm. 298, 12 de noviembre de 2020. [https://www.boe.es/buscar/doc.php?id=BOE-A-2020-13069](https://www.boe.es/buscar/doc.php?id=BOE-A-2020-13069). See also: FNMT-RCM CERES. "Certification Practice Statement." PDF. [https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf](https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf).
-
-[^12]: International Telecommunication Union. *ITU-T Recommendation X.1254: Entity Authentication Assurance Framework.* Geneva: ITU, 2012. [https://www.itu.int/rec/T-REC-X.1254/en](https://www.itu.int/rec/T-REC-X.1254/en).
-
-[^13]: European Commission. *Commission Implementing Regulation (EU) 2015/1502 of 8 September 2015 on setting out minimum technical specifications and procedures for assurance levels for electronic identification means pursuant to Article 8(3) of Regulation (EU) No 910/2014 of the European Parliament and of the Council on electronic identification and trust services for electronic transactions in the internal market.* Official Journal of the European Union L 235/7, 9 September 2015. [https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015R1502](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015R1502).
-
-[^14]: European Commission. "eIDAS eID Mutual Recognition Goes Live." Press release, September 2019. [https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY](https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY). See also: Secretaría General de Administración Digital. "España despliega la primera versión de su nodo eIDAS." December 2016. [https://administracionelectronica.gob.es/pae_Home/pae_Actualidad/pae_Noticias/Anio2016/Diciembre/Noticia-2016-12-21.html](https://administracionelectronica.gob.es/pae_Home/pae_Actualidad/pae_Noticias/Anio2016/Diciembre/Noticia-2016-12-21.html).
-
-[^15]: Organisation for Economic Co-operation and Development. *G7 Mapping Exercise of Digital Identity Approaches.* Paris: OECD Publishing, 2023. [https://www.oecd.org/en/publications/g7-mapping-exercise-of-digital-identity-approaches_56fd4e94-en.html](https://www.oecd.org/en/publications/g7-mapping-exercise-of-digital-identity-approaches_56fd4e94-en.html). See also: National Institute of Standards and Technology. *NIST Special Publication 800-63-3: Digital Identity Guidelines.* Gaithersburg, MD: NIST, 2017. [https://pages.nist.gov/800-63-3/](https://pages.nist.gov/800-63-3/).
-
-[^16]: GovStack Initiative. *Identity Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/identity/2-description](https://specs.govstack.global/identity/2-description).
-
-[^17]: Consorci AOC. "VALId 2.0 — Developer Documentation." GitHub Pages, 2024. [https://consorciaoc.github.io/VALId2/](https://consorciaoc.github.io/VALId2/). See also: Consorci AOC. "VALId Service." [https://www.aoc.cat/en/serveis-aoc/valid/](https://www.aoc.cat/en/serveis-aoc/valid/).
-
-[^18]: Agencia Estatal de Administración Digital. "Cl@ve — Additional Information for Integration (CTT)." Portal de Administración Electrónica, 2024. [https://administracionelectronica.gob.es/ctt/clave/infoadicional](https://administracionelectronica.gob.es/ctt/clave/infoadicional).
-
-[^19]: Junta de Andalucía. *Guía de Integración de Aplicaciones en Proxy-Clave, v0.1.00.* Sevilla: Consejería de la Presidencia, 2023. PDF. [https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf](https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf).
-
-[^20]: Dirección General de la Policía. "DNIe — Descargas y Documentación." [https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100](https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100).
-
-[^21]: Dirección General de la Policía. *Guía de Referencia del DNIe con NFC.* Madrid: Ministerio del Interior, 2019. PDF. [https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf](https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf).
-
-[^22]: FNMT-RCM CERES. *Declaración de Prácticas de Certificación / Certification Practice Statement.* Madrid: FNMT-RCM, 2023. English PDF. [https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf](https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf).
-
-[^23]: GovStack Initiative. *Identity Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/identity/2-description](https://specs.govstack.global/identity/2-description).
-
-[^24]: GovStack Initiative. *eSignature Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/esignature/2-description](https://specs.govstack.global/esignature/2-description).
-
-[^25]: GovStack Initiative. *Consent Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/consent/2-description](https://specs.govstack.global/consent/2-description).
-
-[^26]: GovStack Initiative. *Wallet Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/wallet/2-description](https://specs.govstack.global/wallet/2-description).
-
-[^27]: ETSI. *EN 319 142-1: Electronic Signatures and Infrastructures (ESI) — PAdES Digital Signatures — Part 1: Building blocks and PAdES baseline signatures.* Sophia Antipolis: ETSI, 2016. [https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf). See also ETSI EN 319 122 (CAdES) and EN 319 132 (XAdES) for non-PDF signature formats.
-
-[^28]: Agencia Estatal de Administración Digital. "VALIDe — Plataforma de Validación de Firmas Electrónicas." Portal de Administración Electrónica. [https://valide.redsara.es/](https://valide.redsara.es/). See also: AEAD. "VALIDe — Guía de Uso." [https://administracionelectronica.gob.es/ctt/valide](https://administracionelectronica.gob.es/ctt/valide).
-
-[^29]: Agencia Estatal de Administración Digital. "@firma — Plataforma de Validación y Firma Electrónica." Portal de Administración Electrónica. [https://administracionelectronica.gob.es/ctt/afirma](https://administracionelectronica.gob.es/ctt/afirma). See also: Ministerio para la Transformación Digital y de la Función Pública. *Manual de Integración de @firma.* Madrid: MTTD, 2023. [https://administracionelectronica.gob.es/ctt/afirma/infoadicional](https://administracionelectronica.gob.es/ctt/afirma/infoadicional).
-
-[^30]: European Commission. "Digital Signature Service (DSS) — Open Source Library." Digital Building Blocks, European Commission. [https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS). The DSS implements the ETSI EN 319 102-1 validation algorithm: ETSI. *EN 319 102-1: Electronic Signatures and Infrastructures (ESI) — Procedures for Creation and Validation of AdES Digital Signatures — Part 1: Creation and Validation.* Sophia Antipolis: ETSI, 2019. [https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf).
-
-[^31]: Spain. *Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas.* Boletín Oficial del Estado, núm. 236, 2 de octubre de 2015. Articles 10 (electronic signature requirements by procedure type) and 27 (legal equivalence of digital documents with verifiable CSV). [https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565).
-
-[^32]: ETSI. *EN 319 102-1: Electronic Signatures and Infrastructures (ESI) — Procedures for Creation and Validation of AdES Digital Signatures.* Sophia Antipolis: ETSI, 2019. [https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf).
-
-[^33]: European Parliament and of the Council. *Regulation (EU) 910/2014 (eIDAS), Article 25(2): A qualified electronic signature shall have the equivalent legal effect of a handwritten signature.* Official Journal of the European Union L 257, 28 August 2014. [https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910). The EU Trust Service Status List (EUTL), listing all supervised QTSPs by member state, is maintained at: European Commission. "EU Trust Services Dashboard." [https://eidas.ec.europa.eu/efts/](https://eidas.ec.europa.eu/efts/).
-
----
-
-*Additional sources consulted:*
-
-- Ajuntament de Barcelona. "Registration at the Municipal Register of Residents." Barcelona International Welcome. [https://www.barcelona.cat/internationalwelcome/en/registration-municipal-register-residents-city-barcelona](https://www.barcelona.cat/internationalwelcome/en/registration-municipal-register-residents-city-barcelona).
 - Generalitat de Catalunya. "idCAT Mòbil — Com donar-te d'alta." [https://web.gencat.cat/en/atenem/suport-tramitacio/durant-la-tramitacio/signar-i-identificar-digitalment/idcat-mobil](https://web.gencat.cat/en/atenem/suport-tramitacio/durant-la-tramitacio/signar-i-identificar-digitalment/idcat-mobil).
 - European Parliament and of the Council. *Regulation (EU) 910/2014 on Electronic Identification and Trust Services for Electronic Transactions in the Internal Market (eIDAS).* Official Journal of the European Union L 257, 28 August 2014. [https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910).
 - European Parliament and of the Council. *Regulation (EU) 2024/1183 amending Regulation (EU) No 910/2014 as regards establishing the European Digital Identity Framework (eIDAS 2.0).* Official Journal of the European Union L 1183, 30 April 2024. [https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202401183](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202401183).
@@ -636,3 +566,75 @@ For a receiving authority that needs to determine whether a signed PDF was corre
 - Interoperable Europe Portal. "Cl@ve — Unifying and Simplifying Identification for Spanish Online Public Services." [https://interoperable-europe.ec.europa.eu/collection/egovernment/document/clve-unifying-and-simplifying-identification-spanish-online-public-services-clve](https://interoperable-europe.ec.europa.eu/collection/egovernment/document/clve-unifying-and-simplifying-identification-spanish-online-public-services-clve).
 - AOC Consorci. "idCAT Mòbil — Video Identification." AOC Blog, 2022. [https://www.aoc.cat/en/blog/2022/idcatmobil-videoidentificacio/](https://www.aoc.cat/en/blog/2022/idcatmobil-videoidentificacio/).
 - Instituto Nacional de Estadística. "Padrón Municipal — Legislación." [https://idapadron.ine.es/repositorio/legislacion/a2301alt.htm](https://idapadron.ine.es/repositorio/legislacion/a2301alt.htm).
+
+---
+
+## References
+
+[^ley-lbrl]: Spain. *Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local.* Boletín Oficial del Estado, núm. 80, 3 de abril de 1985. Articles 15–17. [https://www.boe.es/buscar/doc.php?id=BOE-A-1985-5392](https://www.boe.es/buscar/doc.php?id=BOE-A-1985-5392).
+
+[^ley-padron-1996]: Spain. *Ley 4/1996, de 10 de enero, por la que se modifica la Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local, en relación con el Padrón Municipal.* Boletín Oficial del Estado, núm. 11, 12 de enero de 1996. [https://www.boe.es/buscar/doc.php?id=BOE-A-1996-753](https://www.boe.es/buscar/doc.php?id=BOE-A-1996-753).
+
+[^rd-padron-2024]: Spain. *Real Decreto 141/2024, de 6 de febrero, por el que se modifica el Real Decreto 1690/1986, de 11 de julio.* Boletín Oficial del Estado, núm. 33, 7 de febrero de 2024. [https://www.boe.es/buscar/doc.php?id=BOE-A-2024-2248](https://www.boe.es/buscar/doc.php?id=BOE-A-2024-2248).
+
+[^ajuntament-seu]: Ajuntament de Barcelona. "Alta al Padró Municipal d'Habitants — Seu Electrònica." Accessed April 2026. [https://seuelectronica.ajuntament.barcelona.cat/oficinavirtual/es/tramit/20200001402/](https://seuelectronica.ajuntament.barcelona.cat/oficinavirtual/es/tramit/20200001402/).
+
+[^clave-legal]: Spain. *Orden PRE/1838/2014, de 8 de octubre, por la que se publica el Acuerdo del Consejo de Ministros, de 19 de septiembre de 2014, por el que se aprueba Cl@ve.* Boletín Oficial del Estado, núm. 246, 10 de octubre de 2014. [https://www.boe.es/buscar/doc.php?id=BOE-A-2014-10295](https://www.boe.es/buscar/doc.php?id=BOE-A-2014-10295). See also: Agencia Estatal de Administración Digital. "Cl@ve: Plataforma de Identificación y Autenticación." [https://clave.gob.es](https://clave.gob.es).
+
+[^dnie-portal]: Dirección General de la Policía. "DNI Electrónico — Portal Oficial." [https://www.dnielectronico.es](https://www.dnielectronico.es). See also: Policía Nacional. *Guía de Referencia DNIe con NFC.* PDF. [https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf](https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf).
+
+[^eidas-notified]: European Commission. "Overview of Pre-Notified and Notified eID Schemes Under eIDAS." Digital Building Blocks, European Commission. Accessed April 2026. [https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY/Overview+of+pre-notified+and+notified+eID+schemes+under+eIDAS](https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY/Overview+of+pre-notified+and+notified+eID+schemes+under+eIDAS). Reference: Official Journal of the EU 2018/C 401/08.
+
+[^rd-dnie-2005]: Spain. *Real Decreto 1553/2005, de 23 de diciembre, por el que se regula la expedición del documento nacional de identidad y sus certificados de firma electrónica.* Boletín Oficial del Estado, núm. 307, 24 de diciembre de 2005. [https://www.boe.es/buscar/doc.php?id=BOE-A-2005-21163](https://www.boe.es/buscar/doc.php?id=BOE-A-2005-21163).
+
+[^idcat-3m-users]: AOC Consorci. "3 Milions de Persones amb idCAT Mòbil." AOC Blog, 2025. [https://www.aoc.cat/en/blog/2025/3milions-persones-idcatmobil/](https://www.aoc.cat/en/blog/2025/3milions-persones-idcatmobil/). See also: Consorci AOC. "idCAT Mòbil." [https://idcat.aoc.cat/en/idcat-mobile/](https://idcat.aoc.cat/en/idcat-mobile/).
+
+[^llei-29-2010]: Catalonia. *Llei 29/2010, del 3 d'agost, de l'ús dels mitjans electrònics al sector públic de Catalunya.* Diari Oficial de la Generalitat de Catalunya, núm. 5686, 5 d'agost de 2010. [https://dogc.gencat.cat/ca/pdogc_canals_interns/pdogc_resultats_fitxa/?action=fitxa&documentId=555557](https://dogc.gencat.cat/ca/pdogc_canals_interns/pdogc_resultats_fitxa/?action=fitxa&documentId=555557). See also: Consorci AOC. *Protocol d'Identificació i Signatura Electrònica de Catalunya.* [https://www.aoc.cat/en/serveis-aoc/valid/](https://www.aoc.cat/en/serveis-aoc/valid/).
+
+[^ley-confianza-2020]: Spain. *Ley 6/2020, de 11 de noviembre, reguladora de determinados aspectos de los servicios electrónicos de confianza.* Boletín Oficial del Estado, núm. 298, 12 de noviembre de 2020. [https://www.boe.es/buscar/doc.php?id=BOE-A-2020-13069](https://www.boe.es/buscar/doc.php?id=BOE-A-2020-13069). See also: FNMT-RCM CERES. "Certification Practice Statement." PDF. [https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf](https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf).
+
+[^itu-x1254]: International Telecommunication Union. *ITU-T Recommendation X.1254: Entity Authentication Assurance Framework.* Geneva: ITU, 2012. [https://www.itu.int/rec/T-REC-X.1254/en](https://www.itu.int/rec/T-REC-X.1254/en).
+
+[^eidas-reg-2015-1502]: European Commission. *Commission Implementing Regulation (EU) 2015/1502 of 8 September 2015 on setting out minimum technical specifications and procedures for assurance levels for electronic identification means pursuant to Article 8(3) of Regulation (EU) No 910/2014 of the European Parliament and of the Council on electronic identification and trust services for electronic transactions in the internal market.* Official Journal of the European Union L 235/7, 9 September 2015. [https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015R1502](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015R1502).
+
+[^eidas-crossborder]: European Commission. "eIDAS eID Mutual Recognition Goes Live." Press release, September 2019. [https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY](https://ec.europa.eu/digital-building-blocks/sites/display/EIDCOMMUNITY). See also: Secretaría General de Administración Digital. "España despliega la primera versión de su nodo eIDAS." December 2016. [https://administracionelectronica.gob.es/pae_Home/pae_Actualidad/pae_Noticias/Anio2016/Diciembre/Noticia-2016-12-21.html](https://administracionelectronica.gob.es/pae_Home/pae_Actualidad/pae_Noticias/Anio2016/Diciembre/Noticia-2016-12-21.html).
+
+[^oecd-g7-mapping]: Organisation for Economic Co-operation and Development. *G7 Mapping Exercise of Digital Identity Approaches.* Paris: OECD Publishing, 2023. [https://www.oecd.org/en/publications/g7-mapping-exercise-of-digital-identity-approaches_56fd4e94-en.html](https://www.oecd.org/en/publications/g7-mapping-exercise-of-digital-identity-approaches_56fd4e94-en.html). See also: National Institute of Standards and Technology. *NIST Special Publication 800-63-3: Digital Identity Guidelines.* Gaithersburg, MD: NIST, 2017. [https://pages.nist.gov/800-63-3/](https://pages.nist.gov/800-63-3/).
+
+[^govstack-id-upstream]: GovStack Initiative. *Identity Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/identity/2-description](https://specs.govstack.global/identity/2-description).
+
+[^valid-docs]: Consorci AOC. "VALId 2.0 — Developer Documentation." GitHub Pages, 2024. [https://consorciaoc.github.io/VALId2/](https://consorciaoc.github.io/VALId2/). See also: Consorci AOC. "VALId Service." [https://www.aoc.cat/en/serveis-aoc/valid/](https://www.aoc.cat/en/serveis-aoc/valid/).
+
+[^clave-integration]: Agencia Estatal de Administración Digital. "Cl@ve — Additional Information for Integration (CTT)." Portal de Administración Electrónica, 2024. [https://administracionelectronica.gob.es/ctt/clave/infoadicional](https://administracionelectronica.gob.es/ctt/clave/infoadicional).
+
+[^andalucia-proxy-clave]: Junta de Andalucía. *Guía de Integración de Aplicaciones en Proxy-Clave, v0.1.00.* Sevilla: Consejería de la Presidencia, 2023. PDF. [https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf](https://desarrollo.juntadeandalucia.es/sites/default/files/2023-06/Gui%CC%81aIntegracio%CC%81nAplicacionesEnProxyClave-0100.pdf).
+
+[^dnie-downloads]: Dirección General de la Policía. "DNIe — Descargas y Documentación." [https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100](https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1100).
+
+[^dnie-nfc-guide]: Dirección General de la Policía. *Guía de Referencia del DNIe con NFC.* Madrid: Ministerio del Interior, 2019. PDF. [https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf](https://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf).
+
+[^fnmt-cps]: FNMT-RCM CERES. *Declaración de Prácticas de Certificación / Certification Practice Statement.* Madrid: FNMT-RCM, 2023. English PDF. [https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf](https://www.sede.fnmt.gob.es/documents/10445900/10536309/dgpc_english.pdf).
+
+[^govstack-id-federated]: GovStack Initiative. *Identity Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/identity/2-description](https://specs.govstack.global/identity/2-description).
+
+[^govstack-esig-bb]: GovStack Initiative. *eSignature Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/esignature/2-description](https://specs.govstack.global/esignature/2-description).
+
+[^govstack-consent-bb]: GovStack Initiative. *Consent Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/consent/2-description](https://specs.govstack.global/consent/2-description).
+
+[^govstack-wallet-bb]: GovStack Initiative. *Wallet Building Block Specification, Section 2: Description.* GovStack, 2024. [https://specs.govstack.global/wallet/2-description](https://specs.govstack.global/wallet/2-description).
+
+[^etsi-pades]: ETSI. *EN 319 142-1: Electronic Signatures and Infrastructures (ESI) — PAdES Digital Signatures — Part 1: Building blocks and PAdES baseline signatures.* Sophia Antipolis: ETSI, 2016. [https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf). See also ETSI EN 319 122 (CAdES) and EN 319 132 (XAdES) for non-PDF signature formats.
+
+[^valide-portal]: Agencia Estatal de Administración Digital. "VALIDe — Plataforma de Validación de Firmas Electrónicas." Portal de Administración Electrónica. [https://valide.redsara.es/](https://valide.redsara.es/). See also: AEAD. "VALIDe — Guía de Uso." [https://administracionelectronica.gob.es/ctt/valide](https://administracionelectronica.gob.es/ctt/valide).
+
+[^afirma-platform]: Agencia Estatal de Administración Digital. "@firma — Plataforma de Validación y Firma Electrónica." Portal de Administración Electrónica. [https://administracionelectronica.gob.es/ctt/afirma](https://administracionelectronica.gob.es/ctt/afirma). See also: Ministerio para la Transformación Digital y de la Función Pública. *Manual de Integración de @firma.* Madrid: MTTD, 2023. [https://administracionelectronica.gob.es/ctt/afirma/infoadicional](https://administracionelectronica.gob.es/ctt/afirma/infoadicional).
+
+[^ec-dss]: European Commission. "Digital Signature Service (DSS) — Open Source Library." Digital Building Blocks, European Commission. [https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/Digital+Signature+Service+-++DSS). The DSS implements the ETSI EN 319 102-1 validation algorithm: ETSI. *EN 319 102-1: Electronic Signatures and Infrastructures (ESI) — Procedures for Creation and Validation of AdES Digital Signatures — Part 1: Creation and Validation.* Sophia Antipolis: ETSI, 2019. [https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf).
+
+[^ley-39-2015]: Spain. *Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas.* Boletín Oficial del Estado, núm. 236, 2 de octubre de 2015. Articles 10 (electronic signature requirements by procedure type) and 27 (legal equivalence of digital documents with verifiable CSV). [https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565).
+
+[^etsi-en319102]: ETSI. *EN 319 102-1: Electronic Signatures and Infrastructures (ESI) — Procedures for Creation and Validation of AdES Digital Signatures.* Sophia Antipolis: ETSI, 2019. [https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf](https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.03.01_60/en_31910201v010301p.pdf).
+
+[^eidas-art25]: European Parliament and of the Council. *Regulation (EU) 910/2014 (eIDAS), Article 25(2): A qualified electronic signature shall have the equivalent legal effect of a handwritten signature.* Official Journal of the European Union L 257, 28 August 2014. [https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0910). The EU Trust Service Status List (EUTL), listing all supervised QTSPs by member state, is maintained at: European Commission. "EU Trust Services Dashboard." [https://eidas.ec.europa.eu/efts/](https://eidas.ec.europa.eu/efts/).
+
+[^ajuntament-padro]: Ajuntament de Barcelona. "Registration at the Municipal Register of Residents." Barcelona International Welcome. [https://www.barcelona.cat/internationalwelcome/en/registration-municipal-register-residents-city-barcelona](https://www.barcelona.cat/internationalwelcome/en/registration-municipal-register-residents-city-barcelona).
