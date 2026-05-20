@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="icon" type="image/x-icon" href="/favicon.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+<title>basicavisual  | New CLI tool to transform calendar items into monthly reports </title>
+
+<meta name="twitter:title" content="New CLI tool to transform calendar items into monthly reports">
+<meta name="twitter:image" content="https://basicavisual.io/assets/images/covers/pacman.gif">
+<meta name="twitter:description" content=" I slept at 5:30 AM to build a cli tool that turns calendar entries for extensible reporting. 
+ ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@basicavisual">
+<meta name="twitter:image:alt" content="  ">
+
+<meta name="description" property="og:description" content=" I slept at 5:30 AM to build a cli tool that turns calendar entries for extensible reporting. 
+ ">
+
+<meta name="image" property="og:image" content="https://basicavisual.io/assets/images/covers/pacman.gif">
+
+<meta name="author" content="Ali González"> 
+
+<meta name="publish_date" property="og:publish_date" content="2026-05-19T06:00:00+00:00">
+</head>
+<body class="flex flex-col min-h-screen">
+  
+
+<nav class="nav flex flex-col md:flex-row justify-between container m-auto">
+  <div class="logo">
+    
+      <a href="/">
+        <img src="/assets/images/branding/logo.png" alt="Logo" class="site-logo">
+      </a>
+    
+  </div>
+  
+
+</nav>
+
+
+  <!-- 
+
+<header class="site-header large-header" style="background-image: url(/assets/images/covers/pacman.gif)">
+  <div class="site-header-shield">
+    <div class="outer">
+      <div class="inner">
+        <div class="site-header-content">
+          
+            <img src="/assets/images/branding/logo.png" alt="Logo" class="site-logo">
+          
+          
+            <h5 class="site-tagline">Tecnología cívica, política digital, datos abiertos</h5>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</header> -->
+  <main>
+  <article class="post">
+    
+     <div id="blog-hero" style="background-image: url(/assets/images/covers/pacman.gif )" class="site-header large-header min-h-3000 mb-5">
+  <div class="site-header-overlay">
+    <div class="container mx-auto text-center py-10 min-h-80 flex flex-col gap-5 justify-center">
+      <h1 class="site-tagline text-5xl">New CLI tool to transform calendar items into monthly reports</h1>
+
+    
+      <div>
+  <div class="text-xl">
+    <time datetime="2026-05-19T06:00:00+00:00">
+      19 May 2026
+    </time><span class="my-5">
+
+      · 
+
+7 minutes to read
+
+    </span>
+    <!-- 
+    &bull;
+      <span class="post-categories">
+        
+        
+        <a class="post-category" href="/categories/#cli">cli</a>
+        
+        
+        
+      </span>
+     -->
+  </div>
+</div>
+  
+    </div>
+  </div>
+</div>
+    
+    <div class="post-body-shell max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:flex lg:items-start lg:gap-10">
+      <div class="post-content max-w-prose mx-auto lg:mx-0 lg:flex-1" data-post-content>
+      <p>I slept at 5:30 AM to build a cli tool that turns calendar entries for extensible reporting. Was it necessary to build it at night? no. Was it fun to build? it was. Am I having my work day as if nothing happened? you bet.</p>
+
+<p>I am not great at context-switching, and hence time logging and tracking is the bane of my existance. Over the years I’ve tried my fair share of time-tracking tools, the best of them being <a href="https://clockify.me/">Clockify</a>, but my hyperfocus or normal distractions normally result in 10+hours old time-tracking entries. I am, however, good at maintaining my calendar true to my day, so what if I just had a tool for turning calendar entries into reports? but in a way that I could still add entries unrelated to the calendar? And because lately I don’t want to open yet another app, what if I built it directly into the command line and make it fun and quick?</p>
+
+<p>And so, I built <a href="https://codeberg.org/basicavisual/reports">reports</a>, a python cli tool that lets me grab my google calendar events from any given date or date-range, and turn them into entries. I also managed to write this blog post instead of going to sleep, as if it wasn’t enough. So please come with me for a little explainer on what it does.</p>
+
+<hr />
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>It has 3 moving parts:</p>
+<ul>
+  <li>Extracting Calendar entries (the titles only) by date or date-range</li>
+  <li>Use the calendar entries to log what was done on a given day using a logging utility</li>
+  <li>Retrieve the entries by month or date-range and export them in a machine-readable format so I can transform them as needed</li>
+</ul>
+
+<p>So for extracting calendar entries I am using the Google Calendar API. Whenever I switch calendar providers I will surely modify the tool, but for now, this will suffice. A very good quickstart on using the Google Calendar API is available <a href="https://developers.google.com/workspace/calendar/api/quickstart/python">here</a>.</p>
+
+<p>For entry logging, I didn’t want to build something that already exists. I found <a href="https://github.com/hissain/fastrep">fastrep</a>, a cli-based tool, with an option of GUI, that does the work of logging entries. It is simple to use and I can use it any time to log things that are not calendar-related, so that’s pretty good for decoupling. On <code class="language-plaintext highlighter-rouge">reports</code>, the <code class="language-plaintext highlighter-rouge">log</code> command sits on top of <a href="https://github.com/hissain/fastrep">fastrep</a>, which handles the actual time entry storage. <code class="language-plaintext highlighter-rouge">reports</code> doesn’t reimplement anything about logging the entries, it just uses fastrep’s Python API to transform calendar events into entries.</p>
+
+<p>Now, while <code class="language-plaintext highlighter-rouge">fastrep</code> has its way to produce reports, it is opinionated, and I actually needed them in specific formats. Rather than modifying <code class="language-plaintext highlighter-rouge">fastrep</code>, I figured I would look into the sqlite database it uses and just have an export function on a format that I could manipulate without hardcoding. So I justscripted an export function that outputs to <code class="language-plaintext highlighter-rouge">csv</code> or <code class="language-plaintext highlighter-rouge">json</code>.</p>
+
+<hr />
+
+<h2 id="so-whats-the-workflow">So what’s the workflow?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">reports</code> has three modes and I use them in this order:</p>
+
+<h3 id="first-checking-what-events-are-there">First, checking what events are there</h3>
+
+<p><strong>Display</strong> — pulls events from the Google Calendar and prints them to the terminal. This allows me to review the events that I am about to log and modify the calendar as necessary (i.e. by adding time blocks for work that I may not have accounted for, etc).</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>reports
+Events from 2026-05-20 <span class="o">(</span>1 day<span class="o">(</span>s<span class="o">))</span>:
+
+  2026-05-20T10:30:00+02:00  Meeting with Jane
+  2026-05-20T10:30:00+02:00  Working on feature foo <span class="k">for </span>project bar
+  2026-05-20T13:00:00+02:00  Team meeting
+  2026-05-20T13:00:00+02:00  Lunch
+</code></pre></div></div>
+
+<p>Reports assumes today’s date if no date is given, and lets you provide concrete dates or date-ranges in case I am logging several days.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reports                        <span class="c"># today's events</span>
+reports <span class="nt">-dt</span> 2026-05-19         <span class="c"># a specific date</span>
+reports <span class="nt">-n</span> 7                   <span class="c"># the next 7 days</span>
+reports <span class="nt">-dt</span> 2026-05-01 <span class="nt">-n</span> 31   <span class="c"># a full month</span>
+</code></pre></div></div>
+
+<h3 id="second-i-log-the-actual-entries">Second, I log the actual entries</h3>
+
+<p><strong>Log</strong> — It takes the same arguments as the display functionality, but then opens a nice, interactive session, to walk you through each event and lets you decide what to record. At the start of a session you give it a project name once, and that applies to every entry you log.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>reports <span class="nt">-dt</span> 2026-05-19 log
+Project <span class="k">for </span>this session: GovStack
+
+  2026-05-19T11:00:00+02:00  Comms Huddle
+  <span class="o">[</span>L]og / <span class="o">[</span>S]kip / <span class="o">[</span>Q]uit <span class="o">[</span>s]: l
+  Use <span class="s2">"Comms Huddle"</span> as description? <span class="o">[</span>Y/n]: n
+  Description: Weekly comms <span class="nb">sync
+  </span>Logged.
+</code></pre></div></div>
+
+<p>This was inspired by the <code class="language-plaintext highlighter-rouge">git add --patch</code> implementation. The three keys, plus the usage of enter key for quick access to the default, makes the logging fast enough that reviewing a full day takes under a minute.</p>
+
+<h3 id="at-the-end-of-the-month-you-export">At the end of the month, you export</h3>
+
+<p>As I explained, <code class="language-plaintext highlighter-rouge">fastreq</code> is opinionated on report formats. I needed more control over things like the date format, or filtering by projects. So <code class="language-plaintext highlighter-rouge">reports</code> implements reading directly from the <code class="language-plaintext highlighter-rouge">sqlite</code> database used by <code class="language-plaintext highlighter-rouge">fastreq</code>.</p>
+
+<p><strong>Export</strong> — reads from fastrep’s local SQLite database and outputs to stdout as JSON or CSV.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reports <span class="nb">export</span> <span class="nt">-m</span> 2026-05          <span class="c"># full month, JSON</span>
+reports <span class="nb">export</span> <span class="nt">-m</span> 2026-04 <span class="nt">-f</span> csv   <span class="c"># CSV</span>
+reports <span class="nb">export</span> <span class="nt">-m</span> 2026-05 | jq <span class="s1">'.[] | select(.project == "GovStack")'</span>
+</code></pre></div></div>
+
+<p>The export goes to stdout by default, so it already is a good candidate to continue the expansion of tooling.</p>
+
+<hr />
+
+<h2 id="so-what-comes-next">So what comes next?</h2>
+
+<p>So what I liked about building reports is that it is extensible into an ecosystem.</p>
+
+<p>Because I am using <code class="language-plaintext highlighter-rouge">fastrep</code>, I am also free to use that independently to log events that are not related to the calendar.Even having designed reports in a way that it just talks to the <code class="language-plaintext highlighter-rouge">fastrep</code> API, leaves open the possibility to extend the same pattern to log entries from other tools, for example, email, git, or task management software. And having the output logged to STDOUT by default also makes it invokeable and chainable to other tooling I might develop.</p>
+
+<p>I don’t have big pretensions for publicising this tool, I built it for myself. But it was a nice lesson in building modular, and making tedious tasks fun to do.</p>
+
+<p>The license is MIT, so anyone is free to copy. The source is on my <a href="https://codeberg.org/basicavisual/reports">Codeberg</a>.</p>
+
+      </div>
+      <aside id="post-toc-container" class="post-toc hidden order-first lg:order-none lg:w-72 lg:shrink-0" aria-labelledby="post-toc-title">
+  <details class="post-toc-details" open>
+    <summary id="post-toc-title" class="post-toc-summary">Contenido del artículo</summary>
+    <nav class="post-toc-nav" aria-label="Tabla de contenidos"></nav>
+  </details>
+</aside>
+
+<script>
+  (function () {
+    var tocContainer = document.getElementById("post-toc-container");
+    var articleContent = document.querySelector("[data-post-content]");
+
+    if (!tocContainer || !articleContent) {
+      return;
+    }
+
+    var tocNav = tocContainer.querySelector(".post-toc-nav");
+    if (!tocNav) {
+      return;
+    }
+
+    var headings = Array.prototype.slice.call(
+      articleContent.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    ).filter(function (heading) {
+      if (!heading.textContent || heading.textContent.trim().length === 0) {
+        return false;
+      }
+
+      return !heading.closest("[data-toc-exclude]");
+    });
+
+    if (!headings.length) {
+      return;
+    }
+
+    var usedIds = Object.create(null);
+
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    function ensureUniqueId(baseId) {
+      var seed = baseId || "seccion";
+      var id = seed;
+      var counter = 2;
+
+      while (document.getElementById(id) || usedIds[id]) {
+        id = seed + "-" + counter;
+        counter += 1;
+      }
+
+      usedIds[id] = true;
+      return id;
+    }
+
+    var treeRoot = { level: 0, children: [] };
+    var stack = [treeRoot];
+
+    headings.forEach(function (heading) {
+      var text = heading.textContent.trim();
+      var level = parseInt(heading.tagName.replace("H", ""), 10);
+      var node;
+
+      if (!heading.id) {
+        heading.id = ensureUniqueId(slugify(text));
+      } else {
+        heading.id = ensureUniqueId(heading.id);
+      }
+
+      node = {
+        id: heading.id,
+        text: text,
+        level: isNaN(level) ? 2 : level,
+        children: [],
+      };
+
+      while (stack.length > 1 && node.level <= stack[stack.length - 1].level) {
+        stack.pop();
+      }
+
+      stack[stack.length - 1].children.push(node);
+      stack.push(node);
+    });
+
+    function buildList(nodes) {
+      var list = document.createElement("ol");
+
+      nodes.forEach(function (node) {
+        var item = document.createElement("li");
+        var link = document.createElement("a");
+
+        link.href = "#" + node.id;
+        link.textContent = node.text;
+        link.className = "post-toc-link post-toc-level-" + node.level;
+
+        item.appendChild(link);
+
+        if (node.children.length) {
+          item.appendChild(buildList(node.children));
+        }
+
+        list.appendChild(item);
+      });
+
+      return list;
+    }
+
+    tocNav.appendChild(buildList(treeRoot.children));
+
+    var tocDetails = tocContainer.querySelector(".post-toc-details");
+    if (tocDetails && window.matchMedia("(min-width: 1024px)").matches) {
+      tocDetails.open = true;
+    }
+
+    tocContainer.classList.remove("hidden");
+  })();
+</script>
+
+    </div>
+    
+    <!-- 
+    <nav class="post-meta post-meta-bottom max-w-prose mx-auto">
+      
+      
+      
+      <a class="post-tag" href="/tags/#tools">tools</a>
+      
+      
+    </nav>
+     -->
+  </article>
+  <div class="max-w-prose mx-auto mb-14">
+
+    <div class="mt-12 pt-8 border-t border-gray-200 text-sm" aria-label="Navegación entre artículos">
+      <h2 class="mb-6 text-xs font-semibold uppercase tracking-wide text-gray-500 mx-0">Otros artículos</h2>
+      <div class="flex justify-between gap-6 items-start mt-2">
+        
+        <a class="prev post-prev flex flex-1 items-start justify-start text-gray-900 hover:underline" href="/how-different-identities-can-coexist">
+        <div class="flex flex-col">
+          <span class="text-xs uppercase tracking-wide text-gray-500 mb-4">Artículo anterior</span>
+          <span class="text-lg">Barcelona’s Resident Registry: A Case Where Governmental Procedures Can Be Completed via Multiple Digital Identities
+</span>
+        </div>
+      </a>
+      
+      
+      
+      <span class="next post-next flex flex-1 items-start justify-end opacity-50 cursor-default pointer-events-none">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Siguiente artículo</span>
+      </span>
+      
+    </div>
+  </div>
+  </div>
+  
+  
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var tooltip = document.createElement('div');
+  tooltip.className = 'fn-tooltip';
+  tooltip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tooltip);
+
+  var hideTimer;
+
+  function showTooltip(link) {
+    var targetId = link.getAttribute('href').slice(1);
+    var footnoteEl = document.getElementById(targetId);
+    if (!footnoteEl) return;
+
+    var clone = footnoteEl.cloneNode(true);
+    var backLink = clone.querySelector('.reversefootnote');
+    if (backLink) backLink.remove();
+
+    tooltip.innerHTML = clone.innerHTML;
+    tooltip.style.display = 'block';
+    tooltip.style.visibility = 'hidden';
+
+    var rect = link.getBoundingClientRect();
+    var ttWidth = tooltip.offsetWidth;
+    var ttHeight = tooltip.offsetHeight;
+
+    var left = rect.left + rect.width / 2 - ttWidth / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - ttWidth - 8));
+
+    var top = rect.top - ttHeight - 8;
+    if (rect.top < ttHeight + 16) {
+      top = rect.bottom + 8;
+    }
+
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+    tooltip.style.visibility = 'visible';
+  }
+
+  document.querySelectorAll('a.footnote').forEach(function (link) {
+    link.addEventListener('mouseenter', function () {
+      clearTimeout(hideTimer);
+      showTooltip(link);
+    });
+    link.addEventListener('mouseleave', function () {
+      hideTimer = setTimeout(function () { tooltip.style.display = 'none'; }, 200);
+    });
+  });
+
+  tooltip.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
+  tooltip.addEventListener('mouseleave', function () { tooltip.style.display = 'none'; });
+});
+</script>
+  
+
+<footer class="bg-white dark:bg-slate-800
+bg-gray-800 mt-auto">
+  <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">2026 basicavisual.</span>
+  </div>
+</footer>
+
+
+</body>
+</html>
